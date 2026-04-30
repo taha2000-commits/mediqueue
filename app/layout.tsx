@@ -2,6 +2,7 @@ import "./globals.css";
 
 import { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
+import { PropsWithChildren } from "react";
 
 import { ThemeProvider } from "@/app/components/theme-provider";
 import { DirectionProvider } from "@/components/ui/direction";
@@ -19,9 +20,7 @@ export const metadata: Metadata = {
   manifest: "./manifest.json",
 };
 
-export default async function RootLayout({
-  children,
-}: LayoutProps<"/">) {
+export default async function RootLayout({ children }: PropsWithChildren) {
   const locale = await getLocale();
   const isRTL = locale === "ar";
 
@@ -47,9 +46,7 @@ export default async function RootLayout({
           <NextIntlClientProvider>
             <DirectionProvider dir={isRTL ? "rtl" : "ltr"}>
               <Navbar />
-              <main className="grid flex-1">
-                { children}
-              </main>
+              <main className="grid flex-1">{children}</main>
             </DirectionProvider>
           </NextIntlClientProvider>
         </ThemeProvider>
