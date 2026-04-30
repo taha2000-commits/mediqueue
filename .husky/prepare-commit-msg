@@ -1,0 +1,23 @@
+
+branch_name=$(git symbolic-ref --short HEAD 2>/dev/null)
+
+# extract MAS-123 safely
+ticket=$(echo "$branch_name" | grep -oE 'MAS-[0-9]+' 2>/dev/null)
+
+commit_msg_file=$1
+
+# make sure file exists and is readable
+if [ ! -f "$commit_msg_file" ]; then
+  exit 0
+fi
+
+if [ -n "$ticket" ]; then
+  msg=$(cat "$commit_msg_file")
+
+  # prevent duplicate prefix
+  case "$msg" in
+    "$ticket:"*) exit 0 ;;
+  esac
+
+  echo "$ticket: $msg" > "$commit_msg_file"
+fi

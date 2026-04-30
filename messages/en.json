@@ -1,0 +1,20 @@
+{
+  "HomePage": {
+    "tagline": "Smart Queue, better care.",
+    "skipWait": "Skip the wait.",
+    "priorityHealth": "Prioritize your health.",
+    "description": "MediaQueue helps you book and manage appointments while reducing waiting times at clinics and hospitals. Because your time matters.",
+    "bookAppointment": "Book Appointment",
+    "providerLogin": "Doctor & Admin Login"
+  },
+  "LoginPage": {
+    "email": "Email",
+    "password": "Password",
+    "invalidCredentials": "Email or password is incorrect",
+    "login": "Login",
+    "loginTitle": "Login to your account",
+    "loginDescription": "Enter your email below to login to your account",
+    "invalidEmailFormat": "Enter a valid email address (e.g. name@example.com)",
+    "passwordMinLength": "Password must be at least 8 characters long"
+  }
+}
