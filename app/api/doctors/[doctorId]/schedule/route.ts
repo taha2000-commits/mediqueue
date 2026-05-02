@@ -11,9 +11,9 @@ export async function GET(
   const { doctorId } = await ctx.params;
   const lang = searchParams.get("lang") || "en";
 
-  const supabase = await createClient();
+  const db = await createClient();
 
-  const { data: doctor_availability, error } = await supabase
+  const { data: doctor_availability, error } = await db
     .from("doctor_availability")
     .select(
       `weekly_schedule,
