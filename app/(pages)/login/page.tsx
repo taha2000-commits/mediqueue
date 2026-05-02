@@ -55,13 +55,9 @@ const LoginPage = () => {
 
     if (!validation.success) {
       setValidationErrors({
-        email: z.treeifyError(validation.error).properties?.email?.errors[0]
-          ? "invalidEmailFormat"
-          : "",
+        email: z.treeifyError(validation.error).properties?.email?.errors[0],
         password: z.treeifyError(validation.error).properties?.password
-          ?.errors[0]
-          ? "passwordMinLength"
-          : "",
+          ?.errors[0],
       });
       e.preventDefault();
     }
@@ -71,7 +67,7 @@ const LoginPage = () => {
     <div className="flex min-h-[calc(100vh-74px)] items-center justify-center">
       <Card className="w-full max-w-sm gap-0">
         <CardHeader className="mb-3">
-          <CardTitle className="text-2xl font-bold ">
+          <CardTitle className="text-2xl font-bold">
             {t("loginTitle")}
           </CardTitle>
           <CardDescription>{t("loginDescription")}</CardDescription>

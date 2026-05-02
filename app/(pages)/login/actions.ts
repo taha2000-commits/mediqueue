@@ -21,8 +21,6 @@ export default async function loginAction(
   });
 
   if (error) {
-    console.log(error);
-
     return {
       error: {
         message:

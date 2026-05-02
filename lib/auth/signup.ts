@@ -12,8 +12,8 @@ export const signup = async ({
   password: string;
   role: UserRole;
 }) => {
-  const supabase = await createClient();
-  return await supabase.auth.signUp({
+  const db = await createClient();
+  return await db.auth.signUp({
     email,
     password,
     options: {

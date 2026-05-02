@@ -1,7 +1,7 @@
+import { CalendarPlus } from "lucide-react";
 import { Matemasie } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
-import { TbCalendarCheck } from "react-icons/tb";
 
 import { ModeToggle } from "@/app/components/ModeToggle";
 import { enFont } from "@/i18n/fonts";
@@ -41,7 +41,7 @@ const Navbar = () => {
         </div>
       </Link>
       <Button>
-        <TbCalendarCheck />
+        <CalendarPlus size={18}/>
         <span className="">Book Appointment</span>
       </Button>
       <ModeToggle />

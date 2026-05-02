@@ -1,10 +1,12 @@
 "use client";
+import { usePathname } from "next/navigation";
+
+import { changeLanguage } from "@/app/actions";
 import { useDirection } from "@/components/ui/direction";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 
-import { changeLanguage } from "../actions";
-
 const LangsSwitcher = () => {
+  const pathname = usePathname();
   const dir = useDirection();
   return (
     <ToggleGroup
@@ -18,7 +20,7 @@ const LangsSwitcher = () => {
         aria-label="Toggle en"
         className="uppercase"
         onClick={() => {
-          changeLanguage("en");
+          changeLanguage("en", pathname);
         }}
       >
         en
@@ -28,7 +30,7 @@ const LangsSwitcher = () => {
         aria-label="Toggle ar"
         className="uppercase"
         onClick={() => {
-          changeLanguage("ar");
+          changeLanguage("ar", pathname);
         }}
       >
         ar

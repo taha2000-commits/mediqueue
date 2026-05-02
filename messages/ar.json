@@ -14,7 +14,44 @@
     "login": "تسجيل الدخول",
     "loginTitle": "تسجيل الدخول إلى حسابك",
     "loginDescription": "أدخل بريدك الإلكتروني أدناه لتسجيل الدخول إلى حسابك",
-    "invalidEmailFormat": "أدخل بريدًا إلكترونيًا بصيغة صحيحة (مثال: name@example.com)",
     "passwordMinLength": "يجب أن تتكون كلمة المرور من 8 أحرف على الأقل"
+  },
+  "BookPage": {
+    "chooseDoctor": "اختار الدكتور المناسب",
+    "clearFilters": "امسح التصفية",
+    "specialization": "التخصص",
+    "search": "ابحث",
+    "results": "النتائج",
+    "bookAppointment": "احجز موعدك",
+    "break": "استراحة",
+    "am": "ص",
+    "pm": "م",
+    "unavailable": "غير متاح",
+    "doctorDialog": {
+      "doctorDetails": "بيانات الطبيب",
+      "name": "الاسم",
+      "phone": "رقم الهاتف",
+      "email": "البريد الإلكتروني"
+    },
+    "BookingForm": {
+      "addDetails": "أدخل بياناتك",
+      "patientName": "اسم المريض",
+      "patientPhone": "رقم الهاتف",
+      "patientEmail": "البريد الإلكتروني"
+    }
+  },
+  "Status": {
+    "pending": "قيد المراجعة",
+    "accepted": "تم القبول",
+    "rejected": "مرفوض",
+    "cancelled": "تم الإلغاء"
+  },
+  "validations": {
+    "phoneRequired": "من فضلك أدخل رقم الهاتف",
+    "emailRequired": "من فضلك أدخل البريد الإلكتروني",
+    "nameRequired": "من فضلك أدخل الاسم",
+    "phoneInvalid": "رقم الهاتف لازم يكون 11 رقم",
+    "passwordMinLength": "كلمة المرور لازم تكون 8 أحرف على الأقل",
+    "invalidEmailFormat": "أدخل بريدًا إلكترونيًا بصيغة صحيحة (مثال: name@example.com)"
   }
 }
