@@ -6,7 +6,6 @@ const layout = async ({
   admin,
 }: LayoutProps<"/dashboard">) => {
   const userRole = await checkUserRole();
-  console.log(userRole);
 
   return (
       <div className="bg-red-600">

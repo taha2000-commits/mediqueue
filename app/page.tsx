@@ -1,8 +1,7 @@
+import { CalendarPlus } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { IoShieldCheckmarkSharp } from "react-icons/io5";
-import { TbCalendarCheck } from "react-icons/tb";
 
 import Button from "./components/Button";
 
@@ -25,16 +24,13 @@ export default function Home() {
             <p className="text-foreground/70 tex-sm">{t("description")}</p>
           </div>
           <div className="flex gap-5">
-            <Button>
-              <TbCalendarCheck />
+            <Button asLink href="/book">
+              <CalendarPlus size={18} />
               <span className="">{t("bookAppointment")}</span>
             </Button>
-            <Link
-              href={"/login"}
-              className="text-tertiary border-tertiary flex items-center gap-1 rounded-lg border px-4 py-2"
-            >
+            <Button asLink href={"/login"} variant="SECONDARY">
               {t("providerLogin")}
-            </Link>
+            </Button>
           </div>
         </div>
         <div className="relative col-span-1 row-span-1 h-full w-full overflow-hidden">

@@ -14,7 +14,44 @@
     "login": "Login",
     "loginTitle": "Login to your account",
     "loginDescription": "Enter your email below to login to your account",
-    "invalidEmailFormat": "Enter a valid email address (e.g. name@example.com)",
     "passwordMinLength": "Password must be at least 8 characters long"
+  },
+  "BookPage": {
+    "chooseDoctor": "Choose a doctor",
+    "clearFilters": "Clear filters",
+    "specialization": "Specialization",
+    "search": "Search",
+    "results": "Results",
+    "bookAppointment": "Book Appointment",
+    "break": "Break",
+    "am": "AM",
+    "pm": "PM",
+    "unavailable": "Unavailable",
+    "doctorDialog": {
+      "doctorDetails": "Doctor Details",
+      "name": "Name",
+      "phone": "Phone",
+      "email": "Email"
+    },
+    "BookingForm": {
+      "addDetails": "Add your details",
+      "patientName": "Patient name",
+      "patientPhone": "Patient phone",
+      "patientEmail": "Patient email"
+    }
+  },
+  "Status": {
+    "pending": "Pending",
+    "accepted": "Accepted",
+    "rejected": "Rejected",
+    "cancelled": "Cancelled"
+  },
+  "validations": {
+    "phoneRequired": "Phone number is required",
+    "emailRequired": "Email is required",
+    "nameRequired": "Name is required",
+    "phoneInvalid": "Phone number must be 11 digits",
+    "passwordMinLength": "Password must be at least 8 characters",
+    "invalidEmailFormat": "Enter a valid email address (e.g. name@example.com)"
   }
 }

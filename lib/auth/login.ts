@@ -8,8 +8,8 @@ export const login = async ({
   email: string;
   password: string;
 }) => {
-  const supabase = await createClient();
-  return await supabase.auth.signInWithPassword({
+  const db = await createClient();
+  return await db.auth.signInWithPassword({
     email,
     password,
   });
