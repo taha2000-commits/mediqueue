@@ -27,6 +27,14 @@
     "am": "ص",
     "pm": "م",
     "unavailable": "غير متاح",
+    "selected": "اختير",
+    "date": "التاريخ",
+    "time": "الوقت",
+    "nextWeek": "الأسبوع القادم",
+    "thisWeek": "هذا الأسبوع",
+    "noSchedule": "لا توجد مواعيد متاحة لهذا الطبيب، من فضلك اختر طبيبًا آخر",
+    "chooseAnotherDoctor": "اختر طبيبًا آخر",
+    "appointmentSuccess": "تم حجز الموعد بنجاح",
     "doctorDialog": {
       "doctorDetails": "بيانات الطبيب",
       "name": "الاسم",
@@ -52,6 +60,7 @@
     "nameRequired": "من فضلك أدخل الاسم",
     "phoneInvalid": "رقم الهاتف لازم يكون 11 رقم",
     "passwordMinLength": "كلمة المرور لازم تكون 8 أحرف على الأقل",
-    "invalidEmailFormat": "أدخل بريدًا إلكترونيًا بصيغة صحيحة (مثال: name@example.com)"
+    "invalidEmailFormat": "أدخل بريدًا إلكترونيًا بصيغة صحيحة (مثال: name@example.com)",
+    "chooseAvailableTime": "من فضلك اختر وقتًا من المواعيد المتاحة"
   }
 }

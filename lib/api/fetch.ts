@@ -1,5 +1,4 @@
 "use server";
-
 import { headers } from "next/headers";
 
 import { getLocale } from "@/i18n/get-locale";
@@ -17,7 +16,11 @@ export const fetchData: <T>(params: {
   url: string | URL | Request;
   init?: RequestInit | undefined;
   params?: Record<string, string | string[] | undefined>;
-}) => Promise<T> = async ({ url, init = {}, params = {} }) => {
+}) => Promise<T > = async ({
+  url,
+  init = {},
+  params = {},
+}) => {
   const baseUrl = await getBaseUrl();
 
   const paramsAsString = paramsToSearchParams({
@@ -25,7 +28,6 @@ export const fetchData: <T>(params: {
     lang: await getLocale(),
   });
 
-  return await fetch(`${baseUrl}/api${url}?${paramsAsString}`, init).then(
-    (res) => res.json(),
-  );
+  return await fetch(`${baseUrl}/api${url}?${paramsAsString}`, init)
+    .then((res) => res.json())
 };

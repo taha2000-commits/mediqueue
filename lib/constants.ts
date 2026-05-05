@@ -19,7 +19,9 @@ export const specializations = [
   { en: "Anesthesiology", ar: "التخدير" },
   { en: "Nephrology", ar: "أمراض الكلى" },
   { en: "Pulmonology", ar: "الأمراض الصدرية" },
-  { en: "Plastic Surgery", ar: "جراحة التجميل" }
+  { en: "Plastic Surgery", ar: "جراحة التجميل" },
 ];
 
 export const dayIndices = ["0", "1", "2", "3", "4", "5", "6"] as const;
+
+

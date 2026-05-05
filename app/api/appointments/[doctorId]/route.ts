@@ -13,8 +13,8 @@ export const GET = async (
     data: appointments,
     error,
     status,
-  } = await db.from("appointments").select(`*`).eq("doctor_id", doctorId);
-  
+  } = await db.from("appointments").select(`*`).eq("doctor_id", +doctorId);
+
   if (error) return NextResponse.json(error, { status });
 
   return NextResponse.json(appointments, {
