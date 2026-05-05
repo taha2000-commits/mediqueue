@@ -1,10 +1,19 @@
 "use client";
-import { CalendarPlus } from "lucide-react";
+import { AlertCircleIcon, CalendarPlus } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { SubmitEventHandler, useState } from "react";
+import {
+  SubmitEventHandler,
+  useActionState,
+  useEffect,
+  useEffectEvent,
+  useState,
+} from "react";
+import { toast } from "sonner";
 import { z } from "zod";
 
 import Button from "@/app/components/Button";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Field,
@@ -14,51 +23,116 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Spinner } from "@/components/ui/spinner";
 import { bookSchema } from "@/lib/validators/book-appointment-schema";
+import { useBookStore } from "@/store/useBookStore";
+
+import bookAction from "../actions";
 
 type PatientInputs = {
   email: string;
   name: string;
   phone: string;
+  date: string;
+  time: string;
+  doctor_id: string;
 };
-const BookingForm = () => {
+const BookingForm = ({ doctorId }: { doctorId: string }) => {
   const validationsT = useTranslations("validations");
+
   const t = useTranslations("BookPage");
 
-  // const [state, book, ispending] = useActionState(bookAction, undefined);
+  const { date, time, addDate, addTime, setDisabled } = useBookStore();
+
+  const [state, book, isPending] = useActionState(bookAction, undefined);
 
   const [validationErrors, setValidationErrors] = useState<
     Partial<PatientInputs> | undefined
   >();
 
   const onSubmit: SubmitEventHandler<HTMLFormElement> = (e) => {
-    e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const name = formData.get("name");
-    const email = formData.get("email");
-    const phone = formData.get("phone");
+    const patient_name = formData.get("patient_name");
+    const patient_email = formData.get("patient_email");
+    const patient_phone = formData.get("patient_phone");
+    const doctorIdVal = formData.get("doctor_id");
+    const timeVal = formData.get("time");
+    const dateVal = formData.get("date");
 
-    const validation = bookSchema.safeParse({ name, email, phone });
+    const validation = bookSchema.safeParse({
+      patient_name,
+      patient_email,
+      patient_phone,
+      time: timeVal,
+      date: dateVal,
+      doctorId: doctorIdVal,
+    });
 
     if (!validation.success) {
+      const errors = z.treeifyError(validation.error).properties;
+
       setValidationErrors({
-        email: z.treeifyError(validation.error).properties?.patient_email
-          ?.errors[0],
-        name: z.treeifyError(validation.error).properties?.patient_name
-          ?.errors[0],
-        phone: z.treeifyError(validation.error).properties?.patient_phone
-          ?.errors[0],
+        email: errors?.patient_email?.errors[0],
+        name: errors?.patient_name?.errors[0],
+        phone: errors?.patient_phone?.errors[0],
+        doctor_id: errors?.doctorId?.errors[0],
+        date: errors?.date?.errors[0],
+        time: errors?.time?.errors[0],
       });
+
+      e.preventDefault();
     } else {
+      setValidationErrors(undefined);
     }
   };
+
+  const onSuccess = useEffectEvent(() => {
+    if (state?.success) {
+      toast.success(t(state.success), {
+        position: "top-center",
+      });
+      addTime("");
+      addDate("");
+    }
+  });
+
+  useEffect(() => {
+    onSuccess();
+  }, [state]);
+
+  useEffect(() => {
+    setDisabled(isPending);
+  }, [isPending, setDisabled]);
+
   return (
     <Card className="w-full max-w-lg">
       <CardHeader>
         <CardTitle>{t("BookingForm.addDetails")}</CardTitle>
+        {(date || time) && (
+          <div className="flex gap-2">
+            <Badge variant={"outline"}>
+              {t("date")}: {date}
+            </Badge>
+            <Badge variant={"outline"}>
+              {t("time")}: {time}
+            </Badge>
+          </div>
+        )}
+        {(validationErrors?.time || state?.error) && (
+          <Alert variant="destructive" className="max-w-md">
+            <AlertCircleIcon />
+            <AlertDescription>
+              {validationErrors?.time
+                ? validationsT(validationErrors?.time)
+                : state?.error
+                  ? state.error
+                  : ""}
+            </AlertDescription>
+          </Alert>
+        )}
       </CardHeader>
       <CardContent>
-        <form onSubmit={onSubmit}>
+        <form onSubmit={onSubmit} action={book}>
           <FieldGroup className="flex flex-col gap-6">
             <div className="grid grid-cols-2 gap-4">
               <Field className="grid gap-2">
@@ -103,10 +177,32 @@ const BookingForm = () => {
                 )}
               </div>
             </div>
+            <Input
+              name="doctor_id"
+              className="hidden"
+              defaultValue={doctorId}
+              readOnly
+              required
+            />
+            <Input
+              name="date"
+              className="hidden"
+              defaultValue={date}
+              readOnly
+              required
+            />
+            <Input
+              name="time"
+              className="hidden"
+              defaultValue={time}
+              readOnly
+              required
+            />
           </FieldGroup>
-          <Button type="submit" className="mt-6 w-full">
+          <Button type="submit" disabled={isPending} className="mt-6 w-full">
             <CalendarPlus size={18} />
             <span className="">{t("bookAppointment")}</span>
+            {isPending && <Spinner />}
           </Button>
         </form>
       </CardContent>

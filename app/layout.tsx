@@ -3,6 +3,7 @@ import "./globals.css";
 import { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { PropsWithChildren } from "react";
+import { Toaster } from "sonner";
 
 import { ThemeProvider } from "@/app/components/theme-provider";
 import { DirectionProvider } from "@/components/ui/direction";
@@ -50,6 +51,7 @@ export default async function RootLayout({ children }: PropsWithChildren) {
             </DirectionProvider>
           </NextIntlClientProvider>
         </ThemeProvider>
+        <Toaster />
       </body>
     </html>
   );

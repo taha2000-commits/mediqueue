@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 
 import { createClient } from "@/lib/supabase/client";
 import { getTranslatedObj } from "@/lib/utils";
+import { Schedule } from "@/types/doctor-schedule";
+import { Doctor } from "@/types/doctors";
 
 export async function GET(
   req: NextRequest,
@@ -17,28 +19,26 @@ export async function GET(
     .from("doctor_availability")
     .select(
       `weekly_schedule,
-      doctors (
-     *
-      )`,
+      doctors (*)`,
     )
-    .eq("doctor_id", doctorId)
-    .single()
+    .eq("doctor_id", +doctorId)
+    .maybeSingle()
     .then((value) => {
       return {
         ...value,
-        data: {
-          ...value.data,
-          doctors: getTranslatedObj(value.data?.doctors as object, lang),
-        },
+        data: value.data
+          ? {
+              weekly_schedule: value.data.weekly_schedule as Schedule,
+              doctors: getTranslatedObj<Doctor>(
+                value.data.doctors as object,
+                lang,
+              ),
+            }
+          : null,
       };
     });
 
-  if (error?.code == "PGRST116") return NextResponse.json({}, { status: 200 });
-  else if (error) return NextResponse.json(error, { status: 400 });
+  if (error) return NextResponse.json(error, { status: 400 });
 
-  return NextResponse.json(
-    doctor_availability,
-
-    { status: 200 },
-  );
+  return NextResponse.json(doctor_availability, { status: 200 });
 }
