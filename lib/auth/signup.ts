@@ -1,7 +1,7 @@
 "use server";
 import { UserRole } from "@/types/user-role";
 
-import { createClient } from "../supabase/client";
+import { createClient } from "../supabase/server";
 
 export const signup = async ({
   email,

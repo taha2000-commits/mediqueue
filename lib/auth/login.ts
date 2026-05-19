@@ -1,5 +1,5 @@
 "use server";
-import { createClient } from "../supabase/client";
+import { createClient } from "../supabase/server";
 
 export const login = async ({
   email,

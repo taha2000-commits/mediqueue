@@ -15,12 +15,8 @@ export async function getBaseUrl() {
 export const fetchData: <T>(params: {
   url: string | URL | Request;
   init?: RequestInit | undefined;
-  params?: Record<string, string | string[] | undefined>;
-}) => Promise<T > = async ({
-  url,
-  init = {},
-  params = {},
-}) => {
+  params?: Record<string, string | string[] | boolean | undefined>;
+}) => Promise<T> = async ({ url, init = {}, params = {} }) => {
   const baseUrl = await getBaseUrl();
 
   const paramsAsString = paramsToSearchParams({
@@ -28,6 +24,7 @@ export const fetchData: <T>(params: {
     lang: await getLocale(),
   });
 
-  return await fetch(`${baseUrl}/api${url}?${paramsAsString}`, init)
-    .then((res) => res.json())
+  return await fetch(`${baseUrl}/api${url}?${paramsAsString}`, init).then(
+    (res) => res.json(),
+  );
 };

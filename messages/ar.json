@@ -30,6 +30,8 @@
     "selected": "اختير",
     "date": "التاريخ",
     "time": "الوقت",
+    "consultation": "استشارة",
+    "followUp": "متابعة",
     "nextWeek": "الأسبوع القادم",
     "thisWeek": "هذا الأسبوع",
     "noSchedule": "لا توجد مواعيد متاحة لهذا الطبيب، من فضلك اختر طبيبًا آخر",
@@ -45,14 +47,18 @@
       "addDetails": "أدخل بياناتك",
       "patientName": "اسم المريض",
       "patientPhone": "رقم الهاتف",
-      "patientEmail": "البريد الإلكتروني"
+      "patientEmail": "البريد الإلكتروني",
+      "type": "نوع الحجز",
+      "patientAge": "عمر المريض"
     }
   },
   "Status": {
     "pending": "قيد المراجعة",
     "accepted": "تم القبول",
     "rejected": "مرفوض",
-    "cancelled": "تم الإلغاء"
+    "cancelled": "تم الإلغاء",
+    "completed": "تم الانتهاء",
+    "in_progress": "جاري التنفيذ"
   },
   "validations": {
     "phoneRequired": "من فضلك أدخل رقم الهاتف",

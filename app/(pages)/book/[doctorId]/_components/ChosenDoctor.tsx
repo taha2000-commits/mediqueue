@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
 import { BsTelephone } from "react-icons/bs";
 import { IoMailOutline } from "react-icons/io5";
 
@@ -13,11 +12,12 @@ type IProps = { doctor: Doctor };
 
 const ChosenDoctor = ({ doctor }: IProps) => {
   const { avatar, name, email, phone, specialization } = doctor;
+
   return (
     <div className="flex w-full flex-col items-center gap-5">
       <Avatar className="outline-background border-background dark:outline-primary h-50 w-50 border-2 shadow-2xl outline-4 after:border-none">
         <Image
-          src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object${avatar}`}
+          src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${avatar}`}
           alt={name}
           width={200}
           height={200}

@@ -2,27 +2,28 @@ import Breadcrumb from "@/app/components/Breadcrumb";
 import DatesSelect from "@/app/components/DatesSelect";
 import ScheduleTable from "@/app/components/schedule-table/ScheduleTable";
 import { fetchData } from "@/lib/api/fetch";
-import { AppointmentRow } from "@/types/appointments";
+import { appointmentsService } from "@/lib/services/appointments";
 import { Schedule } from "@/types/doctor-schedule";
 import { Doctor } from "@/types/doctors";
 
 import BookingForm from "./_components/BookingForm";
 import ChosenDoctor from "./_components/ChosenDoctor";
 
-const page = async ({ params,searchParams }: PageProps<"/book/[doctorId]">) => {
+const page = async ({
+  params,
+  searchParams,
+}: PageProps<"/book/[doctorId]">) => {
   const { doctorId } = await params;
+
   const schedule = await fetchData<{
     weekly_schedule: Schedule;
     doctors: Doctor;
   }>({
     url: `/doctors/${doctorId}/schedule`,
+    init: { next: { tags: ["schedule", doctorId] } },
   });
 
-  const appointments = await fetchData<AppointmentRow[]>({
-    url: `/appointments/${doctorId}`,
-    init: { next: { tags: ["appointments"] } },
-  });
-
+  const { results: appointments } = await appointmentsService.getAll();
   return (
     <div className="p-10">
       <div className="mb-10" dir="ltr">

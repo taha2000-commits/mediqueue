@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-import { createClient } from "@/lib/supabase/client";
+import { createClient } from "@/lib/supabase/server";
 import { getTranslatedObj } from "@/lib/utils";
 import { Schedule } from "@/types/doctor-schedule";
 import { Doctor } from "@/types/doctors";
@@ -21,7 +21,7 @@ export async function GET(
       `weekly_schedule,
       doctors (*)`,
     )
-    .eq("doctor_id", +doctorId)
+    .eq("doctor_id", doctorId)
     .maybeSingle()
     .then((value) => {
       return {

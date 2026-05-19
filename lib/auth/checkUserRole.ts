@@ -1,9 +1,8 @@
-import { getUserData } from "./getUserData";
+import { getUser } from "./getUser";
 
 export const checkUserRole = async () => {
-  const {
-    data: { user },
-  } = await getUserData();
+  const user = await getUser();
+
   const userRole = user?.user_metadata.userRole;
   return userRole;
 };

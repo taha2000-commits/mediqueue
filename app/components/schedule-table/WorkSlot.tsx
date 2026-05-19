@@ -17,6 +17,10 @@ function getColorClassFromStatus(status: Slot_Status | Appointment_Status) {
       return "bg-status-accepted";
     case "pending":
       return "bg-status-pending";
+    case "completed":
+      return "bg-status-completed";
+    case "in_progress":
+      return "bg-status-in-progress";
 
     default:
       return "bg-second-background";

@@ -1,25 +1,28 @@
-import { type NextRequest,NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 
-import { getUserData } from "./lib/auth/getUserData";
+import { updateSession } from "@/lib/supabase/proxy";
 
 const protectedRoutes = ["/dashboard"];
 const publicRoutes = ["/login", "/signup"];
 
 export default async function proxy(req: NextRequest) {
   const path = req.nextUrl.pathname;
+  const headers = new Headers(req.headers);
+
+  headers.set("x-pathname", new URL(req.url).pathname);
   const isProtectedRoute = protectedRoutes.includes(path);
+
   const isPublicRoute = publicRoutes.includes(path);
 
-  const {
-    data: { user },
-  } = await getUserData();
+  const { response, user } = await updateSession(req);
 
   if (isProtectedRoute && !user) {
-    return NextResponse.redirect(new URL("/login", req.nextUrl));
+    return NextResponse.redirect(new URL("/login", req.url));
   }
 
-  if (isPublicRoute && user?.id) {
-    return NextResponse.redirect(new URL("/dashboard", req.nextUrl));
+  if (isPublicRoute && user) {
+    return NextResponse.redirect(new URL("/dashboard", req.url));
   }
-  return NextResponse.next();
+
+  return response;
 }

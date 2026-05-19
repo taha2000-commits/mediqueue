@@ -32,7 +32,7 @@ export default function DoctorDetailsDialog({ doctor }: { doctor: Doctor }) {
           <div className="flex flex-col items-center">
             <Avatar className="outline-background border-background dark:outline-primary h-30 w-30 border-2 shadow-2xl outline-4 after:border-none">
               <Image
-                src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object${doctor["avatar"]}`}
+                src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${doctor["avatar"]}`}
                 alt={doctor["name"]}
                 width={120}
                 height={120}

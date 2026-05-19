@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-import { createClient } from "@/lib/supabase/client";
+import { createClient } from "@/lib/supabase/server";
 
 export const GET = async () => {
   const db = await createClient();
@@ -9,12 +9,18 @@ export const GET = async () => {
     data: appointments,
     error,
     status,
-  } = await db.from("appointments").select(`
+  } = await db
+    .from("appointments")
+    .select(
+      `
     *,
     doctors (
-      id,
+    *
     )
-  `);
+  `,
+    )
+    .order("time", { ascending: true })
+    .order("date", { ascending: true });
 
   if (error) return NextResponse.json(error, { status });
 
