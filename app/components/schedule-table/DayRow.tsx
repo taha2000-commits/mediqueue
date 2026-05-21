@@ -4,17 +4,17 @@ import { useTranslations } from "next-intl";
 
 import { cn } from "@/lib/utils";
 import { useBookStore } from "@/store/useBookStore";
-import { AppointmentRow } from "@/types/appointments";
+import { AppointmentWithPriority } from "@/types/appointments";
 import { Period } from "@/types/doctor-schedule";
 
 import DayCell from "./DayCell";
 import DayPeriod from "./DayPeriod";
 type IProps = {
   day: number;
-  amPeriod?: Record<"break", Period> & Period;
-  pmPeriod?: Record<"break", Period> & Period;
+  amPeriod?: Period;
+  pmPeriod?: Period;
   className?: string;
-  day_appointments: AppointmentRow[];
+  day_appointments: AppointmentWithPriority[];
   date: Date;
 };
 

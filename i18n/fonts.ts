@@ -1,4 +1,4 @@
-import { Nosifer, Noto_Sans_Arabic, Outfit } from "next/font/google";
+import { Matemasie, Nosifer, Noto_Sans_Arabic, Outfit } from "next/font/google";
 
 export const enFont = Outfit({
   weight: ["400", "500", "600", "700"],
@@ -9,4 +9,8 @@ export const arFont = Noto_Sans_Arabic({
 });
 export const headerFont = Nosifer({
   weight: '400',
+});
+
+export const Matemasie_Font = Matemasie({
+  weight: "400",
 });

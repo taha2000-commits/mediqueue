@@ -10,4 +10,6 @@ export const bookSchema = z.object({
     .min(1, "chooseAvailableTime")
     .regex(/^([01]\d|2[0-3]):([0-5]\d)$/),
   date: z.string().min(1),
+  patient_age: z.string().min(1),
+  type: z.string().min(1),
 });

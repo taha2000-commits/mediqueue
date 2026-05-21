@@ -1,25 +1,20 @@
 import { CalendarPlus } from "lucide-react";
-import { Matemasie } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
 
 import { ModeToggle } from "@/app/components/ModeToggle";
-import { enFont } from "@/i18n/fonts";
+import { enFont, Matemasie_Font } from "@/i18n/fonts";
 import { cn } from "@/lib/utils";
 
 import Button from "./Button";
 import LangsSwitcher from "./LangsSwitcher";
-
-const Matemasie_Font = Matemasie({
-  weight: "400",
-});
 
 const Navbar = () => {
   return (
     <nav
       dir="ltr"
       className={cn(
-        "bg-second-background flex items-center justify-between px-10 py-3 shadow-2xl",
+        "bg-second-background border-border flex items-center justify-between border-b px-10 py-3",
         enFont.className,
       )}
     >
@@ -41,7 +36,7 @@ const Navbar = () => {
         </div>
       </Link>
       <Button>
-        <CalendarPlus size={18}/>
+        <CalendarPlus size={18} />
         <span className="">Book Appointment</span>
       </Button>
       <ModeToggle />

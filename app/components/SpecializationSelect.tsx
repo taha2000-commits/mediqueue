@@ -13,25 +13,46 @@ import {
 import { useHandleSearchParams } from "@/hooks/useHandleSearchParams";
 import { specializations } from "@/lib/constants";
 
-const SpecializationSelect = () => {
+const SpecializationSelect = ({
+  defaultValue,
+  use_search_params = true,
+  lang = "en",
+  disabled = false,
+  onChange = () => {},
+}: {
+  defaultValue?: string;
+  use_search_params?: boolean;
+  lang?: "ar" | "en";
+  disabled?: boolean;
+  onChange?: (value: string) => void;
+}) => {
   const searchParams = useSearchParams();
   const { urlSearchParams } = useHandleSearchParams();
   const t = useTranslations("BookPage");
   const dir = useDirection();
+  const dVal = defaultValue
+    ? specializations.find(
+        (sp) =>
+          sp["ar"].includes(defaultValue) || sp["en"].includes(defaultValue),
+      )?.[lang]
+    : undefined;
 
-  const specializationsParam = searchParams.get("sp") || undefined;
+  const specializationsParam = searchParams.get("sp") || dVal || undefined;
 
   const selectOpts = specializations
-    .map((sp) => sp[dir == "rtl" ? "ar" : "en"])
+    .map((sp) => sp[dir == "rtl" || lang == "ar" ? "ar" : "en"])
     .sort();
 
   return (
     <Select
-      defaultValue={specializationsParam}
+      defaultValue={use_search_params ? specializationsParam : dVal}
       onValueChange={(val) => {
-        urlSearchParams.set("sp", val);
+        if (use_search_params) urlSearchParams.set("sp", val);
+        onChange(val);
       }}
       dir={dir}
+      name="specialization"
+      disabled={disabled}
     >
       <SelectTrigger className="w-full max-w-64">
         <SelectValue placeholder={t("specialization")} />

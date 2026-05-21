@@ -20,7 +20,7 @@ const DoctorCard = ({ doctor }: { doctor: Doctor }) => {
       <ItemMedia>
         <Avatar className="h-17 w-17 overflow-hidden">
           <Image
-            src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object${doctor.avatar}`}
+            src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${doctor.avatar}`}
             alt={doctor.name}
             width={68}
             height={68}

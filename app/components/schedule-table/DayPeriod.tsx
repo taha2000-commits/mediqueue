@@ -1,7 +1,7 @@
 "use client";
 import { getHours, isSameDay, parse } from "date-fns";
 
-import { AppointmentRow } from "@/types/appointments";
+import { AppointmentWithPriority } from "@/types/appointments";
 import { Period, Slot_Status } from "@/types/doctor-schedule";
 
 import UnavailableSlot from "./UnavailableSlot";
@@ -9,8 +9,8 @@ import WorkSlot from "./WorkSlot";
 
 type Props = {
   name: "am" | "pm";
-  period?: Record<"break", Period | undefined> & Period;
-  period_appointments: AppointmentRow[];
+  period?: Period;
+  period_appointments: AppointmentWithPriority[];
   date: Date;
 };
 

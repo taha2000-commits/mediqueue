@@ -30,6 +30,8 @@
     "selected": "Selected",
     "date": "Date",
     "time": "Time",
+    "consultation": "Consultation",
+    "followUp": "Follow-up",
     "nextWeek": "Next week",
     "thisWeek": "This week",
     "noSchedule": "No schedule available for this doctor. Please choose another doctor.",
@@ -45,14 +47,18 @@
       "addDetails": "Add your details",
       "patientName": "Patient name",
       "patientPhone": "Patient phone",
-      "patientEmail": "Patient email"
+      "patientEmail": "Patient email",
+      "type": "Appointment type",
+      "patientAge": "Patient age"
     }
   },
   "Status": {
     "pending": "Pending",
     "accepted": "Accepted",
     "rejected": "Rejected",
-    "cancelled": "Cancelled"
+    "cancelled": "Cancelled",
+    "completed": "Completed",
+    "in_progress": "In progress"
   },
   "validations": {
     "phoneRequired": "Phone number is required",

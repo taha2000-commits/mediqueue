@@ -1,11 +1,13 @@
-import { dayIndices } from "@/lib/constants";
+export type Period = {
+  buffer_time: string;
+  slot_duration: string;
+  is_active: boolean;
+  start: string;
+  end: string;
+  break: Omit<Period, "break" | "buffer_time" | "slot_duration" | "is_active">;
+};
 
-export type Period = Record<"start" | "end", string>;
-
-export type Schedule = Record<
-  (typeof dayIndices)[number],
-  Record<"am" | "pm", Record<"break", Period> & Period>
->;
+export type Schedule = Record<number, { am: Period; pm: Period }>;
 
 export enum Slot_Status {
   FREE = "free",

@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-import { createClient } from "@/lib/supabase/client";
-import { getTranslatedObj } from "@/lib/utils";
-import { Doctor } from "@/types/doctors";
+import { createClient } from "@/lib/supabase/server";
 
 export async function GET(
   req: NextRequest,
@@ -15,14 +13,8 @@ export async function GET(
   const { data: doctor, error } = await db
     .from("doctors")
     .select("*")
-    .eq("id", +doctorId)
-    .maybeSingle()
-    .then((value) => {
-      return {
-        ...value,
-        data: value.data ? getTranslatedObj<Doctor>(value.data) : null,
-      };
-    });
+    .eq("id", doctorId)
+    .maybeSingle();
 
   if (error?.code == "PGRST116") return NextResponse.json({}, { status: 200 });
   else if (error) return NextResponse.json(error, { status: 400 });

@@ -2,7 +2,7 @@ import { getDay } from "date-fns";
 import { LockKeyhole } from "lucide-react";
 
 import { cn, getDatesArray } from "@/lib/utils";
-import { AppointmentRow } from "@/types/appointments";
+import { AppointmentWithPriority } from "@/types/appointments";
 import { Schedule } from "@/types/doctor-schedule";
 
 import DayRow from "./DayRow";
@@ -13,7 +13,7 @@ const ScheduleTable = async ({
   searchParams,
 }: {
   weekly_schedule: Schedule;
-  appointments: AppointmentRow[];
+  appointments: AppointmentWithPriority[];
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) => {
   const datesParam = (await searchParams)?.dates || undefined;

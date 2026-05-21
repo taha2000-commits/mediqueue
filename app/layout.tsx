@@ -1,5 +1,7 @@
 import "./globals.css";
+import "@/lib/prototypes";
 
+import { BadgeCheck, OctagonAlert } from "lucide-react";
 import { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { PropsWithChildren } from "react";
@@ -7,12 +9,13 @@ import { Toaster } from "sonner";
 
 import { ThemeProvider } from "@/app/components/theme-provider";
 import { DirectionProvider } from "@/components/ui/direction";
+import { TooltipProvider } from "@/components/ui/tooltip";
 import { arFont, enFont } from "@/i18n/fonts";
 import { getLocale } from "@/i18n/get-locale";
 import { cn } from "@/lib/utils";
+import QueryProvider from "@/providers/QueryProvider";
 
 import Navbar from "./components/Navbar";
-
 export const metadata: Metadata = {
   title: "MediQueue - Smart Appointment System",
   description: "Smart clinic appointment management system",
@@ -45,13 +48,22 @@ export default async function RootLayout({ children }: PropsWithChildren) {
           disableTransitionOnChange
         >
           <NextIntlClientProvider>
-            <DirectionProvider dir={isRTL ? "rtl" : "ltr"}>
-              <Navbar />
-              <main className="grid flex-1">{children}</main>
-            </DirectionProvider>
+            <TooltipProvider>
+              <DirectionProvider dir={isRTL ? "rtl" : "ltr"}>
+                <QueryProvider>
+                  <Navbar />
+                  <main className="grid flex-1">{children}</main>
+                </QueryProvider>
+              </DirectionProvider>
+            </TooltipProvider>
           </NextIntlClientProvider>
         </ThemeProvider>
-        <Toaster />
+        <Toaster
+          icons={{
+            success: <BadgeCheck size={20} color="#22c55e" />,
+            error: <OctagonAlert size={20} color="#ef4444" />,
+          }}
+        />
       </body>
     </html>
   );

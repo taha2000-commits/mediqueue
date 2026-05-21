@@ -20,11 +20,14 @@ export function useHandleSearchParams() {
 
   return {
     urlSearchParams: {
-      clear: function () {
+      clear: () => {
         router.push(pathname);
       },
-      set: function (name: string, value: string) {
+      set: (name: string, value: string) => {
         router.push(pathname + "?" + createQueryString(name, value));
+      },
+      setWithClear: (name: string, value: string) => {
+        router.push(pathname + "?" + name + "=" + value);
       },
     },
   };
