@@ -1,3 +1,5 @@
+import { Metadata } from "next";
+
 import StatusBadge from "@/app/components/StatusBadge";
 import { fetchData } from "@/lib/api/fetch";
 import { getDoctorUser } from "@/lib/auth/getDoctorUser";
@@ -9,6 +11,8 @@ import AddNewPeriod from "./_components/AddNewPeriod";
 import DaysBar from "./_components/DaysBar";
 import PeriodDetails from "./_components/PeriodDetails";
 import WeeklyOverview from "./_components/WeeklyOverview";
+
+export const metadata: Metadata = { title: "Availability" };
 
 const page = async ({ searchParams }: PageProps<"/dashboard/availability">) => {
   const auth = await getDoctorUser();

@@ -12,7 +12,7 @@ import {
   UserRound,
 } from "lucide-react";
 import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useMemo, useState } from "react";
 
 import {
@@ -50,7 +50,6 @@ const sidebarIcons: LucideIcon[] = [
 
 export default function SidebarItem({ item }: SidebarItemProps) {
   const pathname = usePathname();
-  const search_params = useSearchParams();
   const { href, text, index, sub = [] } = item;
 
   const isSubItemActive = sub.some((subItem) => pathname === subItem.href);
@@ -102,22 +101,11 @@ export default function SidebarItem({ item }: SidebarItemProps) {
       {hasSubMenu && open && (
         <SidebarMenuSub>
           {sub.map((subItem) => {
-            const { searchParams } = new URL(
-              "http://localhost:3000" + subItem.href,
-            );
-            const isSelected =
-              search_params.size > 0 &&
-              searchParams.size > 0 &&
-              search_params.get("type") == searchParams.get("type") &&
-              search_params.get("status") == searchParams.get("status");
-
-            const dataActive =
-              search_params.size > 0 ? isSelected : pathname === subItem.href;
             return (
               <SidebarMenuSubItem key={subItem.href}>
                 <SidebarMenuSubButton
                   asChild
-                  data-active={dataActive}
+                  data-active={pathname === subItem.href}
                   className="capitalize"
                 >
                   <Link href={subItem.href} className="flex items-center gap-2">

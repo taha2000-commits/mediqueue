@@ -1,4 +1,5 @@
 import "./globals.css";
+import "@/lib/prototypes";
 
 import { BadgeCheck, OctagonAlert } from "lucide-react";
 import { Metadata } from "next";
@@ -15,7 +16,6 @@ import { cn } from "@/lib/utils";
 import QueryProvider from "@/providers/QueryProvider";
 
 import Navbar from "./components/Navbar";
-
 export const metadata: Metadata = {
   title: "MediQueue - Smart Appointment System",
   description: "Smart clinic appointment management system",

@@ -1,9 +1,14 @@
 import { format } from "date-fns";
+import { Metadata } from "next";
 
 import { appointmentsService } from "@/lib/services/appointments";
 
 import ActionsSection from "../_components/ActionsSection";
 import DoctorQueue from "../_components/DoctorQueue";
+
+export const metadata: Metadata = {
+  title: "Queue",
+};
 
 const page = async () => {
   const { results: appointments } = await appointmentsService.getAll({

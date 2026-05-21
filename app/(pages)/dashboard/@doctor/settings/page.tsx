@@ -1,4 +1,5 @@
 import { CalendarCog, Settings } from "lucide-react";
+import { Metadata } from "next";
 import Link from "next/link";
 
 import { Separator } from "@/components/ui/separator";
@@ -7,6 +8,11 @@ import { getDoctorUser } from "@/lib/auth/getDoctorUser";
 import AvailabilitySettings from "./_components/AvailabilitySettings";
 import ChangePassword from "./_components/ChangePassword";
 import UpdateDoctorForm from "./_components/UpdateDoctorForm";
+
+export const metadata: Metadata = {
+  title: "Settings",
+  description: "doctor taha dashboard",
+};
 
 const page = async () => {
   const doctor = await getDoctorUser();

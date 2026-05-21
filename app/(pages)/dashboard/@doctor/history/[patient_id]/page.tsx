@@ -1,5 +1,6 @@
 import { format } from "date-fns";
 import { FileText, Phone } from "lucide-react";
+import { Metadata } from "next";
 import Image from "next/image";
 
 import { Avatar } from "@/components/ui/avatar";
@@ -12,9 +13,37 @@ import Stat from "../../_components/Stat";
 import RequestDetails from "../../appointments/_components/RequestDetails";
 import PatientAppointments from "../_component/PatientAppointments";
 
-const page = async ({
+type HistoryPageProps = PageProps<"/dashboard/history/[patient_id]">;
+
+export async function generateMetadata({
   params,
-}: PageProps<"/dashboard/history/[patient_id]">) => {
+}: HistoryPageProps): Promise<Metadata> {
+  const { patient_id } = await params;
+
+  const { name } = await patientsService.getPatient(patient_id);
+
+  return {
+    title: { absolute: name + " | " + "History" },
+    description: `View ${name}'s medical history, appointments, reports, and patient records securely on MediQueue.`,
+
+    keywords: [
+      name ?? "",
+      "Patient History",
+      "Medical History",
+      "Patient Records",
+      "Clinic Management",
+      "MediQueue",
+      "Doctor Dashboard",
+      "Appointment History",
+      "السجل الطبي",
+      "تاريخ المريض",
+      "ملف المريض",
+      "إدارة العيادات",
+    ],
+  };
+}
+
+const page = async ({ params }: HistoryPageProps) => {
   const { patient_id } = await params;
 
   const {

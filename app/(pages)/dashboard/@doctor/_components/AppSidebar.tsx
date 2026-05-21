@@ -32,11 +32,11 @@ const sidebarItems: (Item & { sub?: Item[] })[] = [
     href: "/dashboard/appointments",
     sub: [
       { href: "/dashboard/appointments", text: "all appointments" },
-      { href: "/dashboard/appointments?status=pending", text: "pending" },
-      { href: "/dashboard/appointments?status=rejected", text: "rejected" },
-      { href: "/dashboard/appointments?status=accepted", text: "responded" },
-      { href: "/dashboard/appointments?status=cancelled", text: "cancelled" },
-      { href: "/dashboard/appointments?status=expired", text: "expired" },
+      { href: "/dashboard/appointments/pending", text: "pending" },
+      { href: "/dashboard/appointments/rejected", text: "rejected" },
+      { href: "/dashboard/appointments/accepted", text: "responded" },
+      { href: "/dashboard/appointments/cancelled", text: "cancelled" },
+      { href: "/dashboard/appointments/expired", text: "expired" },
     ],
   },
   {
@@ -44,9 +44,9 @@ const sidebarItems: (Item & { sub?: Item[] })[] = [
     href: "/dashboard/patients",
     sub: [
       { href: "/dashboard/patients", text: "all patients" },
-      { href: "/dashboard/patients?type=active", text: "active" },
-      { href: "/dashboard/patients?type=new", text: "new" },
-      { href: "/dashboard/patients?type=returning", text: "returning" },
+      { href: "/dashboard/patients/active", text: "active" },
+      { href: "/dashboard/patients/new", text: "new" },
+      { href: "/dashboard/patients/returning", text: "returning" },
     ],
   },
   {

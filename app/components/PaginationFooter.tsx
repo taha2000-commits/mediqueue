@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 import Pagination from "./Pagination";
 import { RowsPerPage } from "./RowsPerPage";
 
-interface PaginationFooterProps {
+export interface PaginationFooterProps {
   count: number;
   from: number;
   next: number | null;

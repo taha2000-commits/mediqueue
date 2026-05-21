@@ -2,6 +2,7 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 
 import { AppSidebar } from "./_components/AppSidebar";
 import { RequestsContextProvider } from "./_context/RequestsContext";
+
 const layout = ({ children, modal }: LayoutProps<"/dashboard">) => {
   return (
     <RequestsContextProvider>

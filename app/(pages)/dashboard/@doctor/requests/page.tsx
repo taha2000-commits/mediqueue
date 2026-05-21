@@ -1,4 +1,5 @@
 import { Siren } from "lucide-react";
+import { Metadata } from "next";
 
 import PaginationFooter from "@/app/components/PaginationFooter";
 import { appointmentsService } from "@/lib/services/appointments";
@@ -9,6 +10,11 @@ import RequestDetails from "../appointments/_components/RequestDetails";
 import HighPriorityRequest from "./_components/HighPriorityRequest";
 import { RefreshButton } from "./_components/RefreshButton";
 import Request from "./_components/Request";
+
+export const metadata: Metadata = {
+  title: "Requests",
+  description: "doctor taha dashboard",
+};
 
 const page = async ({ searchParams }: PageProps<"/dashboard/requests">) => {
   const sp = await searchParams;

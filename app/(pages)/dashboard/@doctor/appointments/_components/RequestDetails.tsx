@@ -9,7 +9,7 @@ import {
   X,
 } from "lucide-react";
 import Image from "next/image";
-import { useEffect, useEffectEvent } from "react";
+import { useEffect } from "react";
 
 import StatusBadge from "@/app/components/StatusBadge";
 import { Avatar } from "@/components/ui/avatar";
@@ -21,14 +21,14 @@ import RequestActions from "./RequestActions";
 
 export default function RequestDetails() {
   const { chosenAppointment, setChosenAppointment } = useRequestsContext();
+  console.log("chosen", chosenAppointment);
 
-  const event = useEffectEvent(() => {
+  useEffect(() => {
     const set = () => setChosenAppointment(undefined);
     return () => {
       set();
     };
-  });
-  useEffect(event);
+  }, [setChosenAppointment]);
 
   return (
     <div

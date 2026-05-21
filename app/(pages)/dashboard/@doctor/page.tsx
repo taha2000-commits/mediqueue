@@ -1,4 +1,5 @@
 import { format } from "date-fns";
+import { Metadata } from "next";
 
 import { appointmentsService } from "@/lib/services/appointments";
 
@@ -8,6 +9,10 @@ import Stats from "./_components/DoctorStats";
 import DoctorTimeline from "./_components/DoctorTimeline";
 import PendingRequestsSection from "./_components/PendingRequestsSection";
 import TodayAppointmentsSec from "./_components/TodayAppointmentsSec";
+
+export const metadata: Metadata = {
+  title: "Dashboard",
+};
 
 const Page = async ({ searchParams }: PageProps<"/dashboard">) => {
   const sp = await searchParams;

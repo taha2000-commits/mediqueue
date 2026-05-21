@@ -1,20 +1,21 @@
-"use client";
-import { useSearchParams } from "next/navigation";
+import Link from "next/link";
 
-import { useHandleSearchParams } from "@/hooks/useHandleSearchParams";
+import { patientsService } from "@/lib/services/patients";
 import { cn } from "@/lib/utils";
-import { PatientStats } from "@/types/patients";
 
-export default function PatientsMenubar({ stats }: { stats: PatientStats }) {
-  const sp = useSearchParams();
-  const selected = sp.get("type");
+export default async function PatientsMenubar({
+  selected,
+}: {
+  selected?: string;
+}) {
+  const stats = await patientsService.getPatientsStats();
 
   return (
     <div className="mb-2 flex">
       <Tab
         innerText="all patients"
-        searchParam="all"
-        isSelected={!selected || selected === "all"}
+        searchParam=""
+        isSelected={!selected}
         selectedClassName="border-status-completed text-status-completed"
       />
       <Tab
@@ -55,18 +56,14 @@ const Tab = ({
   selectedClassName: string;
   count?: number;
 }) => {
-  const { urlSearchParams } = useHandleSearchParams();
-  const onclick = () => {
-    urlSearchParams.setWithClear("type", searchParam);
-  };
   return (
-    <div
+    <Link
+      href={`/dashboard/patients/${searchParam}`}
       className={cn(
         "flex cursor-pointer gap-1 border-b-2 p-2 px-4",
         isSelected && selectedClassName,
         count === 0 && "text-muted-foreground pointer-events-none",
       )}
-      onClick={onclick}
     >
       {innerText}
       {count === 0 && (
@@ -74,6 +71,6 @@ const Tab = ({
           0
         </span>
       )}
-    </div>
+    </Link>
   );
 };

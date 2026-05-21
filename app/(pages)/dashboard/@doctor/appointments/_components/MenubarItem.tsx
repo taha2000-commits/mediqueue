@@ -1,7 +1,5 @@
-"use client";
-import { useSearchParams } from "next/navigation";
+import Link from "next/link";
 
-import { useHandleSearchParams } from "@/hooks/useHandleSearchParams";
 import { cn } from "@/lib/utils";
 
 interface MenubarItemProps {
@@ -11,6 +9,7 @@ interface MenubarItemProps {
   className?: string;
   selectedClassName?: string;
   name: string | undefined;
+  selected?: boolean;
 }
 
 export default function MenubarItem({
@@ -20,21 +19,16 @@ export default function MenubarItem({
   selectedClassName,
   innerText,
   name,
+  selected = false,
 }: MenubarItemProps) {
-  const { urlSearchParams } = useHandleSearchParams();
-  const sp = useSearchParams();
-
   return (
-    <button
+    <Link
       className={cn(
         "flex cursor-pointer items-center justify-center gap-2 py-3",
         className,
-        sp.get("status") == name && selectedClassName,
+        selected && selectedClassName,
       )}
-      onClick={() => {
-        if (name) urlSearchParams.setWithClear("status", name);
-        else urlSearchParams.clear();
-      }}
+      href={`/dashboard/appointments/${name ?? ""}`}
     >
       <span className="">{innerText}</span>
       <div
@@ -45,6 +39,6 @@ export default function MenubarItem({
       >
         {count}
       </div>
-    </button>
+    </Link>
   );
 }
