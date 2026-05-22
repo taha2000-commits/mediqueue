@@ -107,7 +107,7 @@ const Request = ({ request }: { request: AppointmentWithPriority }) => {
         <div className="flex items-center gap-3">
           <Button
             variant={"outline"}
-            className="border-tertiary text-tertiary bg-second-background rounded-lg"
+            className="border-tertiary text-tertiary bg-secondary rounded-lg"
             onClick={() => {
               setChosenAppointment(request);
             }}

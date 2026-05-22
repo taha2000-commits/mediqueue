@@ -1,7 +1,7 @@
 import { LucideIcon } from "lucide-react";
 
-import { Database } from "@/lib/supabase/types";
 import { cn } from "@/lib/utils";
+import { Appointment_Status } from "@/types/enums";
 
 interface StatusStatProps {
   title: string;
@@ -9,8 +9,8 @@ interface StatusStatProps {
   icon_bgClass?: string;
   icon_textClass?: string;
   count: number;
-  setStatus: React.Dispatch<Database["public"]["Enums"]["status"] | undefined>;
-  status: Database["public"]["Enums"]["status"] | undefined;
+  setStatus: React.Dispatch<Appointment_Status | undefined>;
+  status: Appointment_Status | undefined;
   icon: LucideIcon;
 }
 
@@ -31,9 +31,7 @@ function SmallStatusStat({
         "hover:bg-background flex w-full cursor-pointer items-center justify-between gap-4 rounded-md p-1 pe-2",
         status == statusText && "bg-background",
       )}
-      onClick={() =>
-        setStatus(statusText as Database["public"]["Enums"]["status"])
-      }
+      onClick={() => setStatus(statusText as Appointment_Status)}
     >
       <div className="flex items-center gap-2">
         <div

@@ -31,7 +31,7 @@ const layout = async ({ children, params }: PatientsLayoutProps) => {
   if (!type || !validTabs.includes(type as ValidTabType)) return notFound();
   return (
     <>
-      <div className="bg-second-background h-fit flex-1 rounded-xl p-4 shadow">
+      <div className="bg-secondary h-fit flex-1 rounded-xl p-4 shadow">
         <PatientsMenubar selected={type} />
         {children}
       </div>

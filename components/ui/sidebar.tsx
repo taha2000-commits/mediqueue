@@ -137,7 +137,7 @@ function SidebarProvider({
           } as React.CSSProperties
         }
         className={cn(
-          "group/sidebar-wrapper has-data-[variant=inset]:bg-second-background flex min-h-svh w-full",
+          "group/sidebar-wrapper has-data-[variant=inset]:bg-secondary flex min-h-svh w-full",
           className,
         )}
         {...props}
@@ -168,7 +168,7 @@ function Sidebar({
       <div
         data-slot="sidebar"
         className={cn(
-          "bg-second-background text-foreground flex h-full w-(--sidebar-width) flex-col",
+          "bg-secondary text-foreground flex h-full w-(--sidebar-width) flex-col",
           className,
         )}
         {...props}
@@ -186,7 +186,7 @@ function Sidebar({
           data-sidebar="sidebar"
           data-slot="sidebar"
           data-mobile="true"
-          className="bg-second-background text-foreground w-(--sidebar-width) p-0 [&>button]:hidden"
+          className="bg-secondary text-foreground w-(--sidebar-width) p-0 [&>button]:hidden"
           style={
             {
               "--sidebar-width": SIDEBAR_WIDTH_MOBILE,
@@ -241,7 +241,7 @@ function Sidebar({
         <div
           data-sidebar="sidebar"
           data-slot="sidebar-inner"
-          className="bg-second-background group-data-[variant=floating]:ring-sidebar flex size-full flex-col group-data-[variant=floating]:rounded-2xl group-data-[variant=floating]:shadow-sm group-data-[variant=floating]:ring-1"
+          className="bg-secondary group-data-[variant=floating]:ring-sidebar flex size-full flex-col group-data-[variant=floating]:rounded-2xl group-data-[variant=floating]:shadow-sm group-data-[variant=floating]:ring-1"
         >
           {children}
         </div>
@@ -291,7 +291,7 @@ function SidebarRail({ className, ...props }: React.ComponentProps<"button">) {
         "hover:after:bg-sidebar absolute inset-y-0 z-20 hidden w-4 transition-all ease-linear group-data-[side=left]:-right-4 group-data-[side=right]:left-0 after:absolute after:inset-y-0 after:start-1/2 after:w-[2px] sm:flex ltr:-translate-x-1/2 rtl:-translate-x-1/2",
         "in-data-[side=left]:cursor-w-resize in-data-[side=right]:cursor-e-resize rtl:in-data-[side=left]:cursor-e-resize rtl:in-data-[side=right]:cursor-w-resize",
         "[[data-side=left][data-state=collapsed]_&]:cursor-e-resize rtl:[[data-side=left][data-state=collapsed]_&]:cursor-w-resize [[data-side=right][data-state=collapsed]_&]:cursor-w-resize rtl:[[data-side=right][data-state=collapsed]_&]:cursor-e-resize",
-        "hover:group-data-[collapsible=offcanvas]:bg-second-background group-data-[collapsible=offcanvas]:translate-x-0 group-data-[collapsible=offcanvas]:after:start-full rtl:group-data-[collapsible=offcanvas]:-translate-x-0",
+        "hover:group-data-[collapsible=offcanvas]:bg-secondary group-data-[collapsible=offcanvas]:translate-x-0 group-data-[collapsible=offcanvas]:after:start-full rtl:group-data-[collapsible=offcanvas]:-translate-x-0",
         "[[data-side=left][data-collapsible=offcanvas]_&]:-end-2",
         "[[data-side=right][data-collapsible=offcanvas]_&]:-start-2",
         className,

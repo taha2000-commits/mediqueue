@@ -24,4 +24,4 @@ export const specializations = [
 
 export const dayIndices = ["0", "1", "2", "3", "4", "5", "6"] as const;
 
-
+export const capacityColors = ["#0EA5E9", "#10B981", "#F59E0B", "#EF4444"];

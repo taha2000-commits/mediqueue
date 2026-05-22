@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { Avatar } from "@/components/ui/avatar";
 import {
   Sidebar,
   SidebarContent,
@@ -11,13 +10,21 @@ import {
   SidebarMenu,
 } from "@/components/ui/sidebar";
 import { Matemasie_Font } from "@/i18n/fonts";
-import { getDoctorUser } from "@/lib/auth/getDoctorUser";
+import { UserRole } from "@/types/user-role";
 
 import SidebarItem from "./SidebarItem";
 type Item = {
   text: string;
   href: string;
 };
+
+const adminSidebarItems: (Item & { sub?: Item[] })[] = [
+  {
+    text: "dashboard",
+    href: "/dashboard",
+  },
+];
+
 const sidebarItems: (Item & { sub?: Item[] })[] = [
   {
     text: "dashboard",
@@ -63,9 +70,8 @@ const sidebarItems: (Item & { sub?: Item[] })[] = [
   },
 ];
 
-export async function AppSidebar() {
-  const doctor = await getDoctorUser();
-
+export async function AppSidebar({ role }: { role: UserRole }) {
+  const items = role == UserRole.Doctor ? sidebarItems : adminSidebarItems;
   return (
     <Sidebar>
       <SidebarHeader className="pt-3">
@@ -92,7 +98,7 @@ export async function AppSidebar() {
       <SidebarContent>
         <SidebarGroup>
           <SidebarMenu>
-            {sidebarItems.map((item, indx) => (
+            {items.map((item, indx) => (
               <SidebarItem key={indx} item={{ ...item, index: indx }} />
             ))}
           </SidebarMenu>
@@ -100,7 +106,7 @@ export async function AppSidebar() {
       </SidebarContent>
       <SidebarFooter>
         <div className="flex items-center gap-2 p-2 pb-5">
-          <Avatar size="lg">
+          {/* <Avatar size="lg">
             <Image
               src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${doctor.avatar}`}
               alt={doctor.name_en}
@@ -113,7 +119,7 @@ export async function AppSidebar() {
             <p className="text-muted-foreground text-xs">
               {doctor.specialization_en}
             </p>
-          </div>
+          </div> */}
         </div>
       </SidebarFooter>
     </Sidebar>

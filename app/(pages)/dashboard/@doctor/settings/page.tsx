@@ -23,7 +23,7 @@ const page = async () => {
         <UpdateDoctorForm doctor={doctor} />
 
         <div className="grid h-fit w-md gap-6">
-          <div className="bg-second-background h-fit rounded-xl p-5 shadow">
+          <div className="bg-secondary h-fit rounded-xl p-5 shadow">
             <div className="mb-5 flex items-center gap-2">
               <Settings size={18} />
               <h2 className="font-semibold">availability settings</h2>
@@ -31,7 +31,7 @@ const page = async () => {
 
             <AvailabilitySettings doctor={doctor} />
           </div>
-          <div className="bg-second-background h-fit rounded-xl p-5 shadow">
+          <div className="bg-secondary h-fit rounded-xl p-5 shadow">
             <h2 className="mb-5 font-semibold">quick actions</h2>
 
             <ChangePassword />

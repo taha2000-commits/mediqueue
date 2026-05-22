@@ -1,6 +1,3 @@
-
 export default function Default() {
-  return (
-    <div>default page</div>
-  )
+  return <div>Admin Dashboard</div>;
 }

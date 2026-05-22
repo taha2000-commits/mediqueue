@@ -1,6 +1,6 @@
 import { Badge } from "@/components/ui/badge";
-import { Database } from "@/lib/supabase/types";
 import { cn } from "@/lib/utils";
+import { Appointment_Status } from "@/types/enums";
 
 const statusClass = {
   pending:
@@ -15,6 +15,8 @@ const statusClass = {
     "bg-status-completed/20 text-status-completed [&_span]:bg-status-completed",
   in_progress:
     "bg-status-in-progress/20 text-status-in-progress [&_span]:bg-status-in-progress",
+  "no-show":
+    "bg-status-no-show/20 text-status-no-show [&_span]:bg-status-no-show",
 };
 
 const StatusBadge = ({
@@ -22,8 +24,8 @@ const StatusBadge = ({
   text,
   className,
 }: {
-  status: Database["public"]["Enums"]["status"];
-  text?: string | Database["public"]["Enums"]["status"];
+  status: Appointment_Status;
+  text?: string | Appointment_Status;
   className?: string;
 }) => {
   const innerText = text

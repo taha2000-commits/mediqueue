@@ -23,7 +23,7 @@ function ActionsSection({
   const btnClass =
     "text-sm text-center border border-border cursor-pointer flex flex-col items-center gap-2 rounded-xl p-5 disabled:text-muted-foreground disabled:bg-muted";
   return (
-    <div className={"bg-second-background rounded-xl p-6 shadow"}>
+    <div className={"bg-secondary rounded-xl p-6 shadow"}>
       <h3 className="text-xl font-semibold">Quick Actions</h3>
       <Separator className="mt-2 mb-4" />
       <div

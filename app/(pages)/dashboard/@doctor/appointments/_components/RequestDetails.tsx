@@ -21,7 +21,6 @@ import RequestActions from "./RequestActions";
 
 export default function RequestDetails() {
   const { chosenAppointment, setChosenAppointment } = useRequestsContext();
-  console.log("chosen", chosenAppointment);
 
   useEffect(() => {
     const set = () => setChosenAppointment(undefined);
@@ -33,7 +32,7 @@ export default function RequestDetails() {
   return (
     <div
       className={cn(
-        "bg-second-background relative ml-3 h-fit w-sm scale-x-100 space-y-4 rounded-xl p-4 opacity-100 shadow transition-all duration-1000",
+        "bg-secondary relative ml-3 h-fit w-sm scale-x-100 space-y-4 rounded-xl p-4 opacity-100 shadow transition-all duration-1000",
         !chosenAppointment &&
           "ml-0 w-0 scale-x-0 space-y-0 p-0 opacity-0 **:scale-0",
       )}

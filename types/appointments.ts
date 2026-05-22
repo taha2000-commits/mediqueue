@@ -1,14 +1,12 @@
 import { Database } from "@/lib/supabase/types";
 
+import { Appointment_Status } from "./enums";
 import { Patient } from "./patients";
 
 export type AppointmentInsert =
   Database["public"]["Tables"]["appointments"]["Insert"];
 export type AppointmentUpdate =
   Database["public"]["Tables"]["appointments"]["Update"];
-
-export type Appointment_Status =
-  Database["public"]["Tables"]["appointments"]["Row"]["status"];
 
 export type AppointmentStats = {
   all_count: number;
@@ -27,7 +25,7 @@ export type AppointmentWithPriority = {
   doctor_id: string;
   date: string;
   time: string;
-  status: Database["public"]["Enums"]["status"];
+  status: Appointment_Status;
   type: Database["public"]["Enums"]["appointment_type"];
   patient_id: string;
   patient: Patient;

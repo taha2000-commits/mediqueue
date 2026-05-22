@@ -8,7 +8,7 @@ import {
 
 import { appointmentsService } from "@/lib/services/appointments";
 
-import Stat from "./Stat";
+import Stat from "../../_components/Stat";
 
 export default async function Stats() {
   const {

@@ -27,7 +27,7 @@ const DoctorQueue = ({
   return (
     <div
       className={cn(
-        "bg-second-background h-fit flex-1 rounded-xl p-6 shadow",
+        "bg-secondary h-fit flex-1 rounded-xl p-6 shadow",
         className,
       )}
     >

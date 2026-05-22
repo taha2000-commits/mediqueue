@@ -18,7 +18,7 @@ function SelectedPatient() {
   return (
     <div
       className={cn(
-        "bg-second-background relative ml-3 h-fit w-sm scale-x-100 space-y-4 rounded-xl p-4 opacity-100 shadow transition-all duration-1000",
+        "bg-secondary relative ml-3 h-fit w-sm scale-x-100 space-y-4 rounded-xl p-4 opacity-100 shadow transition-all duration-1000",
         !selectedPatient && "ml-0 w-0 scale-x-0 p-0 opacity-0 **:scale-0",
       )}
     >
@@ -122,7 +122,7 @@ function SelectedPatient() {
                 asChild
                 variant={"outline"}
                 size={"xs"}
-                className="border-status-completed bg-second-background text-status-completed rounded-sm"
+                className="border-status-completed bg-secondary text-status-completed rounded-sm"
               >
                 <Link href={`/dashboard/history/${selectedPatient.id}`}>
                   view history

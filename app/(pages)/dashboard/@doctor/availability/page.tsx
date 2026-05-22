@@ -33,7 +33,7 @@ const page = async ({ searchParams }: PageProps<"/dashboard/availability">) => {
   return (
     <div className="flex gap-6">
       <div className="grid flex-1 gap-6">
-        <div className="bg-second-background h-fit w-full space-y-5 rounded-xl p-4 shadow">
+        <div className="bg-secondary h-fit w-full space-y-5 rounded-xl p-4 shadow">
           <div className="">
             <h2 className="text-2xl font-bold capitalize">availability</h2>
             <p className="text-muted-foreground">

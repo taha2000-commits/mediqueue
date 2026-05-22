@@ -3,12 +3,12 @@
 import { revalidatePath, updateTag } from "next/cache";
 
 import { createClient } from "@/lib/supabase/server";
-import { Database } from "@/lib/supabase/types";
 import { AppointmentWithPriority } from "@/types/appointments";
+import { Appointment_Status } from "@/types/enums";
 
 export async function changeStatus(
   reqId: number,
-  status: Database["public"]["Enums"]["status"],
+  status: Appointment_Status,
 ): Promise<{
   isError: boolean;
   isSuccess: boolean;

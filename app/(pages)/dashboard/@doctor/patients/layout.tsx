@@ -3,7 +3,7 @@ import { Metadata } from "next";
 
 import { patientsService } from "@/lib/services/patients";
 
-import Stat from "../_components/Stat";
+import Stat from "../../_components/Stat";
 import SelectedPatientProvider from "../_context/SelectedPatientCtx";
 import SelectedPatient from "./_components/SelectedPatient";
 
