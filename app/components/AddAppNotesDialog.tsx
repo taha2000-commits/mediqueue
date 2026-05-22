@@ -210,7 +210,7 @@ function Item({ item, onClick }: ItemProps) {
       key={item}
       type="button"
       onClick={onClick}
-      className="bg-second-background rounded-md px-2 py-1 text-sm"
+      className="bg-secondary rounded-md px-2 py-1 text-sm"
     >
       {item} ×
     </button>

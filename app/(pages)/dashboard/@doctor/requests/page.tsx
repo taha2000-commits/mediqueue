@@ -49,7 +49,7 @@ const page = async ({ searchParams }: PageProps<"/dashboard/requests">) => {
   );
   return (
     <div className="flex">
-      <div className="bg-second-background h-fit w-full space-y-5 rounded-xl p-4 shadow">
+      <div className="bg-secondary h-fit w-full space-y-5 rounded-xl p-4 shadow">
         <div className="">
           <h2 className="text-2xl font-bold capitalize" id="el">
             Appointment Requests

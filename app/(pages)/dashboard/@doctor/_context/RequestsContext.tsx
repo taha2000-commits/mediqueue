@@ -10,8 +10,8 @@ import {
 } from "react";
 import { toast } from "sonner";
 
-import { Database } from "@/lib/supabase/types";
 import { AppointmentWithPriority } from "@/types/appointments";
+import { Appointment_Status } from "@/types/enums";
 
 import { changeStatus } from "../appointments/actions";
 
@@ -22,17 +22,17 @@ interface State {
   >;
   loading: {
     isLoading: boolean;
-    status?: Database["public"]["Enums"]["status"];
+    status?: Appointment_Status;
   };
   setLoading: Dispatch<
     SetStateAction<{
       isLoading: boolean;
-      status?: Database["public"]["Enums"]["status"];
+      status?: Appointment_Status;
     }>
   >;
   changeRequestStatus: (
     id: number,
-    changeTo: Database["public"]["Enums"]["status"],
+    changeTo: Appointment_Status,
   ) => Promise<void> | void;
 }
 
@@ -50,12 +50,10 @@ export const RequestsContextProvider = ({ children }: PropsWithChildren) => {
 
   const [loading, setLoading] = useState<{
     isLoading: boolean;
-    status?: Database["public"]["Enums"]["status"];
+    status?: Appointment_Status;
   }>({ isLoading: false });
   const qClient = useQueryClient();
-  const requestSuccessMsg: Partial<
-    Record<Database["public"]["Enums"]["status"], string>
-  > = {
+  const requestSuccessMsg: Partial<Record<Appointment_Status, string>> = {
     accepted: "Requested Appointment Accepted Successfully",
     cancelled: "Requested Appointment Canceled Successfully",
     rejected: "Requested Appointment Rejected Successfully",
@@ -65,7 +63,7 @@ export const RequestsContextProvider = ({ children }: PropsWithChildren) => {
 
   const changeRequestStatus = async (
     id: number,
-    changeTo: Database["public"]["Enums"]["status"],
+    changeTo: Appointment_Status,
   ) => {
     setLoading({ isLoading: true, status: changeTo });
 

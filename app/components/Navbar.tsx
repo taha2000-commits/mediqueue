@@ -14,7 +14,7 @@ const Navbar = () => {
     <nav
       dir="ltr"
       className={cn(
-        "bg-second-background border-border flex items-center justify-between border-b px-10 py-3",
+        "bg-secondary border-border flex items-center justify-between border-b px-10 py-3",
         enFont.className,
       )}
     >

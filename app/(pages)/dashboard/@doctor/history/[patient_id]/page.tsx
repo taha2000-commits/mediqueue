@@ -6,10 +6,10 @@ import Image from "next/image";
 import { Avatar } from "@/components/ui/avatar";
 import { appointmentsService } from "@/lib/services/appointments";
 import { patientsService } from "@/lib/services/patients";
-import { Database } from "@/lib/supabase/types";
 import { formatTime } from "@/lib/utils";
+import { Appointment_Status } from "@/types/enums";
 
-import Stat from "../../_components/Stat";
+import Stat from "../../../_components/Stat";
 import RequestDetails from "../../appointments/_components/RequestDetails";
 import PatientAppointments from "../_component/PatientAppointments";
 
@@ -62,13 +62,13 @@ const page = async ({ params }: HistoryPageProps) => {
   const appointments =
     await appointmentsService.getPatientAppointments(patient_id);
 
-  function numOfRequests(status?: Database["public"]["Enums"]["status"]) {
+  function numOfRequests(status?: Appointment_Status) {
     if (!status) return appointments.length;
     return appointments.filter((req) => req.status == status).length;
   }
   return (
     <div className="space-y-3">
-      <div className="bg-second-background flex h-fit items-center justify-between rounded-xl p-4 px-10 shadow">
+      <div className="bg-secondary flex h-fit items-center justify-between rounded-xl p-4 px-10 shadow">
         <div className="flex items-center gap-4">
           <Avatar className="h-25 w-25">
             <Image

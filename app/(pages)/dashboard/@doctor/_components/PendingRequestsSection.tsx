@@ -22,7 +22,7 @@ function PendingRequestsSection({
     .slice(0, 5);
 
   return (
-    <div className="bg-second-background flex-1 rounded-xl p-6 shadow">
+    <div className="bg-secondary flex-1 rounded-xl p-6 shadow">
       <h3 className="text-xl font-semibold">Pending requests</h3>
       <p className="text-muted-foreground">
         Please accept the pending requests

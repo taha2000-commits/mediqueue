@@ -1,12 +1,18 @@
 import { format } from "date-fns";
-import { CircleCheckBig, CircleX, Clock3, LucideIcon } from "lucide-react";
+import {
+  CircleCheckBig,
+  CircleX,
+  Clock3,
+  LucideIcon,
+  Users,
+} from "lucide-react";
 
-import { Database } from "@/lib/supabase/types";
 import { cn, formatTime } from "@/lib/utils";
 import { AppointmentWithPriority } from "@/types/appointments";
+import { Appointment_Status } from "@/types/enums";
 
 const StatusIconsAndColors: Record<
-  Database["public"]["Enums"]["status"],
+  Appointment_Status,
   {
     icon: LucideIcon;
     icon_colorClass: string;
@@ -50,6 +56,12 @@ const StatusIconsAndColors: Record<
     icon_bgClass: "bg-status-rejected/10",
     icon_borderClass: "border-status-rejected",
   },
+  "no-show": {
+    icon: Users,
+    icon_colorClass: "text-status-no-show",
+    icon_bgClass: "bg-status-no-show/10",
+    icon_borderClass: "border-status-no-show",
+  },
 };
 
 const PatientAppointment = ({
@@ -71,7 +83,7 @@ const PatientAppointment = ({
         ></div>
         <div
           className={cn(
-            "bg-second-background absolute top-1/2 left-1/2 z-2 -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-full border",
+            "bg-secondary absolute top-1/2 left-1/2 z-2 -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-full border",
             icon_borderClass,
           )}
         >

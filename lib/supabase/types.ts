@@ -60,6 +60,13 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
+            foreignKeyName: "appointments_doctor_id_fkey"
+            columns: ["doctor_id"]
+            isOneToOne: false
+            referencedRelation: "doctors_with_stats"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "appointments_patient_id_fkey"
             columns: ["patient_id"]
             isOneToOne: false
@@ -102,6 +109,13 @@ export type Database = {
             referencedRelation: "doctors"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "doctor_availability_doctor_id_fkey"
+            columns: ["doctor_id"]
+            isOneToOne: false
+            referencedRelation: "doctors_with_stats"
+            referencedColumns: ["id"]
+          },
         ]
       }
       doctors: {
@@ -114,6 +128,7 @@ export type Database = {
           description_en: string | null
           email: string
           id: string
+          is_active: boolean | null
           language: Database["public"]["Enums"]["language"] | null
           name_ar: string
           name_en: string
@@ -131,6 +146,7 @@ export type Database = {
           description_en?: string | null
           email?: string
           id: string
+          is_active?: boolean | null
           language?: Database["public"]["Enums"]["language"] | null
           name_ar?: string
           name_en?: string
@@ -148,6 +164,7 @@ export type Database = {
           description_en?: string | null
           email?: string
           id?: string
+          is_active?: boolean | null
           language?: Database["public"]["Enums"]["language"] | null
           name_ar?: string
           name_en?: string
@@ -231,6 +248,13 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
+            foreignKeyName: "appointments_doctor_id_fkey"
+            columns: ["doctor_id"]
+            isOneToOne: false
+            referencedRelation: "doctors_with_stats"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "appointments_patient_id_fkey"
             columns: ["patient_id"]
             isOneToOne: false
@@ -245,6 +269,50 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      doctors_with_stats: {
+        Row: {
+          appointments_count: number | null
+          avatar: string | null
+          avatar_updated_at: string | null
+          buffer_time: number | null
+          capacity_percent: number | null
+          created_at: string | null
+          description_ar: string | null
+          description_en: string | null
+          email: string | null
+          id: string | null
+          is_active: boolean | null
+          language: Database["public"]["Enums"]["language"] | null
+          name_ar: string | null
+          name_en: string | null
+          patients_count: number | null
+          phone: string | null
+          slot_duration: number | null
+          specialization_ar: string | null
+          specialization_en: string | null
+          today_appointments_count: number | null
+          today_patients_count: number | null
+        }
+        Relationships: []
+      }
+      hospital_stats: {
+        Row: {
+          accepted_requests_count: number | null
+          all_appointments_count: number | null
+          am_doctors_count: number | null
+          doctors_count: number | null
+          doctors_leaves_today_count: number | null
+          doctors_off_today_count: number | null
+          expired_requests_count: number | null
+          high_priority_requests_count: number | null
+          no_show_appointments_count: number | null
+          patients_count: number | null
+          pending_appointments_count: number | null
+          pm_doctors_count: number | null
+          today_appointments_count: number | null
+        }
+        Relationships: []
       }
       patient_last_visits: {
         Row: {
@@ -395,6 +463,13 @@ export type Database = {
         Args: { doctor_uuid: string; filter_date?: string }
         Returns: Json
       }
+      get_last_week_appointments_stats: {
+        Args: never
+        Returns: {
+          appointments_count: number
+          day: string
+        }[]
+      }
       get_patients_stats: { Args: { doctor_uuid: string }; Returns: Json }
       get_requests_sorted: {
         Args: { doctor_uuid: string; sort_order?: string }
@@ -421,6 +496,14 @@ export type Database = {
           isSetofReturn: true
         }
       }
+      get_specialization_appointments_stats: {
+        Args: { p_specialization?: string }
+        Returns: {
+          appointments_count: number
+          specialization: string
+          today_appointments_count: number
+        }[]
+      }
     }
     Enums: {
       appointment_type: "consultation" | "follow_up"
@@ -434,6 +517,7 @@ export type Database = {
         | "cancelled"
         | "completed"
         | "in_progress"
+        | "no-show"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -572,6 +656,7 @@ export const Constants = {
         "cancelled",
         "completed",
         "in_progress",
+        "no-show",
       ],
     },
   },

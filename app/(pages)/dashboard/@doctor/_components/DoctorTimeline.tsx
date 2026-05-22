@@ -52,7 +52,7 @@ function DoctorTimeline({
   );
 
   return (
-    <div className="bg-second-background border-border h-fit flex-1 rounded-2xl border p-6">
+    <div className="bg-secondary border-border h-fit flex-1 rounded-2xl border p-6">
       <h3 className="text-xl font-semibold">Todays Appointments</h3>
       <Separator className="mt-2 mb-4" />
       <div className="capitalize">
@@ -85,7 +85,7 @@ function DoctorTimeline({
 
                     <div
                       className={cn(
-                        "bg-second-background absolute top-1/2 left-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border",
+                        "bg-secondary absolute top-1/2 left-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border",
                         icon_borderClass,
                       )}
                     >

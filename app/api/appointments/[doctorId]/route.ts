@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 
 import { createClient } from "@/lib/supabase/server";
-import { Database } from "@/lib/supabase/types";
 import { getPaginationData } from "@/lib/utils";
 import { AppointmentWithPriority } from "@/types/appointments";
+import { Appointment_Status } from "@/types/enums";
 import { ResponseType } from "@/types/types";
 
 export const GET = async (
@@ -37,7 +37,7 @@ export const GET = async (
   if (priorityParam) query.eq("priority", priorityParam);
   if (statusParam == "expired") query.eq("is_expired", true);
   if (statusParam && statusParam !== "expired")
-    query.eq("status", statusParam as Database["public"]["Enums"]["status"]);
+    query.eq("status", statusParam as Appointment_Status);
 
   if (searchParams.get("limit")) query.range(from, to);
 

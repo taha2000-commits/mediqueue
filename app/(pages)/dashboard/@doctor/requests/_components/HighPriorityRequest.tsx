@@ -17,7 +17,7 @@ export default function HighPriorityRequest({ req }: HighPriorityRequestProps) {
   return (
     <div
       key={req.id}
-      className="border-destructive bg-second-background col-span-1 min-w-sm space-y-4 rounded-xl border p-3"
+      className="border-destructive bg-secondary col-span-1 min-w-sm space-y-4 rounded-xl border p-3"
     >
       <div className="text-destructive flex items-center justify-between font-bold">
         <div className="bg-destructive/10 rounded-lg p-1 px-2 text-sm capitalize">

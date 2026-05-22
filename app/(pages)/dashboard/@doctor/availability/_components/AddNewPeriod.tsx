@@ -140,7 +140,7 @@ const AddNewPeriod = ({ day, period, schedule }: IProps) => {
                   onChange={(val) =>
                     dispatch({ type: "SET_WH_START", payload: val })
                   }
-                  className="bg-second-background flex-1"
+                  className="bg-secondary flex-1"
                 />
                 <span className="normal-case">to</span>
                 <TimePicker
@@ -150,7 +150,7 @@ const AddNewPeriod = ({ day, period, schedule }: IProps) => {
                   onChange={(val) =>
                     dispatch({ type: "SET_WH_END", payload: val })
                   }
-                  className="bg-second-background flex-1"
+                  className="bg-secondary flex-1"
                 />
               </div>
             </FieldGroup>
@@ -166,7 +166,7 @@ const AddNewPeriod = ({ day, period, schedule }: IProps) => {
                   min={workingHours.start}
                   max={workingHours.end}
                   period={periodType}
-                  className="bg-second-background flex-1"
+                  className="bg-secondary flex-1"
                 />
                 <span className="normal-case">to</span>
                 <TimePicker
@@ -178,7 +178,7 @@ const AddNewPeriod = ({ day, period, schedule }: IProps) => {
                   min={workingHours.start}
                   max={workingHours.end}
                   period={periodType}
-                  className="bg-second-background flex-1"
+                  className="bg-secondary flex-1"
                 />
               </div>
             </FieldGroup>

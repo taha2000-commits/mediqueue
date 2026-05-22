@@ -17,7 +17,7 @@ import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import usePatient from "@/hooks/usePatient";
 import usePatientAppointments from "@/hooks/usePatientAppointment";
 import { PRIMARY_COLOR } from "@/lib/constants";
-import { Database } from "@/lib/supabase/types";
+import { Appointment_Status } from "@/types/enums";
 
 import PatientAppointmentsList from "../../../history/_component/PatientAppointmentsList";
 import SmallStatusStat from "../../../history/_component/SmallStatusStat";
@@ -26,7 +26,7 @@ const Modal = () => {
   const { patient_id } = useParams();
   const router = useRouter();
 
-  const [status, setStatus] = useState<Database["public"]["Enums"]["status"]>();
+  const [status, setStatus] = useState<Appointment_Status>();
 
   const { data: patient, isLoading: isLoadingPatient } = usePatient(
     `${patient_id}`,
@@ -37,7 +37,7 @@ const Modal = () => {
     ? patientAppointments?.filter((req) => req.status == status)
     : patientAppointments;
 
-  function numOfRequests(status?: Database["public"]["Enums"]["status"]) {
+  function numOfRequests(status?: Appointment_Status) {
     if (!status) return patientAppointments?.length ?? 0;
     return (
       patientAppointments?.filter((req) => req.status == status).length ?? 0
@@ -63,7 +63,7 @@ const Modal = () => {
         {patient ? (
           <div className="flex gap-2">
             <div className="flex flex-col gap-2">
-              <div className="bg-second-background flex flex-col items-center gap-2 rounded-xl p-3">
+              <div className="bg-secondary flex flex-col items-center gap-2 rounded-xl p-3">
                 <Avatar className="h-17 w-17">
                   <Image
                     src={"/female-avatar.png"}
@@ -85,7 +85,7 @@ const Modal = () => {
                   <span className="">{patient.phone}</span>
                 </div>
               </div>
-              <div className="bg-second-background flex flex-col items-center gap-1 rounded-xl p-2">
+              <div className="bg-secondary flex flex-col items-center gap-1 rounded-xl p-2">
                 <SmallStatusStat
                   title="Total appointments"
                   statusText=""
@@ -128,7 +128,7 @@ const Modal = () => {
                 />
               </div>
             </div>
-            <div className="bg-second-background h-fit flex-1 space-y-5 rounded-xl p-4 shadow">
+            <div className="bg-secondary h-fit flex-1 space-y-5 rounded-xl p-4 shadow">
               <div className="border-b-border border-b pb-5 text-xl font-black">
                 patient appointments
               </div>

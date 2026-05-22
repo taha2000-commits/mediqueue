@@ -11,7 +11,7 @@ export default function PatientAppointments({
   appointments,
 }: PatientAppointmentsProps) {
   return (
-    <div className="bg-second-background h-fit flex-1 space-y-5 rounded-xl p-4 shadow">
+    <div className="bg-secondary h-fit flex-1 space-y-5 rounded-xl p-4 shadow">
       <div className="border-b-border border-b pb-5 text-xl font-black">
         appointments
       </div>

@@ -4,8 +4,8 @@ import { useTranslations } from "next-intl";
 
 import { cn } from "@/lib/utils";
 import { useBookStore } from "@/store/useBookStore";
-import { Appointment_Status } from "@/types/appointments";
 import { Slot_Status } from "@/types/doctor-schedule";
+import { Appointment_Status } from "@/types/enums";
 
 function getColorClassFromStatus(status: Slot_Status | Appointment_Status) {
   switch (status) {
@@ -23,7 +23,7 @@ function getColorClassFromStatus(status: Slot_Status | Appointment_Status) {
       return "bg-status-in-progress";
 
     default:
-      return "bg-second-background";
+      return "bg-secondary";
   }
 }
 

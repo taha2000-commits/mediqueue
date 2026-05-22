@@ -130,7 +130,7 @@ function UpdateDoctorForm({ doctor }: UpdateDoctorFormProps) {
     <form
       action={change}
       onSubmit={onsubmit}
-      className="bg-second-background h- w-full space-y-5 rounded-xl p-6 shadow"
+      className="bg-secondary h- w-full space-y-5 rounded-xl p-6 shadow"
     >
       <div className="">
         <h2 className="text-xl font-bold">profile information</h2>

@@ -22,7 +22,7 @@ async function TodayAppointmentsSec({
     params: { today: true, limit: "5", ...searchParams },
   });
   return (
-    <div className="bg-second-background border-border h-fit flex-1 rounded-2xl border p-6">
+    <div className="bg-secondary border-border h-fit flex-1 rounded-2xl border p-6">
       <h3 className="text-xl font-semibold">Todays Patients</h3>
       <Separator className="mt-2 mb-4" />
       <PatientsTable

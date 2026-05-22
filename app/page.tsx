@@ -34,7 +34,7 @@ export default function Home() {
           </div>
         </div>
         <div className="relative col-span-1 row-span-1 h-full w-full overflow-hidden">
-          <div className="bg-second-background absolute -inset-e-1/4 -top-1/2 aspect-square w-[120%] rounded-full shadow-2xl"></div>
+          <div className="bg-secondary absolute -inset-e-1/4 -top-1/2 aspect-square w-[120%] rounded-full shadow-2xl"></div>
           <div className="border-primary absolute -inset-e-1/3 -top-1/4 aspect-square w-[120%] overflow-hidden rounded-full border-22 shadow-2xl">
             <Image
               src={"/doctors-landing.jpg"}

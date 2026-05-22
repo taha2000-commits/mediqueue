@@ -33,7 +33,7 @@ function WeeklyOverview({ schedule }: WeeklyOverviewProps) {
   });
 
   return (
-    <div className="bg-second-background space-y-3 rounded-xl p-4 shadow">
+    <div className="bg-secondary space-y-3 rounded-xl p-4 shadow">
       <h3 className="font-bold capitalize">weekly overview</h3>
       <div className="flex gap-2">
         {thisWeek.map((day, i) => {

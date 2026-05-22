@@ -93,7 +93,7 @@ export default function TimePicker({
         </PopoverHeader>
 
         <div className="flex items-center gap-3">
-          <div className="bg-second-background scrollbar h-56 overflow-y-auto rounded-2xl p-2">
+          <div className="bg-secondary scrollbar h-56 overflow-y-auto rounded-2xl p-2">
             {hours.map((h) => (
               <button
                 key={h}
@@ -113,7 +113,7 @@ export default function TimePicker({
             ))}
           </div>
           <div className="text-3xl font-bold">:</div>
-          <div className="bg-second-background scrollbar h-56 overflow-y-auto rounded-2xl p-2">
+          <div className="bg-secondary scrollbar h-56 overflow-y-auto rounded-2xl p-2">
             {minutes.map((m) => (
               <button
                 key={m}
@@ -141,7 +141,7 @@ export default function TimePicker({
                 className={`rounded-2xl px-4 py-3 transition ${
                   period.toUpperCase() === p
                     ? "bg-background text-foreground"
-                    : "bg-second-background hover:bg-background"
+                    : "bg-secondary hover:bg-background"
                 }`}
               >
                 {p}
@@ -150,7 +150,7 @@ export default function TimePicker({
           </div>
         </div>
 
-        <div className="bg-second-background mt-1 rounded-2xl p-2 text-center text-xl font-bold">
+        <div className="bg-secondary mt-1 rounded-2xl p-2 text-center text-xl font-bold">
           {time} {period.toUpperCase()}
         </div>
       </PopoverContent>

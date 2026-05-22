@@ -20,7 +20,7 @@ export default function DaysBar() {
           key={i}
           variant={"outline"}
           className={cn(
-            "bg-second-background border-tertiary flex cursor-pointer flex-col items-center justify-center gap-1 rounded-none border border-x-0 p-3 py-10 shadow first:rounded-s-xl first:border-s first:border-e-0 last:rounded-e-xl last:border-s-0 last:border-e",
+            "bg-secondary border-tertiary flex cursor-pointer flex-col items-center justify-center gap-1 rounded-none border border-x-0 p-3 py-10 shadow first:rounded-s-xl first:border-s first:border-e-0 last:rounded-e-xl last:border-s-0 last:border-e",
             +selected === i &&
               "border-tertiary text-tertiary rounded-t-xl border border-b-0 shadow-none",
             +selected == 0 && "first:rounded-es-none first:border-e",

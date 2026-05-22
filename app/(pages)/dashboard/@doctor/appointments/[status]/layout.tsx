@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { Database } from "@/lib/supabase/types";
+import { Appointment_Status } from "@/types/enums";
 
 import RequestsMenubar from "../_components/RequestsMenubar";
 export async function generateMetadata({
@@ -14,7 +14,7 @@ export async function generateMetadata({
   };
 }
 
-type ValidTabType = Database["public"]["Enums"]["status"] | "expired";
+type ValidTabType = Appointment_Status | "expired";
 const validTabs: ValidTabType[] = [
   "accepted",
   "cancelled",

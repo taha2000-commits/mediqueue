@@ -7,16 +7,17 @@
 :root {
   --font-matemasie: "Matemasie", sans-serif;
   --bg-primary: #00607a;
-  --second-background: #ffffff;
+  --secondary: #ffffff;
   --tertiary-background: #00a5d2;
   --background: rgb(238, 238, 238);
   --status-pending: rgb(245, 158, 11);
   --status-accepted: rgb(34, 197, 94);
   --status-upcoming: rgb(156, 163, 175);
   --status-in-progress: rgb(139, 92, 246);
-  --status-completed: rgb(14, 165, 233);
+  --status-completed: #0ea4e946;
   --status-cancelled: rgb(107, 114, 128);
   --status-rejected: rgb(239, 68, 68);
+  --status-no-show: rgb(145, 0, 0);
   --priority-high: rgb(255, 8, 20);
   --priority-medium: rgb(245, 158, 11);
   --priority-low: rgb(16, 185, 129);
@@ -26,7 +27,6 @@
   --card-foreground: rgb(10, 10, 10);
   --primary: #171717;
   --primary-foreground: rgb(250, 250, 250);
-  --secondary: rgb(245, 245, 245);
   --secondary-foreground: rgb(23, 23, 23);
   --muted: rgb(245, 245, 245);
   --muted-foreground: rgb(10, 10, 10, 0.5);
@@ -54,7 +54,7 @@
 
 @theme inline {
   --color-background: var(--background);
-  --color-second-background: var(--second-background);
+  --color-secondary: var(--secondary);
   --color-tertiary: var(--tertiary-background);
   --color-foreground: var(--foreground);
   --color-primary: var(--bg-primary);
@@ -86,11 +86,12 @@
   --color-status-accepted: var(--status-accepted);
   --color-status-pending: var(--status-pending);
   --color-status-rejected: var(--status-rejected);
+  --color-status-no-show: var(--status-no-show);
   --color-status-cancelled: var(--status-cancelled);
   --color-status-completed: var(--status-completed);
   --color-status-in-progress: var(--status-in-progress);
   --color-ring: var(--ring);
-  --color-input: var(--second-background);
+  --color-input: var(--secondary);
   --color-border: var(--border);
   --color-destructive: var(--destructive);
   --color-accent-foreground: var(--accent-foreground);
@@ -138,14 +139,13 @@
 
 .dark {
   --background: #002029;
-  --second-background: #00303d;
+  --secondary: #00303d;
   --foreground: rgb(255, 255, 255);
   --muted-foreground: rgb(255, 255, 255, 0.5);
   --card: rgb(23, 23, 23);
   --card-foreground: rgb(250, 250, 250);
   --primary: rgb(229, 229, 229);
   --primary-foreground: rgb(23, 23, 23);
-  --secondary: rgb(38, 38, 38);
   --secondary-foreground: rgb(250, 250, 250);
   --muted: rgb(38, 38, 38);
   --accent: rgb(38, 38, 38);

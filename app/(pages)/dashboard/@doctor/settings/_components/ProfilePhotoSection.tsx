@@ -37,7 +37,7 @@ const ProfilePhotoSection = ({
         <div className="grid gap-2">
           <Button
             variant={"outline"}
-            className="border-status-completed text-status-completed bg-second-background w-full cursor-pointer rounded-lg"
+            className="border-status-completed text-status-completed bg-secondary w-full cursor-pointer rounded-lg"
             asChild
           >
             <FieldLabel htmlFor="picture">
