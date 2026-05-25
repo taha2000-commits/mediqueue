@@ -6,8 +6,8 @@ import { ColsType } from "@/app/components/table/types";
 import { Avatar } from "@/components/ui/avatar";
 import { Progress } from "@/components/ui/progress";
 import { Separator } from "@/components/ui/separator";
-import { capacityColors } from "@/lib/constants";
 import { doctorsService } from "@/lib/services/doctors";
+import { getCapacityColor } from "@/lib/utils";
 import { DoctorWithStats } from "@/types/doctors";
 
 type ColumnKey =
@@ -18,16 +18,6 @@ type ColumnKey =
   | "capacity_percent"
   | "actions";
 
-function getCapacityColor(capacity: number) {
-  if (capacity <= 30) {
-    return capacityColors[0];
-  } else if (capacity <= 60) {
-    return capacityColors[1];
-  } else if (capacity <= 80) {
-    return capacityColors[2];
-  } else return capacityColors[3];
-}
-
 export default async function DoctorsOverview() {
   const { results: doctors } = await doctorsService.getDoctors({
     limit: "5",
@@ -36,22 +26,27 @@ export default async function DoctorsOverview() {
 
   const cols: ColsType<ColumnKey, DoctorWithStats> = [
     {
+      columnKey: "name_en",
       header: "Doctor",
       accessorKey: "name_en",
       colSpan: 2,
       cell: (item) => <DoctorInfo doctor={item} />,
     },
     {
+      columnKey: "specialization_en",
       header: "Specialty",
       accessorKey: "specialization_en",
       colSpan: 1,
     },
     {
+      columnKey: "today_appointments_count",
       header: "Appointments today",
       accessorKey: "today_appointments_count",
       colSpan: 2,
+      value: (val) => (val as { total: number }).total,
     },
     {
+      columnKey: "capacity_percent",
       header: "capacity",
       accessorKey: "capacity_percent",
       colSpan: 1,
@@ -69,8 +64,8 @@ export default async function DoctorsOverview() {
       ),
     },
     {
+      columnKey: "actions",
       header: "actions",
-      accessorKey: "actions",
       colSpan: 1,
       cell: () => <EllipsisVertical size={16} />,
       align: "center",

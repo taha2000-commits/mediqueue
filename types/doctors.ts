@@ -24,7 +24,15 @@ export type DoctorWithStats = {
   slot_duration: number;
   specialization_ar: string;
   specialization_en: string;
-  today_appointments_count: number;
+  today_appointments_count: {
+    total: number;
+    completed: number;
+    pending: number;
+    accepted: number;
+    cancelled: number;
+    rejected: number;
+    no_show: number;
+  };
   today_patients_count: number;
   capacity_percent: number;
 };

@@ -1,8 +1,15 @@
 "use client";
-import { Search } from "lucide-react";
+
+import { Loader2, Search } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { useDeferredValue, useEffect, useEffectEvent, useState } from "react";
+import {
+  useDeferredValue,
+  useEffect,
+  useEffectEvent,
+  useMemo,
+  useState,
+} from "react";
 
 import { useDirection } from "@/components/ui/direction";
 import {
@@ -11,32 +18,61 @@ import {
   InputGroupInput,
 } from "@/components/ui/input-group";
 import { useHandleSearchParams } from "@/hooks/useHandleSearchParams";
+import { cn } from "@/lib/utils";
 
-export default function SearchInput({ count = 0 }: { count?: number }) {
+type SearchInputProps = {
+  count?: number;
+  className?: string;
+  placeholder?: string;
+};
+
+export default function SearchInput({
+  count = 0,
+  className,
+  placeholder,
+}: SearchInputProps) {
   const t = useTranslations("BookPage");
   const dir = useDirection();
+
   const searchParams = useSearchParams();
-  const [searchText, setSearchText] = useState(
-    searchParams.get("search") || "",
+
+  const initialValue = useMemo(
+    () => searchParams.get("search") ?? "",
+    [searchParams],
   );
 
-  const deferredValue = useDeferredValue(searchText);
+  const [search, setSearch] = useState(initialValue);
+
+  const deferredSearch = useDeferredValue(search);
+
+  const isSearching = search !== deferredSearch;
+
   const { urlSearchParams } = useHandleSearchParams();
+
   const event = useEffectEvent(() => {
-    urlSearchParams.set("search", deferredValue);
+    urlSearchParams.set("search", deferredSearch);
   });
-  useEffect(() => event(), [deferredValue]);
+  useEffect(() => event(), [deferredSearch]);
 
   return (
-    <InputGroup className="max-w-xs" dir={dir}>
+    <InputGroup dir={dir} className={cn("max-w-xs", className)}>
       <InputGroupInput
-        placeholder={t("search") + "..."}
-        defaultValue={searchText}
-        onChange={(e) => setSearchText(e.target.value)}
+        value={search}
+        placeholder={placeholder ?? `${t("search")}...`}
+        onChange={(e) => {
+          if (e.target.value == "") urlSearchParams.delete("search");
+          setSearch(e.target.value);
+        }}
       />
+
       <InputGroupAddon>
-        <Search />
+        {isSearching ? (
+          <Loader2 className="size-4 animate-spin" />
+        ) : (
+          <Search className="size-4" />
+        )}
       </InputGroupAddon>
+
       <InputGroupAddon align="inline-end">
         {count} {t("results")}
       </InputGroupAddon>

@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { patientsService } from "@/lib/services/patients";
+import { statsServices } from "@/lib/services/stats";
 import { cn } from "@/lib/utils";
 
 export default async function PatientsMenubar({
@@ -8,7 +8,7 @@ export default async function PatientsMenubar({
 }: {
   selected?: string;
 }) {
-  const stats = await patientsService.getPatientsStats();
+  const stats = await statsServices.doctor.getPatientsStats();
 
   return (
     <div className="mb-2 flex">
@@ -23,21 +23,21 @@ export default async function PatientsMenubar({
         searchParam="active"
         isSelected={selected === "active"}
         selectedClassName="border-status-accepted text-status-accepted"
-        count={stats.active_count}
+        count={stats?.active_count}
       />
       <Tab
         innerText="new"
         searchParam="new"
         isSelected={selected === "new"}
         selectedClassName="border-status-accepted text-status-accepted"
-        count={stats.new_count}
+        count={stats?.new_count}
       />
       <Tab
         innerText="returning"
         searchParam="returning"
         isSelected={selected === "returning"}
         selectedClassName="border-status-pending text-status-pending"
-        count={stats.returning_count}
+        count={stats?.returning_count}
       />
     </div>
   );

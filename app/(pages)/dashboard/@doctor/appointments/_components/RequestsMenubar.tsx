@@ -1,4 +1,4 @@
-import { appointmentsService } from "@/lib/services/appointments";
+import { statsServices } from "@/lib/services/stats";
 
 import MenubarItem from "./MenubarItem";
 import { SortSelect } from "./SortSelect";
@@ -8,20 +8,24 @@ export default async function RequestsMenubar({
 }: {
   selectedTab?: string;
 }) {
+  const doctor_stats = await statsServices.doctor.getStats();
+
+  if (!doctor_stats) return null;
+
   const {
-    all_count,
-    accepted_count,
-    cancelled_count,
-    pending_count,
-    rejected_count,
-    expired_count,
-  } = await appointmentsService.getAppointmentsStats();
+    total_accepted,
+    total_appointments,
+    total_cancelled,
+    total_pending,
+    total_rejected,
+    total_expired,
+  } = doctor_stats;
 
   return (
     <div className="border-b-border grid grid-cols-8 border-b text-sm capitalize">
       <MenubarItem
         innerText="all requests"
-        count={all_count}
+        count={total_appointments}
         countClassName="bg-tertiary/40 text-tertiary"
         selectedClassName="border-tertiary border-b"
         name={undefined}
@@ -30,7 +34,7 @@ export default async function RequestsMenubar({
 
       <MenubarItem
         innerText="pending"
-        count={pending_count}
+        count={total_pending}
         countClassName="bg-status-pending/40 text-status-pending"
         selectedClassName="border-status-pending border-b"
         name="pending"
@@ -39,7 +43,7 @@ export default async function RequestsMenubar({
 
       <MenubarItem
         innerText="rejected"
-        count={rejected_count}
+        count={total_rejected}
         countClassName="bg-status-rejected/40"
         selectedClassName="border-status-rejected border-b"
         name="rejected"
@@ -48,7 +52,7 @@ export default async function RequestsMenubar({
 
       <MenubarItem
         innerText="accepted"
-        count={accepted_count}
+        count={total_accepted}
         countClassName="bg-status-accepted/40 text-status-accepted"
         selectedClassName="border-status-accepted border-b"
         name="accepted"
@@ -57,7 +61,7 @@ export default async function RequestsMenubar({
 
       <MenubarItem
         innerText="cancelled"
-        count={cancelled_count}
+        count={total_cancelled}
         countClassName="bg-muted-foreground/40 text-muted-foreground"
         selectedClassName="border-muted-foreground border-b"
         name="cancelled"
@@ -66,7 +70,7 @@ export default async function RequestsMenubar({
 
       <MenubarItem
         innerText="expired"
-        count={expired_count}
+        count={total_expired}
         countClassName="bg-destructive/40 text-destructive"
         selectedClassName="border-destructive border-b"
         name="expired"

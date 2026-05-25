@@ -4,7 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 
 export async function GET(
   _: NextRequest,
-  ctx: RouteContext<"/api/[doctor_id]/patients/stats">,
+  ctx: RouteContext<"/api/stats/[doctor_id]/patients">,
 ) {
   const { doctor_id: doctor_uuid } = await ctx.params;
   const supabase = await createClient();

@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 
+import SortButton from "./SortButton";
 import { ColsType } from "./types";
 
 type TableHeaderProps<ColumnKey, Item> = {
@@ -30,16 +31,19 @@ function TableHeader<ColumnKey, Item>({
               ? "justify-end"
               : "justify-start";
         return (
-          isColumnVisible(col.accessorKey) && (
+          isColumnVisible(col.columnKey) && (
             <div
               key={i}
               className={cn(
-                "flex items-center capitalize",
+                "flex items-center gap-2 capitalize",
                 colSpanClass,
                 alignClass,
               )}
             >
-              {col.header}
+              <span>{col.header}</span>
+              {col.isSorted && (
+                <SortButton param={`${col.columnKey}`} onSort={col.onSort} />
+              )}
             </div>
           )
         );

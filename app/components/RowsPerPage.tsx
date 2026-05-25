@@ -18,6 +18,7 @@ export const RowsPerPage = ({ count }: { count: number }) => {
         onValueChange={(value) => {
           if (+value <= count) urlSearchParams.set("limit", value);
         }}
+        disabled={count < 10}
       >
         <SelectTrigger
           className="border-muted-foreground rounded-lg"

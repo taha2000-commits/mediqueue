@@ -1,31 +1,41 @@
 import { Separator } from "@/components/ui/separator";
-import { hospitalService } from "@/lib/services/hospital";
+import { statsServices } from "@/lib/services/stats";
+import { StatsPeriod } from "@/types/stats";
 
 import PieChartWithCustomizedLabel from "./AppointmentsPieCharts";
 
 export const COLORS = ["#FFBB28", "#FF8042", "#8884d8", "#82ca9d", "#ffc658"];
 
-export default async function AppointmentsByDepartment() {
-  const { all_appointments_count } = await hospitalService.getStats();
+export default async function AppointmentsByDepartment({
+  searchParams,
+}: {
+  searchParams: Record<string, string | string[] | undefined>;
+}) {
+  const period =
+    !searchParams.period || searchParams.period == "all_time"
+      ? undefined
+      : (searchParams.period as StatsPeriod);
 
-  const specializationAppointmentsStats =
-    await hospitalService.getSpecializationAppointmentsStats();
+  const { total_appointments } = await statsServices.hospital.getStats(period);
 
-  const sortedStats = specializationAppointmentsStats.toSorted(
-    (a, b) => b.appointments_count - a.appointments_count,
+  const specializationStats =
+    await statsServices.hospital.getSpecializationsStats({
+      period: period,
+    });
+
+  const sortedStats = specializationStats.toSorted(
+    (a, b) => b.total_appointments - a.total_appointments,
   );
 
   const topStats = sortedStats.slice(0, 5);
 
   const otherAppointmentsCount = sortedStats
     .slice(5)
-    .reduce((total, { appointments_count }) => total + appointments_count, 0);
+    .reduce((total, { total_appointments }) => total + total_appointments, 0);
 
   const chartData = topStats.map((stat, i) => ({
     name: stat.specialization,
-    value: +((stat.appointments_count / all_appointments_count) * 100).toFixed(
-      0,
-    ),
+    value: +((stat.total_appointments / total_appointments) * 100).toFixed(0),
     color: COLORS[i],
   }));
 
@@ -33,14 +43,14 @@ export default async function AppointmentsByDepartment() {
     <div className="bg-secondary max-w-lg flex-1 rounded-xl p-4 shadow">
       <h3 className="text-xl font-semibold">
         Appointments By Department (
-        <span className="text-tertiary">{all_appointments_count}</span>)
+        <span className="text-tertiary">{total_appointments}</span>)
       </h3>
       <Separator className="mt-2 mb-4" />
       <div className="flex items-center gap-6">
         <PieChartWithCustomizedLabel data={chartData} />
         <div className="flex flex-col gap-2">
           {[
-            { name: "all", value: all_appointments_count, color: "#0088FE" },
+            { name: "all", value: total_appointments, color: "#0088FE" },
             ...chartData,
             { name: "Other", value: otherAppointmentsCount, color: "#ccc" },
           ].map((stat) => (

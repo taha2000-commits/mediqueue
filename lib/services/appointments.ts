@@ -1,7 +1,4 @@
-import {
-  AppointmentStats,
-  AppointmentWithPriority,
-} from "@/types/appointments";
+import { AppointmentWithPriority } from "@/types/appointments";
 import { ResponseType } from "@/types/types";
 
 import { fetchData } from "../api/fetch";
@@ -27,20 +24,7 @@ export const appointmentsService = {
     });
     return data;
   },
-  async getAppointmentsStats(filter_date?: string) {
-    const user = await getUser();
-    const data = await fetchData<AppointmentStats>({
-      url: `/appointments/${user?.id}/stats`,
-      init: {
-        next: {
-          tags: ["appointments-stats", `${filter_date}`],
-        },
-      },
-      params: { date: filter_date },
-    });
 
-    return data;
-  },
   async getRequests(params?: {
     params: Record<string, string | string[] | undefined>;
   }) {

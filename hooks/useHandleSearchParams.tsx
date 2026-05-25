@@ -12,7 +12,6 @@ export function useHandleSearchParams() {
     (name: string, value: string) => {
       const params = new URLSearchParams(searchParams.toString());
       params.set(name, value);
-
       return params.toString();
     },
     [searchParams],
@@ -20,14 +19,19 @@ export function useHandleSearchParams() {
 
   return {
     urlSearchParams: {
-      clear: () => {
-        router.push(pathname);
-      },
       set: (name: string, value: string) => {
         router.push(pathname + "?" + createQueryString(name, value));
       },
       setWithClear: (name: string, value: string) => {
         router.push(pathname + "?" + name + "=" + value);
+      },
+      delete: (name: string) => {
+        const params = new URLSearchParams(searchParams.toString());
+        params.delete(name);
+        router.push(pathname + "?" + params.toString());
+      },
+      clear: () => {
+        router.push(pathname);
       },
     },
   };

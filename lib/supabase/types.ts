@@ -270,6 +270,18 @@ export type Database = {
           },
         ]
       }
+      doctors_stats: {
+        Row: {
+          active_doctors: number | null
+          am_doctors_count: number | null
+          doctors_leaves_today_count: number | null
+          doctors_off_today_count: number | null
+          doctors_per_specialization: Json | null
+          pm_doctors_count: number | null
+          total_doctors: number | null
+        }
+        Relationships: []
+      }
       doctors_with_stats: {
         Row: {
           appointments_count: number | null
@@ -291,7 +303,7 @@ export type Database = {
           slot_duration: number | null
           specialization_ar: string | null
           specialization_en: string | null
-          today_appointments_count: number | null
+          today_appointments_count: Json | null
           today_patients_count: number | null
         }
         Relationships: []
@@ -463,6 +475,23 @@ export type Database = {
         Args: { doctor_uuid: string; filter_date?: string }
         Returns: Json
       }
+      get_doctor_stats: {
+        Args: {
+          p_doctor_id?: string
+          p_end_date?: string
+          p_period?: string
+          p_start_date?: string
+        }
+        Returns: Json
+      }
+      get_doctors_stats: {
+        Args: { p_end_date?: string; p_period?: string; p_start_date?: string }
+        Returns: Json
+      }
+      get_hospital_stats: {
+        Args: { p_end_date?: string; p_period?: string; p_start_date?: string }
+        Returns: Json
+      }
       get_last_week_appointments_stats: {
         Args: never
         Returns: {
@@ -497,12 +526,8 @@ export type Database = {
         }
       }
       get_specialization_appointments_stats: {
-        Args: { p_specialization?: string }
-        Returns: {
-          appointments_count: number
-          specialization: string
-          today_appointments_count: number
-        }[]
+        Args: { p_period?: string; p_specialization?: string }
+        Returns: Json
       }
     }
     Enums: {
