@@ -2,9 +2,9 @@ import { PatientStats } from "@/types/patients";
 import {
   DoctorsStats,
   DoctorStats,
-  StatsPeriod,
   HospitalAppointmentsStats,
   HospitalSpecializationsStats,
+  StatsPeriod,
 } from "@/types/stats";
 
 import { fetchData } from "../api/fetch";

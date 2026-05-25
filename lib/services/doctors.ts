@@ -1,4 +1,4 @@
-import { DoctorsStats, DoctorWithStats } from "@/types/doctors";
+import { DoctorWithStats } from "@/types/doctors";
 import { ResponseType } from "@/types/types";
 
 import { fetchData } from "../api/fetch";

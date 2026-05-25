@@ -1,7 +1,7 @@
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
 import { apiFetch } from "@/lib/api/apiFetch";
-import { StatsPeriod, HospitalAppointmentsStats } from "@/types/stats";
+import { HospitalAppointmentsStats,StatsPeriod } from "@/types/stats";
 
 const useHospitalAppointmentsStats = (period: StatsPeriod) => {
   return useQuery({
