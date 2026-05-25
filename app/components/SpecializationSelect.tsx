@@ -21,6 +21,7 @@ const SpecializationSelect = ({
   disabled = false,
   onChange = () => {},
   className = "",
+  options,
 }: {
   defaultValue?: string;
   use_search_params?: boolean;
@@ -28,6 +29,7 @@ const SpecializationSelect = ({
   disabled?: boolean;
   onChange?: (value: string) => void;
   className?: string;
+  options?: { text: string; value: string; count: number }[];
 }) => {
   const searchParams = useSearchParams();
   const { urlSearchParams } = useHandleSearchParams();
@@ -43,10 +45,13 @@ const SpecializationSelect = ({
   const specializationsParam =
     searchParams.get("specialization") || dVal || undefined;
 
-  const selectOpts = specializations
-    .map((sp) => sp[dir == "rtl" || lang == "ar" ? "ar" : "en"])
-    .sort();
-  console.log(use_search_params ? specializationsParam : dVal);
+  const selectOpts =
+    options ??
+    specializations.map((sp) => ({
+      text: sp[dir == "rtl" || lang == "ar" ? "ar" : "en"],
+      value: sp[dir == "rtl" || lang == "ar" ? "ar" : "en"],
+      count: 0,
+    }));
 
   return (
     <Select
@@ -64,8 +69,15 @@ const SpecializationSelect = ({
       </SelectTrigger>
       <SelectContent>
         {selectOpts.map((opt, i) => (
-          <SelectItem key={i} value={opt}>
-            {opt}
+          <SelectItem
+            key={i}
+            value={opt.value}
+            className="flex items-center justify-between"
+          >
+            <span>{opt.text}</span>
+            {opt.count > 0 && (
+              <span className="bg-secondary rounded-md px-2">{opt.count}</span>
+            )}
           </SelectItem>
         ))}
       </SelectContent>

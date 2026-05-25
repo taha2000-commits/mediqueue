@@ -30,9 +30,15 @@ const FiltersBar = () => {
               key={i}
               className="bg-primary/20 flex items-center gap-4 rounded-xl p-2 text-sm [&_.icon]:hover:text-white [&_.icon]:dark:hover:text-white"
             >
-              <span className="">
-                {param}: {value}
-              </span>
+              <p className="capitalize">
+                <span>{param}:</span>{" "}
+                <span>{value.split(".")[0].split("_").join(" ")}</span>
+                {param == "sort" && (
+                  <span className="bg-primary/60 ms-2 rounded-md p-1 text-xs text-white uppercase">
+                    {value.split(".")[1]}
+                  </span>
+                )}
+              </p>
               <X
                 size={16}
                 onClick={() => clearFilter(param)}

@@ -1,8 +1,8 @@
-import { DoctorsStats } from "@/types/doctors";
 import { PatientStats } from "@/types/patients";
 import {
+  DoctorsStats,
   DoctorStats,
-  DoctorStatsPeriod,
+  StatsPeriod,
   HospitalAppointmentsStats,
   HospitalSpecializationsStats,
 } from "@/types/stats";
@@ -12,7 +12,7 @@ import { getUser } from "../auth/getUser";
 
 export const statsServices = {
   hospital: {
-    async getStats(period?: DoctorStatsPeriod) {
+    async getStats(period?: StatsPeriod) {
       const res = await fetchData<HospitalAppointmentsStats>({
         url: "/stats/hospital",
         init: {

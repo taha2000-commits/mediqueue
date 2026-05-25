@@ -1,11 +1,26 @@
 "use client";
 
-import CustomSelect from "@/app/components/CustomSelect";
 import SearchInput from "@/app/components/SearcInput";
+import SpecializationSelect from "@/app/components/SpecializationSelect";
+import { specializations } from "@/lib/constants";
 
 import DoctorStatusSelect from "./DoctorStatusSelect";
 
-const ControlBar = ({ count }: { count: number }) => {
+const ControlBar = ({
+  count,
+  specializationOptions,
+}: {
+  count: number;
+  specializationOptions?: {
+    value: string;
+    text: string;
+    count: number;
+  }[];
+}) => {
+  const opts =
+    specializationOptions ??
+    specializations.map((sp) => ({ text: sp.en, value: sp.en, count: 0 }));
+
   return (
     <div className="flex w-full gap-4">
       <div className="bg-secondary rounded-xl p-4">
@@ -16,18 +31,10 @@ const ControlBar = ({ count }: { count: number }) => {
         />
       </div>
       <div className="bg-secondary rounded-xl p-4">
-        <CustomSelect
-          options={[
-            { text: "Dermatology", value: "Dermatology" },
-            { text: "Cardiology", value: "Cardiology" },
-            { text: "Neurology", value: "Neurology" },
-          ]}
-          placeholder="specialization"
-          use_search_params={{
-            param: "specialization",
-          }}
-          defaultValue=""
+        <SpecializationSelect
+          options={opts}
           className="border-border bg-background min-w-xs"
+          defaultValue=""
         />
       </div>
       <div className="bg-secondary min-w-xs rounded-xl p-4">

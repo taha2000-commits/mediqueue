@@ -3,12 +3,12 @@
 import { useState } from "react";
 
 import useHospitalAppointmentsStats from "@/hooks/useHospitalAppointmentsStats";
-import { DoctorStatsPeriod } from "@/types/stats";
+import { StatsPeriod } from "@/types/stats";
 
 import AppointmentsStatsAreaChart from "./AppointmentsStatsAreaChart";
 
 const TotalAppointmentsInRange = () => {
-  const periodState = useState<DoctorStatsPeriod>("this_week");
+  const periodState = useState<StatsPeriod>("this_week");
 
   const { data, isPlaceholderData } = useHospitalAppointmentsStats(
     periodState[0],

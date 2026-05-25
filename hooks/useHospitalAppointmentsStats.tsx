@@ -1,9 +1,9 @@
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
 import { apiFetch } from "@/lib/api/apiFetch";
-import { DoctorStatsPeriod, HospitalAppointmentsStats } from "@/types/stats";
+import { StatsPeriod, HospitalAppointmentsStats } from "@/types/stats";
 
-const useHospitalAppointmentsStats = (period: DoctorStatsPeriod) => {
+const useHospitalAppointmentsStats = (period: StatsPeriod) => {
   return useQuery({
     queryKey: ["hospital-appointments-stats", period],
     queryFn: async () => {

@@ -2,12 +2,12 @@
 import { useState } from "react";
 
 import useHospitalAppointmentsStats from "@/hooks/useHospitalAppointmentsStats";
-import { DoctorStatsPeriod } from "@/types/stats";
+import { StatsPeriod } from "@/types/stats";
 
 import AppointmentsStatsLineChart from "./AppointmentsStatsLineChart";
 
 const AppointmentsStatusStats = () => {
-  const periodState = useState<DoctorStatsPeriod>("this_week");
+  const periodState = useState<StatsPeriod>("this_week");
   const { data, isPlaceholderData, isLoading } = useHospitalAppointmentsStats(
     periodState[0],
   );

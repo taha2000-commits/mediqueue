@@ -1,6 +1,6 @@
 import { Separator } from "@/components/ui/separator";
 import { statsServices } from "@/lib/services/stats";
-import { DoctorStatsPeriod } from "@/types/stats";
+import { StatsPeriod } from "@/types/stats";
 
 import PieChartWithCustomizedLabel from "./AppointmentsPieCharts";
 
@@ -14,7 +14,7 @@ export default async function AppointmentsByDepartment({
   const period =
     !searchParams.period || searchParams.period == "all_time"
       ? undefined
-      : (searchParams.period as DoctorStatsPeriod);
+      : (searchParams.period as StatsPeriod);
 
   const { total_appointments } = await statsServices.hospital.getStats(period);
 

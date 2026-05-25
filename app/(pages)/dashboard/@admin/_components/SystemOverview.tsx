@@ -10,7 +10,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { statsServices } from "@/lib/services/stats";
 import { cn } from "@/lib/utils";
-import { DoctorStatsPeriod } from "@/types/stats";
+import { StatsPeriod } from "@/types/stats";
 
 export default async function SystemOverview({
   searchParams,
@@ -26,7 +26,7 @@ export default async function SystemOverview({
   } = await statsServices.hospital.getStats(
     !searchParams.period || searchParams.period == "all_time"
       ? undefined
-      : (searchParams.period as DoctorStatsPeriod),
+      : (searchParams.period as StatsPeriod),
   );
 
   return (

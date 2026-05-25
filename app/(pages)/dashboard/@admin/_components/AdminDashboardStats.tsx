@@ -1,7 +1,7 @@
 import { Users } from "lucide-react";
 
 import { statsServices } from "@/lib/services/stats";
-import { DoctorStatsPeriod } from "@/types/stats";
+import { StatsPeriod } from "@/types/stats";
 
 import Stat from "../../_components/Stat";
 
@@ -15,7 +15,7 @@ const AdminDashboardStats = async ({
     await statsServices.hospital.getStats(
       !searchParams.period || searchParams.period == "all_time"
         ? undefined
-        : (searchParams.period as DoctorStatsPeriod),
+        : (searchParams.period as StatsPeriod),
     );
 
   return (

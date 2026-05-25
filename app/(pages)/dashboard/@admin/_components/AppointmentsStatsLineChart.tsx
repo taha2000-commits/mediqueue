@@ -5,7 +5,7 @@ import { HashLoader } from "react-spinners";
 import CustomSelect from "@/app/components/CustomSelect";
 import { Separator } from "@/components/ui/separator";
 import { PRIMARY_COLOR } from "@/lib/constants";
-import { DoctorStatsDate, DoctorStatsPeriod } from "@/types/stats";
+import { DoctorStatsDate, StatsPeriod } from "@/types/stats";
 
 import AppointmentsLineChart from "./AppointmentsLineChart";
 
@@ -16,7 +16,7 @@ const AppointmentsStatsLineChart = ({
 }: {
   data: { total_appointments: number; dates: DoctorStatsDate[] };
   isLoading: boolean;
-  periodState: [DoctorStatsPeriod, Dispatch<SetStateAction<DoctorStatsPeriod>>];
+  periodState: [StatsPeriod, Dispatch<SetStateAction<StatsPeriod>>];
 }) => {
   const [period, setPeriod] = periodState;
 
@@ -57,7 +57,7 @@ const AppointmentsStatsLineChart = ({
           placeholder="period"
           defaultValue={period}
           className="w-fit rounded-lg"
-          onValueChange={(val) => setPeriod(val as DoctorStatsPeriod)}
+          onValueChange={(val) => setPeriod(val as StatsPeriod)}
         />
       </div>
 

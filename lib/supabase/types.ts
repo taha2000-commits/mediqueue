@@ -484,6 +484,10 @@ export type Database = {
         }
         Returns: Json
       }
+      get_doctors_stats: {
+        Args: { p_end_date?: string; p_period?: string; p_start_date?: string }
+        Returns: Json
+      }
       get_hospital_stats: {
         Args: { p_end_date?: string; p_period?: string; p_start_date?: string }
         Returns: Json

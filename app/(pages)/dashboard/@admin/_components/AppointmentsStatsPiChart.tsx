@@ -6,7 +6,7 @@ import CustomSelect from "@/app/components/CustomSelect";
 import { Separator } from "@/components/ui/separator";
 import useDoctorStats from "@/hooks/useDoctorStats";
 import { PRIMARY_COLOR, status_colors } from "@/lib/constants";
-import { DoctorStatsPeriod } from "@/types/stats";
+import { StatsPeriod } from "@/types/stats";
 
 import PieChartWithCustomizedLabel from "./AppointmentsPieCharts";
 
@@ -15,7 +15,7 @@ export default function AppointmentsStatsPiChart({
 }: {
   doctor_id: string;
 }) {
-  const [period, setPeriod] = useState<DoctorStatsPeriod>("this_week");
+  const [period, setPeriod] = useState<StatsPeriod>("this_week");
 
   const { data: doctor_stats, isPlaceholderData } = useDoctorStats({
     doctor_id,
@@ -76,7 +76,7 @@ export default function AppointmentsStatsPiChart({
           placeholder="period"
           defaultValue={period}
           className="w-fit rounded-lg"
-          onValueChange={(val) => setPeriod(val as DoctorStatsPeriod)}
+          onValueChange={(val) => setPeriod(val as StatsPeriod)}
         />
       </div>
 

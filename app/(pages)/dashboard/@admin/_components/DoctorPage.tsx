@@ -4,16 +4,25 @@ import Image from "next/image";
 import StatusBadge from "@/app/components/StatusBadge";
 import { Avatar } from "@/components/ui/avatar";
 import { DoctorWithStats } from "@/types/doctors";
+import { PatientStats } from "@/types/patients";
+import { DoctorStats } from "@/types/stats";
 
 import AppointmentsStatsPiChart from "./AppointmentsStatsPiChart";
 import DoctorAppointmentsStatusStats from "./DoctorAppointmentsStatusStats";
+import DoctorPageStats from "./DoctorPageStats";
 
-const DoctorPage = ({
+const DoctorPage = async ({
   doctor_id,
   doctor,
+  stats,
+  stats_variant = "md",
+  patients_stats,
 }: {
   doctor_id: string;
   doctor: DoctorWithStats | undefined;
+  stats: DoctorStats | undefined;
+  patients_stats: PatientStats | undefined;
+  stats_variant?: "lg" | "md" | "sm";
 }) => {
   return (
     <div className="space-y-3">
@@ -50,6 +59,12 @@ const DoctorPage = ({
           </div>
         </div>
       </div>
+      <DoctorPageStats
+        stats={stats}
+        capacity={doctor?.capacity_percent}
+        variant={stats_variant}
+        patients_stats={patients_stats}
+      />
       <div className="grid grid-cols-2 gap-3">
         <div className="flex-1 space-y-3">
           <div className="bg-secondary h-35 min-h-35 space-y-1 overflow-y-auto rounded-xl p-3 shadow">
@@ -74,9 +89,7 @@ const DoctorPage = ({
             <div className="grid grid-cols-2 items-center gap-2">
               <h6 className="text-muted-foreground">capacity</h6>
               <p className="font-semibold">
-                {doctor?.capacity_percent
-                  ? doctor?.capacity_percent.toFixed(0) + "%"
-                  : "-"}
+                {doctor?.capacity_percent.toFixed(2) + "%"}
               </p>
             </div>
             <div className="grid grid-cols-2 items-center gap-2">

@@ -9,7 +9,7 @@ export type DoctorStatsDate = {
   no_show: number;
 };
 
-export type DoctorStatsPeriod = "today" | "this_week" | "this_month";
+export type StatsPeriod = "today" | "this_week" | "this_month";
 
 export type DoctorStats = {
   doctor_id: string | null;
@@ -23,7 +23,7 @@ export type DoctorStats = {
   total_no_show: number;
   total_expired: number;
 
-  period: DoctorStatsPeriod;
+  period: StatsPeriod;
 
   range: {
     start: string;
@@ -54,4 +54,14 @@ export type HospitalSpecializationsStats = {
     rejected: number;
     no_show: number;
   };
+};
+
+export type DoctorsStats = {
+  active_doctors: number;
+  am_doctors_count: number;
+  doctors_leaves_today_count: number;
+  doctors_off_today_count: number;
+  doctors_per_specialization: { specialization: string; count: number }[];
+  pm_doctors_count: number;
+  total_doctors: number;
 };

@@ -36,13 +36,3 @@ export type DoctorWithStats = {
   today_patients_count: number;
   capacity_percent: number;
 };
-
-export type DoctorsStats = {
-  active_doctors: number;
-  am_doctors_count: number;
-  doctors_leaves_today_count: number;
-  doctors_off_today_count: number;
-  doctors_per_specialization: { specialization: string; count: number }[];
-  pm_doctors_count: number;
-  total_doctors: number;
-};
