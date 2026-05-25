@@ -36,7 +36,7 @@ function PatientRow<ColumnKey, Item>({
               ? "justify-end"
               : "justify-start";
         return (
-          isColumnVisible(col.accessorKey) && (
+          isColumnVisible(col.columnKey) && (
             <div
               key={i}
               className={cn(
@@ -48,9 +48,7 @@ function PatientRow<ColumnKey, Item>({
               {col.cell
                 ? col.cell(item)
                 : col.value
-                  ? col.value(
-                      item[col.accessorKey as keyof Item] as string | number,
-                    )
+                  ? col.value(item[col.accessorKey as keyof Item])
                   : (item[col.accessorKey as keyof Item] as string)
                     ? (item[col.accessorKey as keyof Item] as string)
                     : "-"}

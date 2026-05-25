@@ -1,5 +1,8 @@
 "use client";
 
+import { useSearchParams } from "next/navigation";
+import { useMemo } from "react";
+
 import {
   Select,
   SelectContent,
@@ -7,44 +10,79 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useHandleSearchParams } from "@/hooks/useHandleSearchParams";
 import { cn } from "@/lib/utils";
+
+type Option = {
+  value: string;
+  text: string;
+};
+
 interface CustomSelectProps {
   name?: string;
-  defaultValue: string;
-  onValueChange?(value: string): void;
   placeholder: string;
+
   className?: string;
-  options: { value: string; text: string }[];
+
+  defaultValue?: string;
+
+  options: Option[];
+
+  onValueChange?(value: string): void;
+
+  use_search_params?: {
+    param: string;
+  };
 }
 
-function CustomSelect({
-  className = "",
-  defaultValue,
-  options,
-  placeholder,
+export default function CustomSelect({
   name,
+  placeholder,
+  className,
+  options,
+  defaultValue = "",
   onValueChange,
+  use_search_params,
 }: CustomSelectProps) {
+  const searchParams = useSearchParams();
+
+  const { urlSearchParams } = useHandleSearchParams();
+
+  const value = useMemo(() => {
+    if (!use_search_params) {
+      return defaultValue;
+    }
+
+    return searchParams.get(use_search_params.param) ?? "";
+  }, [defaultValue, searchParams, use_search_params]);
+
+  const handleChange = (value: string) => {
+    if (use_search_params?.param) {
+      urlSearchParams.set(use_search_params.param, value);
+    }
+
+    onValueChange?.(value);
+  };
+
   return (
-    <Select
-      name={name}
-      defaultValue={defaultValue}
-      onValueChange={onValueChange}
-    >
+    <Select name={name} value={value} onValueChange={handleChange}>
       <SelectTrigger
-        className={cn((className = "border-ring w-full border"), className)}
+        className={cn("border-ring w-full border capitalize", className)}
       >
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>
+
       <SelectContent>
-        {options.map((opt) => (
-          <SelectItem key={opt.value} value={opt.value}>
-            {opt.text}
+        {options.map((option) => (
+          <SelectItem
+            key={option.value}
+            value={option.value}
+            className="capitalize"
+          >
+            {option.text}
           </SelectItem>
         ))}
       </SelectContent>
     </Select>
   );
 }
-
-export default CustomSelect;

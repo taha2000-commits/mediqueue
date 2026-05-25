@@ -1,7 +1,7 @@
 import { Calendar, Moon, ShieldOff, Sun } from "lucide-react";
 
 import { Separator } from "@/components/ui/separator";
-import { hospitalService } from "@/lib/services/hospital";
+import { statsServices } from "@/lib/services/stats";
 
 const ScheduleOverview = async () => {
   const {
@@ -9,7 +9,7 @@ const ScheduleOverview = async () => {
     pm_doctors_count,
     doctors_off_today_count,
     doctors_leaves_today_count,
-  } = await hospitalService.getStats();
+  } = await statsServices.hospital.getDoctorsStats();
 
   return (
     <div className="bg-secondary max-w-lg flex-1 rounded-xl p-4 shadow">

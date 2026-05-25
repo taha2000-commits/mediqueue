@@ -12,6 +12,8 @@ import {
 import { Locale } from "next-intl";
 import { twMerge } from "tailwind-merge";
 
+import { capacityColors } from "./constants";
+
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
@@ -221,3 +223,13 @@ export function getRemainingTime(appointmentDatetime: string) {
 
 export const isExpired = (appointmentDatetime: string) =>
   isBefore(appointmentDatetime, new Date());
+
+export function getCapacityColor(capacity: number) {
+  if (capacity <= 30) {
+    return capacityColors[0];
+  } else if (capacity <= 60) {
+    return capacityColors[1];
+  } else if (capacity <= 80) {
+    return capacityColors[2];
+  } else return capacityColors[3];
+}

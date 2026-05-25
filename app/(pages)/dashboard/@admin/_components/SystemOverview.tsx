@@ -1,5 +1,6 @@
 import {
   CheckSquare,
+  File,
   GitPullRequest,
   LucideIcon,
   ShieldOff,
@@ -7,30 +8,46 @@ import {
 } from "lucide-react";
 
 import { Separator } from "@/components/ui/separator";
-import { hospitalService } from "@/lib/services/hospital";
+import { statsServices } from "@/lib/services/stats";
 import { cn } from "@/lib/utils";
+import { DoctorStatsPeriod } from "@/types/stats";
 
-export default async function SystemOverview() {
+export default async function SystemOverview({
+  searchParams,
+}: {
+  searchParams: Record<string, string | string[] | undefined>;
+}) {
   const {
-    pending_appointments_count,
+    total_appointments,
+    total_pending,
+    total_accepted,
     high_priority_requests_count,
-    expired_requests_count,
-    accepted_requests_count,
-  } = await hospitalService.getStats();
+    total_expired,
+  } = await statsServices.hospital.getStats(
+    !searchParams.period || searchParams.period == "all_time"
+      ? undefined
+      : (searchParams.period as DoctorStatsPeriod),
+  );
 
   return (
     <div className="bg-secondary min-w-sm space-y-2 rounded-xl p-4 shadow">
       <h3 className="text-xl font-semibold">System Overview</h3>
       <Separator />
       <LabelValue
+        label="Total Appointments"
+        value={total_appointments}
+        icon={File}
+        valueClassName="bg-primary/10 text-primary"
+      />
+      <LabelValue
         label="Pending Requests"
-        value={pending_appointments_count}
+        value={total_pending}
         icon={GitPullRequest}
         valueClassName="bg-status-pending/10 text-status-pending"
       />
       <LabelValue
         label="Accepted Requests"
-        value={accepted_requests_count}
+        value={total_accepted}
         icon={CheckSquare}
         valueClassName="bg-status-accepted/10 text-status-accepted"
       />
@@ -42,7 +59,7 @@ export default async function SystemOverview() {
       />
       <LabelValue
         label="Expired Requests"
-        value={expired_requests_count}
+        value={total_expired}
         icon={ShieldOff}
         valueClassName="bg-status-cancelled/10 text-status-cancelled"
       />

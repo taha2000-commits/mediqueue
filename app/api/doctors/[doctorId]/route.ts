@@ -11,7 +11,7 @@ export async function GET(
   const db = await createClient();
 
   const { data: doctor, error } = await db
-    .from("doctors")
+    .from("doctors_with_stats")
     .select("*")
     .eq("id", doctorId)
     .maybeSingle();

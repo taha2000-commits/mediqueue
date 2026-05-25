@@ -29,6 +29,7 @@ const layout = async ({
 }: LayoutProps<"/dashboard/appointments/[status]">) => {
   const { status } = await params;
   if (!status || !validTabs.includes(status as ValidTabType)) return notFound();
+
   return (
     <>
       <RequestsMenubar selectedTab={status} />

@@ -42,6 +42,13 @@ export default function AppointmentsAreaChart({
         dataKey="appointments count"
         stroke="#f59e0b"
         fill="#f59f0b38"
+      />{" "}
+      <Area
+        type="monotone"
+        dataKey="amt"
+        stackId="1"
+        stroke="#ffc658"
+        fill="#ffc658"
       />
     </AreaChart>
   );

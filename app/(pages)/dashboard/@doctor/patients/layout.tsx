@@ -1,7 +1,7 @@
 import { PersonStanding } from "lucide-react";
 import { Metadata } from "next";
 
-import { patientsService } from "@/lib/services/patients";
+import { statsServices } from "@/lib/services/stats";
 
 import Stat from "../../_components/Stat";
 import SelectedPatientProvider from "../_context/SelectedPatientCtx";
@@ -29,7 +29,8 @@ export const metadata: Metadata = {
 };
 
 const layout = async ({ children }: LayoutProps<"/dashboard/patients">) => {
-  const stats = await patientsService.getPatientsStats();
+  const stats = await statsServices.doctor.getPatientsStats();
+  if (!stats) return null;
   const {
     active_count,
     inactive_count,

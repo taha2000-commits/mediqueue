@@ -25,3 +25,13 @@ export const specializations = [
 export const dayIndices = ["0", "1", "2", "3", "4", "5", "6"] as const;
 
 export const capacityColors = ["#0EA5E9", "#10B981", "#F59E0B", "#EF4444"];
+export const status_colors = {
+  pending: "#f59e0b",
+  accepted: "#22c55e",
+  upcoming: "#9ca3af",
+  in_progress: "#8b5cf6",
+  completed: "#0ea4e9",
+  cancelled: "#6b7280",
+  rejected: "#ef4343",
+  no_show: "#910000",
+};

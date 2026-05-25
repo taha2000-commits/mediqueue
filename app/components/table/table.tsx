@@ -28,7 +28,7 @@ function CustomTable<ColumnKey, Item>({
     let colsNumber = cols.reduce((acc, col) => acc + (col.colSpan ?? 1), 0);
 
     for (const col of cols) {
-      if (!isColumnVisible(col.accessorKey)) colsNumber -= col.colSpan ?? 1;
+      if (!isColumnVisible(col.columnKey)) colsNumber -= col.colSpan ?? 1;
     }
 
     return colsNumber;

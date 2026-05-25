@@ -8,6 +8,9 @@ import { ResponseType } from "@/types/types";
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const specialization = searchParams.get("specialization");
+  const searchText = searchParams.get("search");
+  const statusParam = searchParams.get("status");
+  const sortParam = searchParams.get("sort");
   const lang = searchParams.get("lang") || "en";
 
   const limit = parseInt(searchParams.get("limit") ?? "10");
@@ -24,7 +27,25 @@ export async function GET(req: NextRequest) {
       specialization,
     );
 
+  if (searchText)
+    query.ilike(lang == "ar" ? "name_ar" : "name_en", `%${searchText}%`);
+
+  if (statusParam) query.eq("is_active", statusParam == "active");
+
+  if (sortParam) {
+    const [column, order] = sortParam.split(".");
+    if (column == "today_appointments_count")
+      query.order("today_appointments_count->>total", {
+        ascending: order === "asc",
+      });
+    else
+      query.order(column, {
+        ascending: order === "asc",
+      });
+  }
+
   if (searchParams.get("limit")) query.range(from, to);
+
   const { data: doctors, error, count } = await query;
 
   if (error) return NextResponse.json(error, { status: 400 });

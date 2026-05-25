@@ -1,7 +1,7 @@
 import { LucideIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-
+type ChartNum = 0 | 1 | 2 | 3 | 4;
 const getChart = (chart: { fillClass: string; strokeClass: string }) => [
   <svg key={0} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
     <path
@@ -88,7 +88,7 @@ function Stat({
   className?: string;
   iconClassName?: string;
   chart?: {
-    num?: number;
+    num?: ChartNum;
     fillClass: string;
     strokeClass: string;
   };

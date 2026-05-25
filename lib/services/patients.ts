@@ -1,4 +1,4 @@
-import { PatientStats, PatientsWithAppointments } from "@/types/patients";
+import { PatientsWithAppointments } from "@/types/patients";
 import { ResponseType } from "@/types/types";
 
 import { fetchData } from "../api/fetch";
@@ -23,19 +23,6 @@ export const patientsService = {
     return data;
   },
 
-  async getPatientsStats() {
-    const user = await getUser();
-    const data = await fetchData<PatientStats>({
-      url: `/${user?.id}/patients/stats`,
-      init: {
-        next: {
-          tags: ["patients-stats"],
-        },
-      },
-    });
-
-    return data;
-  },
   async getPatient(id: string) {
     const user = await getUser();
     const data = await fetchData<PatientsWithAppointments>({

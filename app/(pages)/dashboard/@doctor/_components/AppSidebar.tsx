@@ -23,6 +23,10 @@ const adminSidebarItems: (Item & { sub?: Item[] })[] = [
     text: "dashboard",
     href: "/dashboard",
   },
+  {
+    text: "doctors",
+    href: "/dashboard/doctors",
+  },
 ];
 
 const sidebarItems: (Item & { sub?: Item[] })[] = [

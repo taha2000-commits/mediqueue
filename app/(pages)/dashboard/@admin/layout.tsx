@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Admin Dashboard | %s",
+  title: { default: "Admin Dashboard", template: "Admin Dashboard | %s" },
 
   description:
     "Overview of hospital performance, doctors, appointments, patients, and daily operations through the MediQueue admin dashboard.",
@@ -45,8 +45,13 @@ export const metadata: Metadata = {
   },
 };
 
-const layout = ({ children }: LayoutProps<"/dashboard">) => {
-  return children;
+const layout = ({ children, doctor_modal }: LayoutProps<"/dashboard">) => {
+  return (
+    <div>
+      {children}
+      {doctor_modal}
+    </div>
+  );
 };
 
 export default layout;

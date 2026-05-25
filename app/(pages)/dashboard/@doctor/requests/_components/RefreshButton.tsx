@@ -6,7 +6,13 @@ import { useTransition } from "react";
 
 import { Button } from "@/components/ui/button";
 
-export function RefreshButton() {
+export function RefreshButton({
+  variant = "default",
+  className = "",
+}: {
+  variant?: "icon" | "default";
+  className?: string;
+}) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
 
@@ -17,10 +23,15 @@ export function RefreshButton() {
   };
 
   return (
-    <Button onClick={refresh} disabled={isPending}>
-      <RefreshCw className={`mr-2 size-4 ${isPending ? "animate-spin" : ""}`} />
+    <Button
+      size={variant}
+      onClick={refresh}
+      disabled={isPending}
+      className={className}
+    >
+      <RefreshCw className={`${isPending ? "animate-spin" : ""}`} />
 
-      {isPending ? "Refreshing..." : "Refresh"}
+      {variant !== "icon" ? (isPending ? "Refreshing..." : "Refresh") : null}
     </Button>
   );
 }
