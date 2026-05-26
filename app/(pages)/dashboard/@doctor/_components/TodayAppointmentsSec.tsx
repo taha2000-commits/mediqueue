@@ -1,5 +1,6 @@
 import PaginationFooter from "@/app/components/PaginationFooter";
 import { Separator } from "@/components/ui/separator";
+import { getUser } from "@/lib/auth/getUser";
 import { patientsService } from "@/lib/services/patients";
 
 import PatientsTable from "../patients/_components/PatientsTable";
@@ -9,6 +10,7 @@ async function TodayAppointmentsSec({
 }: {
   searchParams: Record<string, string | string[] | undefined>;
 }) {
+  const user = await getUser();
   const {
     results: patients,
     count,
@@ -19,6 +21,7 @@ async function TodayAppointmentsSec({
     prev,
     to,
   } = await patientsService.getAll({
+    doctor_id: `${user?.id}`,
     params: { today: true, limit: "5", ...searchParams },
   });
   return (

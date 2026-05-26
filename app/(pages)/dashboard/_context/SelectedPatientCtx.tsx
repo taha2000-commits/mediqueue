@@ -8,12 +8,12 @@ import {
   useState,
 } from "react";
 
-import { PatientsWithAppointments } from "@/types/patients";
+import { PatientWithAppointments } from "@/types/patients";
 
 interface State {
-  selectedPatient?: PatientsWithAppointments;
+  selectedPatient?: PatientWithAppointments;
   setSelectedPatient: Dispatch<
-    SetStateAction<PatientsWithAppointments | undefined>
+    SetStateAction<PatientWithAppointments | undefined>
   >;
 }
 const SelectedPatientCtx = createContext<State>({
@@ -22,7 +22,7 @@ const SelectedPatientCtx = createContext<State>({
 });
 const SelectedPatientProvider = ({ children }: PropsWithChildren) => {
   const [selectedPatient, setSelectedPatient] =
-    useState<PatientsWithAppointments>();
+    useState<PatientWithAppointments>();
   return (
     <SelectedPatientCtx value={{ selectedPatient, setSelectedPatient }}>
       {children}

@@ -9,7 +9,7 @@ const ScheduleOverview = async () => {
     pm_doctors_count,
     doctors_off_today_count,
     doctors_leaves_today_count,
-  } = await statsServices.hospital.getDoctorsStats();
+  } = await statsServices.getDoctorsStats();
 
   return (
     <div className="bg-secondary max-w-lg flex-1 rounded-xl p-4 shadow">

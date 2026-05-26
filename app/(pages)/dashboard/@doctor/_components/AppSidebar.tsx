@@ -18,6 +18,17 @@ type Item = {
   href: string;
 };
 
+const patientsRoute = {
+  text: "patients",
+  href: "/dashboard/patients",
+  sub: [
+    { href: "/dashboard/patients", text: "all patients" },
+    { href: "/dashboard/patients/active", text: "active" },
+    { href: "/dashboard/patients/new", text: "new" },
+    { href: "/dashboard/patients/returning", text: "returning" },
+  ],
+};
+
 const adminSidebarItems: (Item & { sub?: Item[] })[] = [
   {
     text: "dashboard",
@@ -27,6 +38,7 @@ const adminSidebarItems: (Item & { sub?: Item[] })[] = [
     text: "doctors",
     href: "/dashboard/doctors",
   },
+  patientsRoute,
 ];
 
 const sidebarItems: (Item & { sub?: Item[] })[] = [
@@ -50,16 +62,7 @@ const sidebarItems: (Item & { sub?: Item[] })[] = [
       { href: "/dashboard/appointments/expired", text: "expired" },
     ],
   },
-  {
-    text: "patients",
-    href: "/dashboard/patients",
-    sub: [
-      { href: "/dashboard/patients", text: "all patients" },
-      { href: "/dashboard/patients/active", text: "active" },
-      { href: "/dashboard/patients/new", text: "new" },
-      { href: "/dashboard/patients/returning", text: "returning" },
-    ],
-  },
+  patientsRoute,
   {
     text: "queue",
     href: "/dashboard/queue",

@@ -23,7 +23,7 @@ const AppointmentsStatsLineChart = ({
   const total = data?.total_appointments ?? 0;
 
   const chartData =
-    data?.dates.map((date, i) => {
+    data?.dates.map((date) => {
       return {
         name: date.day,
         total: date.appointments_count,
@@ -35,6 +35,7 @@ const AppointmentsStatsLineChart = ({
         no_show: date.no_show,
       };
     }) ?? [];
+
   return (
     <div className="bg-secondary flex-1 rounded-xl p-3 shadow">
       <div className="flex items-center justify-between">

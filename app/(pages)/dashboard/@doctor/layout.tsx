@@ -1,12 +1,7 @@
 import { RequestsContextProvider } from "./_context/RequestsContext";
 
-const layout = ({ children, modal }: LayoutProps<"/dashboard">) => {
-  return (
-    <RequestsContextProvider>
-      {children}
-      {modal}
-    </RequestsContextProvider>
-  );
+const layout = ({ children }: LayoutProps<"/dashboard">) => {
+  return <RequestsContextProvider>{children}</RequestsContextProvider>;
 };
 
 export default layout;

@@ -233,3 +233,12 @@ export function getCapacityColor(capacity: number) {
     return capacityColors[2];
   } else return capacityColors[3];
 }
+
+export function getNumbersBtwTwoNums(start: number, end: number) {
+  const numbers: number[] = [];
+
+  for (let i = start; i <= end; i++) {
+    numbers.push(i);
+  }
+  return numbers;
+}

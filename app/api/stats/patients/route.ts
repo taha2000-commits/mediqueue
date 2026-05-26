@@ -4,16 +4,16 @@ import { createClient } from "@/lib/supabase/server";
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
-
+  const doctor_id = searchParams.get("doctor_id");
   const period = searchParams.get("period");
-
   const db = await createClient();
-  const { data, error } = await db
-    .rpc("get_hospital_stats", {
-      p_period: period ?? undefined,
+  const { data, error, status } = await db
+    .rpc("get_patients_stats", {
+      doctor_uuid: doctor_id ?? undefined,
+      period: period ?? undefined,
     })
-    .select("*")
     .maybeSingle();
-  if (error || !data) return NextResponse.json("error", { status: 400 });
+
+  if (error) return NextResponse.json(error.message, { status });
   return NextResponse.json(data, { status: 200 });
 }

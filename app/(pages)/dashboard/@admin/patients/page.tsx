@@ -1,6 +1,12 @@
+import { Metadata } from "next";
+
 import { UserRole } from "@/types/user-role";
 
 import PatientsPage from "../../_components/pages/patients/PatientsPage";
+
+export const metadata: Metadata = {
+  title: "Patients",
+};
 
 const page = async ({
   searchParams,
@@ -10,7 +16,7 @@ const page = async ({
     <PatientsPage
       searchParams={searchParams}
       params={params}
-      role={UserRole.Doctor}
+      role={UserRole.ADMIN}
     />
   );
 };

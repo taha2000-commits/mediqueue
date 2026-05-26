@@ -17,7 +17,7 @@ function PatientRow<ColumnKey, Item>({
   selected = false,
   gridClassName,
   isColumnVisible,
-  onClick = () => {},
+  // onClick = () => {},
 }: PatientRowProps<ColumnKey, Item>) {
   return (
     <div

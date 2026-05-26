@@ -15,7 +15,7 @@
   --status-upcoming: #9ca3af;
   --status-in-progress: #8b5cf6;
   --status-completed: #0ea4e9;
-  --status-cancelled: #6b7280;
+  --status-cancelled: #243545;
   --status-rejected: #ef4343;
   --status-no-show: #910000;
   --priority-high: rgb(255, 8, 20);
@@ -142,6 +142,7 @@
   --secondary: #00303d;
   --foreground: rgb(255, 255, 255);
   --muted-foreground: rgb(255, 255, 255, 0.5);
+  --status-cancelled: #ffffff;
   --card: rgb(23, 23, 23);
   --card-foreground: rgb(250, 250, 250);
   --primary: rgb(229, 229, 229);
@@ -171,7 +172,7 @@
 
 @layer base {
   * {
-    @apply border-border outline-ring/50 first-letter:uppercase;
+    @apply border-border outline-ring/50;
   }
 
   body {

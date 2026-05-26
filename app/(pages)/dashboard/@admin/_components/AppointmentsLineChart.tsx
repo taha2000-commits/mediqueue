@@ -46,7 +46,7 @@ export default function AppointmentsLineChart({
         left: 0,
         bottom: 5,
       }}
-      className="bg-background"
+      className="bg-background rounded-xl p-3 inset-shadow-sm"
     >
       <CartesianGrid strokeDasharray="3 3" stroke="var(--muted-foreground)" />
       <XAxis dataKey="name" stroke="var(--muted-foreground)" />

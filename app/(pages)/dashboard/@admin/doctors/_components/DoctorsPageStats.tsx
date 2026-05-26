@@ -11,7 +11,7 @@ const DoctorsPageStats = async () => {
     am_doctors_count,
     pm_doctors_count,
     doctors_off_today_count,
-  } = await statsServices.hospital.getDoctorsStats();
+  } = await statsServices.getDoctorsStats();
   return (
     <div className="grid grid-cols-5 gap-4">
       <Stat

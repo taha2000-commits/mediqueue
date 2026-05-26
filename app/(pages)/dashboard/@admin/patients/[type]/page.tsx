@@ -10,7 +10,7 @@ const page = async ({
     <PatientsPage
       params={params}
       searchParams={searchParams}
-      role={UserRole.Doctor}
+      role={UserRole.ADMIN}
     />
   );
 };

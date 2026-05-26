@@ -5,12 +5,14 @@ import { useSearchParams } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import { useHandleSearchParams } from "@/hooks/useHandleSearchParams";
-
+const excludeParams = ["page", "limit"];
 const FiltersBar = () => {
   const searchParams = useSearchParams();
   const { urlSearchParams } = useHandleSearchParams();
 
-  const params = Array.from(searchParams.entries()).filter(([, v]) => v);
+  const params = Array.from(searchParams.entries()).filter(
+    ([k, v]) => v && !excludeParams.includes(k),
+  );
 
   const clearFilter = (param: string) => {
     urlSearchParams.delete(param);
@@ -31,8 +33,14 @@ const FiltersBar = () => {
               className="bg-primary/20 flex items-center gap-4 rounded-xl p-2 text-sm [&_.icon]:hover:text-white [&_.icon]:dark:hover:text-white"
             >
               <p className="capitalize">
-                <span>{param}:</span>{" "}
-                <span>{value.split(".")[0].split("_").join(" ")}</span>
+                <span>{param.split("_").join(" ")}:</span>{" "}
+                {value.split(",").map((v, i, arr) => (
+                  <span key={i}>
+                    {arr.length > 1 ? (i == 0 ? "from: " : " to: ") : null}
+
+                    {v.split(".")[0].split("_").join(" ")}
+                  </span>
+                ))}
                 {param == "sort" && (
                   <span className="bg-primary/60 ms-2 rounded-md p-1 text-xs text-white uppercase">
                     {value.split(".")[1]}

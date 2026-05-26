@@ -4,7 +4,7 @@ import { HashLoader } from "react-spinners";
 import { PRIMARY_COLOR } from "@/lib/constants";
 import { AppointmentWithPriority } from "@/types/appointments";
 
-import EmptySection from "../../_components/EmptySection";
+import EmptySection from "../../@doctor/_components/EmptySection";
 import PatientAppointment from "./PatientAppointment";
 
 const PatientAppointmentsList = ({

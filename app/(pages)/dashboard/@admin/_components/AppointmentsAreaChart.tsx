@@ -32,6 +32,7 @@ export default function AppointmentsAreaChart({
         bottom: 0,
       }}
       onContextMenu={(_, e) => e.preventDefault()}
+      className="bg-background rounded-xl p-3 inset-shadow-sm"
     >
       <CartesianGrid strokeDasharray="3 3" color="red" />
       <XAxis dataKey="name" niceTicks="snap125" />

@@ -3,8 +3,8 @@ import { UserRole } from "./user-role";
 type UserMetadata = {
   full_name?: string;
   phone?: string;
-  role?: UserRole;
   avatar_url?: string;
+  userRole?: UserRole;
 };
 
 export type User = {

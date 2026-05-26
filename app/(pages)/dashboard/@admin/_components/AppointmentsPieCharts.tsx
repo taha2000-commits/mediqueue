@@ -65,6 +65,7 @@ export default function PieChartWithCustomizedLabel({
         aspectRatio: 1,
       }}
       responsive
+      className="bg-background rounded-xl p-3 inset-shadow-sm"
     >
       <Pie
         data={data}

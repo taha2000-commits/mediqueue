@@ -9,8 +9,8 @@ import { patientsService } from "@/lib/services/patients";
 import { formatTime } from "@/lib/utils";
 import { Appointment_Status } from "@/types/enums";
 
-import Stat from "../../../_components/Stat";
-import RequestDetails from "../../appointments/_components/RequestDetails";
+import Stat from "../../_components/Stat";
+import RequestDetails from "../../@doctor/appointments/_components/RequestDetails";
 import PatientAppointments from "../_component/PatientAppointments";
 
 type HistoryPageProps = PageProps<"/dashboard/history/[patient_id]">;
@@ -55,8 +55,7 @@ const page = async ({ params }: HistoryPageProps) => {
     blood_group,
     conditions,
     medications,
-    next_appointment_date,
-    next_appointment_time,
+    next_appointment,
   } = await patientsService.getPatient(patient_id);
 
   const appointments =
@@ -107,12 +106,12 @@ const page = async ({ params }: HistoryPageProps) => {
             <h6 className="text-muted-foreground">medications</h6>
             <p className="text-wrap">{medications?.join(", ") || "_"}</p>
           </div>
-          {next_appointment_date && next_appointment_time && (
+          {next_appointment?.date && next_appointment?.time && (
             <div className="grid">
               <h6 className="text-muted-foreground">next appointment</h6>
               <p className="text-sm">
-                {format(next_appointment_date, "MMM dd, yyyy")}{" "}
-                {formatTime(next_appointment_time, "HH:mm aa")}
+                {format(next_appointment.date, "MMM dd, yyyy")}{" "}
+                {formatTime(next_appointment?.time, "HH:mm aa")}
               </p>
             </div>
           )}
