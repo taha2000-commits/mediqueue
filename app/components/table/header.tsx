@@ -35,14 +35,17 @@ function TableHeader<ColumnKey, Item>({
             <div
               key={i}
               className={cn(
-                "flex items-center gap-2 capitalize",
+                "flex items-center gap-2 py-3 capitalize",
                 colSpanClass,
                 alignClass,
               )}
             >
-              <span>{col.header}</span>
+              <span className="truncate">{col.header}</span>
               {col.isSorted && (
-                <SortButton param={`${col.columnKey}`} onSort={col.onSort} />
+                <SortButton
+                  param={`${col.accessorKey as string}`}
+                  onSort={col.onSort}
+                />
               )}
             </div>
           )

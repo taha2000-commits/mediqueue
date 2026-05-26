@@ -1,7 +1,7 @@
 import { AppointmentWithPriority } from "@/types/appointments";
 
-import Appointment from "../../_components/Appointment";
-import EmptySection from "../../_components/EmptySection";
+import Appointment from "../../@doctor/_components/Appointment";
+import EmptySection from "../../@doctor/_components/EmptySection";
 
 interface PatientAppointmentsProps {
   appointments: AppointmentWithPriority[];

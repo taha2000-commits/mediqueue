@@ -25,30 +25,6 @@ export const statsServices = {
       });
       return res;
     },
-    async getDoctorsStats() {
-      const data = await fetchData<DoctorsStats>({
-        url: "/stats/hospital/doctors",
-      });
-      return data;
-    },
-    async getSpecializationsStats(params?: {
-      specialization?: string;
-      period?: string;
-    }) {
-      const values = Object.values(params ?? {});
-      const res = await fetchData<HospitalSpecializationsStats[]>({
-        url: `/stats/hospital/specializations`,
-        params,
-        init: {
-          next: {
-            tags: ["hospital-specializations-stats", ...values].filter(
-              Boolean,
-            ) as string[],
-          },
-        },
-      });
-      return res;
-    },
   },
   doctor: {
     async getStats(
@@ -59,34 +35,61 @@ export const statsServices = {
         period?: "today" | "this_week" | "this_month";
       },
     ) {
-      const user = doctor_id ? { id: doctor_id } : await getUser();
-      const id = user?.id;
-      if (!id) return null;
+      const id = doctor_id ?? (await getUser())?.id;
       const data = await fetchData<DoctorStats>({
         url: `/stats/${id}`,
         init: {
           next: {
-            tags: ["doctor-stats", id, params?.period ?? ""],
+            tags: ["doctor-stats", id ?? "", params?.period ?? ""],
           },
         },
         params,
       });
       return data;
     },
-    async getPatientsStats(doctor_id?: string) {
-      const user = doctor_id ? { id: doctor_id } : await getUser();
-      const id = user?.id;
-      if (!id) return null;
-      const data = await fetchData<PatientStats>({
-        url: `/stats/${id}/patients`,
-        init: {
-          next: {
-            tags: [id, "patients-stats"],
-          },
+  },
+  async getDoctorsStats() {
+    const data = await fetchData<DoctorsStats>({
+      url: "/stats/hospital/doctors",
+    });
+    return data;
+  },
+  async getSpecializationsStats(params?: {
+    specialization?: string;
+    period?: string;
+  }) {
+    const values = Object.values(params ?? {});
+    const res = await fetchData<HospitalSpecializationsStats[]>({
+      url: `/stats/hospital/specializations`,
+      params,
+      init: {
+        next: {
+          tags: ["hospital-specializations-stats", ...values].filter(
+            Boolean,
+          ) as string[],
         },
-      });
+      },
+    });
+    return res;
+  },
+  async getPatientsStats(params?: {
+    doctor_id?: string;
+    period?: StatsPeriod;
+  }) {
+    const data = await fetchData<PatientStats>({
+      url: `/stats/patients`,
+      init: {
+        next: {
+          tags: [
+            "patients-stats",
+            params?.doctor_id ?? "",
+            params?.period ?? "",
+          ],
+        },
+      },
+      params: { period: params?.period, doctor_id: params?.doctor_id },
+    });
 
-      return data;
-    },
+    return data;
   },
 };

@@ -31,6 +31,7 @@ const Modal = () => {
   const { data: patient, isLoading: isLoadingPatient } = usePatient(
     `${patient_id}`,
   );
+
   const { data: patientAppointments } = usePatientAppointments(`${patient_id}`);
 
   const apps = status

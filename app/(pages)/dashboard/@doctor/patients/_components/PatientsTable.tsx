@@ -7,10 +7,10 @@ import Image from "next/image";
 import StatusBadge from "@/app/components/StatusBadge";
 import { Avatar } from "@/components/ui/avatar";
 import { cn, formatTime } from "@/lib/utils";
-import { PatientsWithAppointments } from "@/types/patients";
+import { PatientWithAppointments } from "@/types/patients";
 
+import { useSelectedPatientCtx } from "../../../_context/SelectedPatientCtx";
 import EmptySection from "../../_components/EmptySection";
-import { useSelectedPatientCtx } from "../../_context/SelectedPatientCtx";
 
 type ColumnKey =
   | "patient"
@@ -20,7 +20,7 @@ type ColumnKey =
   | "status";
 
 type Props = {
-  patients: PatientsWithAppointments[];
+  patients: PatientWithAppointments[];
   excludedColumns?: ColumnKey[];
 };
 
@@ -55,7 +55,7 @@ const PatientsTable = ({ patients, excludedColumns = [] }: Props) => {
 
   const gridClassName = `grid-cols-${gridCols}`;
 
-  if (!patients.length) {
+  if (!patients?.length) {
     return (
       <div className="h-fit">
         <TableHeader
@@ -123,7 +123,7 @@ const TableHeader = ({ gridClassName, isColumnVisible }: TableHeaderProps) => {
 };
 
 type PatientRowProps = {
-  patient: PatientsWithAppointments;
+  patient: PatientWithAppointments;
   selected: boolean;
   gridClassName: string;
   isColumnVisible: (column: ColumnKey) => boolean;
@@ -160,15 +160,15 @@ const PatientRow = ({
 
       {isColumnVisible("last visited") && (
         <DateTimeCell
-          date={patient.last_visit_date}
-          time={patient.last_visit_time}
+          date={patient.last_visit?.date}
+          time={patient.last_visit?.time}
         />
       )}
 
       {isColumnVisible("next appointment") && (
         <DateTimeCell
-          date={patient.next_appointment_date}
-          time={patient.next_appointment_time}
+          date={patient.next_appointment?.date}
+          time={patient.next_appointment?.time}
         />
       )}
 
@@ -184,7 +184,7 @@ const PatientRow = ({
   );
 };
 
-const PatientInfo = ({ patient }: { patient: PatientsWithAppointments }) => {
+const PatientInfo = ({ patient }: { patient: PatientWithAppointments }) => {
   return (
     <div className="flex items-center gap-2">
       <Avatar size="lg">
@@ -204,7 +204,7 @@ const PatientInfo = ({ patient }: { patient: PatientsWithAppointments }) => {
   );
 };
 
-const ContactInfo = ({ patient }: { patient: PatientsWithAppointments }) => {
+const ContactInfo = ({ patient }: { patient: PatientWithAppointments }) => {
   return (
     <div>
       <p>{patient.phone}</p>

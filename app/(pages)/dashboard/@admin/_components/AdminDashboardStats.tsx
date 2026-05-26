@@ -10,7 +10,7 @@ const AdminDashboardStats = async ({
 }: {
   searchParams: Record<string, string | string[] | undefined>;
 }) => {
-  const { am_doctors_count } = await statsServices.hospital.getDoctorsStats();
+  const { am_doctors_count } = await statsServices.getDoctorsStats();
   const { total_appointments, total_no_show, total_patients } =
     await statsServices.hospital.getStats(
       !searchParams.period || searchParams.period == "all_time"

@@ -18,10 +18,9 @@ export default async function AppointmentsByDepartment({
 
   const { total_appointments } = await statsServices.hospital.getStats(period);
 
-  const specializationStats =
-    await statsServices.hospital.getSpecializationsStats({
-      period: period,
-    });
+  const specializationStats = await statsServices.getSpecializationsStats({
+    period: period,
+  });
 
   const sortedStats = specializationStats.toSorted(
     (a, b) => b.total_appointments - a.total_appointments,

@@ -381,17 +381,18 @@ export type Database = {
           conditions: string[] | null
           created_at: string | null
           doctor_id: string | null
+          doctors: Json | null
           email: string | null
           gender: Database["public"]["Enums"]["gender"] | null
           has_appointment_today: boolean | null
           id: string | null
-          last_visit_date: string | null
-          last_visit_time: string | null
+          last_visit: Json | null
           medications: string[] | null
           name: string | null
-          next_appointment_date: string | null
-          next_appointment_time: string | null
+          next_appointment: Json | null
           phone: string | null
+          total_appointments: Json | null
+          total_appointments_count: number | null
           type: string | null
         }
         Insert: {
@@ -402,17 +403,18 @@ export type Database = {
           conditions?: string[] | null
           created_at?: string | null
           doctor_id?: string | null
+          doctors?: never
           email?: string | null
           gender?: Database["public"]["Enums"]["gender"] | null
           has_appointment_today?: never
           id?: string | null
-          last_visit_date?: never
-          last_visit_time?: never
+          last_visit?: never
           medications?: string[] | null
           name?: string | null
-          next_appointment_date?: never
-          next_appointment_time?: never
+          next_appointment?: never
           phone?: string | null
+          total_appointments?: never
+          total_appointments_count?: never
           type?: never
         }
         Update: {
@@ -423,17 +425,18 @@ export type Database = {
           conditions?: string[] | null
           created_at?: string | null
           doctor_id?: string | null
+          doctors?: never
           email?: string | null
           gender?: Database["public"]["Enums"]["gender"] | null
           has_appointment_today?: never
           id?: string | null
-          last_visit_date?: never
-          last_visit_time?: never
+          last_visit?: never
           medications?: string[] | null
           name?: string | null
-          next_appointment_date?: never
-          next_appointment_time?: never
+          next_appointment?: never
           phone?: string | null
+          total_appointments?: never
+          total_appointments_count?: never
           type?: never
         }
         Relationships: []
@@ -499,7 +502,35 @@ export type Database = {
           day: string
         }[]
       }
-      get_patients_stats: { Args: { doctor_uuid: string }; Returns: Json }
+      get_patients_stats: {
+        Args: { doctor_uuid?: string; period?: string }
+        Returns: Json
+      }
+      get_patients_with_appointments: {
+        Args: { doctor_uuid?: string }
+        Returns: {
+          active: boolean
+          age: number
+          allergies: string[]
+          blood_group: Database["public"]["Enums"]["blood_group"]
+          conditions: string[]
+          created_at: string
+          doctor_id: string
+          doctors: Json
+          email: string
+          gender: Database["public"]["Enums"]["gender"]
+          has_appointment_today: boolean
+          id: string
+          last_visit: Json
+          medications: string[]
+          name: string
+          next_appointment: Json
+          phone: string
+          total_appointments: Json
+          total_appointments_count: number
+          type: string
+        }[]
+      }
       get_requests_sorted: {
         Args: { doctor_uuid: string; sort_order?: string }
         Returns: {

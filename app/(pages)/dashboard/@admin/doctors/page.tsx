@@ -23,8 +23,7 @@ const page = async ({ searchParams }: PageProps<"/dashboard/doctors">) => {
     limit: sp.limit ?? "10",
   });
 
-  const { doctors_per_specialization } =
-    await statsServices.hospital.getDoctorsStats();
+  const { doctors_per_specialization } = await statsServices.getDoctorsStats();
   return (
     <div className="space-y-4">
       <DoctorsPageStats />

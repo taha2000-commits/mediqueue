@@ -6,12 +6,15 @@ import {
   UserRound,
 } from "lucide-react";
 
+import { getUser } from "@/lib/auth/getUser";
 import { statsServices } from "@/lib/services/stats";
 
 import Stat from "../../_components/Stat";
 
 export default async function Stats() {
-  const doctor_stats = await statsServices.doctor.getStats();
+  const user = await getUser();
+
+  const doctor_stats = await statsServices.doctor.getStats(`${user?.id}`);
 
   if (!doctor_stats) return null;
 

@@ -1,4 +1,5 @@
 import { LucideIcon } from "lucide-react";
+import { ReactNode } from "react";
 
 import { cn } from "@/lib/utils";
 type ChartNum = 0 | 1 | 2 | 3 | 4;
@@ -88,6 +89,7 @@ function Stat({
   iconClassName,
   chart,
   variant = "lg",
+  description = null,
 }: {
   title: string;
   value: number | string;
@@ -100,6 +102,7 @@ function Stat({
     fillClass: string;
     strokeClass: string;
   };
+  description?: string | ReactNode;
 }) {
   const Icon = icon;
   return (
@@ -129,8 +132,10 @@ function Stat({
           >
             {value}
           </div>
+          {description}
         </div>
       </div>
+
       {variant != "sm" && chart && getChart(chart)[chart.num ?? 0]}
     </div>
   );

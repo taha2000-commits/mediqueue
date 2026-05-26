@@ -28,7 +28,11 @@ import { AppSidebar } from "./@doctor/_components/AppSidebar";
 //   };
 // }
 
-const layout = async ({ doctor, admin }: LayoutProps<"/dashboard">) => {
+const layout = async ({
+  doctor,
+  admin,
+  history_modal,
+}: LayoutProps<"/dashboard">) => {
   const userRole = await checkUserRole();
   return (
     <div className="flex h-full">
@@ -39,6 +43,7 @@ const layout = async ({ doctor, admin }: LayoutProps<"/dashboard">) => {
         <main className="flex-1 space-y-6 p-6">
           <SidebarTrigger />
           {userRole == UserRole.Doctor ? doctor : admin}
+          {history_modal}
         </main>
       </SidebarProvider>
     </div>

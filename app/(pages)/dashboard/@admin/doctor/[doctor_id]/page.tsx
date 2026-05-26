@@ -7,7 +7,7 @@ const page = async ({ params }: PageProps<"/dashboard/doctor/[doctor_id]">) => {
   const { doctor_id } = await params;
   const doctor = await doctorsService.getDoctor(doctor_id);
   const stats = await statsServices.doctor.getStats(doctor_id);
-  const patients_stats = await statsServices.doctor.getPatientsStats(doctor_id);
+  const patients_stats = await statsServices.getPatientsStats({ doctor_id });
 
   return (
     <DoctorPage

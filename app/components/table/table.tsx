@@ -36,7 +36,7 @@ function CustomTable<ColumnKey, Item>({
 
   const gridClassName = `grid-cols-${gridCols}`;
 
-  if (!data.length) {
+  if (!data?.length) {
     return (
       <div className="h-fit">
         <TableHeader<ColumnKey, Item>

@@ -1,3 +1,5 @@
+import { BloodGroup } from "@/types/patients";
+
 export const PRIMARY_COLOR = "#00607a";
 export const specializations = [
   { en: "Cardiology", ar: "أمراض القلب" },
@@ -35,3 +37,13 @@ export const status_colors = {
   rejected: "#ef4343",
   no_show: "#910000",
 };
+export const bloodGroup: BloodGroup[] = [
+  "A+",
+  "A-",
+  "B+",
+  "B-",
+  "AB+",
+  "AB-",
+  "O+",
+  "O-",
+];
