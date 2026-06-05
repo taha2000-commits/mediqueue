@@ -9,5 +9,5 @@ export async function GET() {
     data: { user },
   } = await supabase.auth.getUser();
 
-  return NextResponse.json(user);
+  return NextResponse.json(user, { status: 200 });
 }

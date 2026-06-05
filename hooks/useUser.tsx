@@ -10,6 +10,7 @@ const useUser = () => {
       const data = await apiFetch<User>({
         url: `/user`,
       });
+
       return data;
     },
   });

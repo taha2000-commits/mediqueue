@@ -1,3 +1,2 @@
-pnpm eslint . --fix
 pnpm lint
 pnpm build

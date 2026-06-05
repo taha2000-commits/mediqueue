@@ -1,6 +1,7 @@
 import CustomSelect from "@/app/components/CustomSelect";
 
 import { RefreshButton } from "../@doctor/requests/_components/RefreshButton";
+import AddNewDoctor from "./_components/AddNewDoctor";
 import AdminDashboardStats from "./_components/AdminDashboardStats";
 import AppointmentsByDepartment from "./_components/AppointmentsByDepartment";
 import AppointmentsStatusStats from "./_components/AppointmentsStatusStats";
@@ -31,15 +32,18 @@ const page = async ({ searchParams }: PageProps<"/dashboard">) => {
       </div>
       <AdminDashboardStats searchParams={sp} />
       <div className="flex gap-4">
-        <DoctorsOverview />
+        <SystemOverview searchParams={sp} />
+        <AddNewDoctor />
         <TotalAppointmentsInRange />
       </div>
       <div className="flex gap-4">
         <AppointmentsByDepartment searchParams={sp} />
-        <SystemOverview searchParams={sp} />
+        <DoctorsOverview />
+      </div>
+      <div className="flex gap-4">
+        <AppointmentsStatusStats />
         <ScheduleOverview />
       </div>
-      <AppointmentsStatusStats />
     </div>
   );
 };

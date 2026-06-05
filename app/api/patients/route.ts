@@ -85,7 +85,6 @@ export async function GET(req: NextRequest) {
   if (searchParams.get("limit")) query.range(from, to);
 
   const { data, error, status, count } = await query;
-  console.log("ddd", count);
 
   if (error) return NextResponse.json(error.message, { status });
 

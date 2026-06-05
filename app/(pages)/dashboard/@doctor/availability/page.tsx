@@ -26,10 +26,11 @@ const page = async ({ searchParams }: PageProps<"/dashboard/availability">) => {
     init: { next: { tags: ["schedule", `${auth?.id}`] } },
   });
 
-  const amPeriod = schedule.weekly_schedule[day]?.["am"];
-  const pmPeriod = schedule.weekly_schedule[day]?.["pm"];
+  const amPeriod = schedule?.weekly_schedule[day]?.["am"];
+  const pmPeriod = schedule?.weekly_schedule[day]?.["pm"];
 
   const isAvailable = amPeriod || pmPeriod;
+
   return (
     <div className="flex gap-6">
       <div className="grid flex-1 gap-6">
@@ -83,13 +84,13 @@ const page = async ({ searchParams }: PageProps<"/dashboard/availability">) => {
               <AddNewPeriod
                 day={day}
                 period={amPeriod ? "pm" : pmPeriod ? "am" : "any"}
-                schedule={schedule.weekly_schedule}
+                schedule={schedule?.weekly_schedule}
               />
             )}
           </div>
         </div>
 
-        <WeeklyOverview schedule={schedule.weekly_schedule} />
+        <WeeklyOverview schedule={schedule?.weekly_schedule} />
       </div>
     </div>
   );

@@ -1,7 +1,8 @@
-import { DoctorWithStats } from "@/types/doctors";
+import { DoctorsInsert, DoctorWithStats } from "@/types/doctors";
 import { ResponseType } from "@/types/types";
 
 import { fetchData } from "../api/fetch";
+import { createClient } from "../supabase/server";
 
 export const doctorsService = {
   async getDoctors(params: Record<string, string | string[] | undefined>) {
@@ -28,6 +29,11 @@ export const doctorsService = {
         },
       },
     });
+    return data;
+  },
+  async addDoctor(body: DoctorsInsert) {
+    const db = await createClient();
+    const data = await db.from("doctors").insert([body]);
     return data;
   },
 };
