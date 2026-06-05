@@ -26,21 +26,21 @@ import { changeData } from "../actions";
 import ProfilePhotoSection from "./ProfilePhotoSection";
 
 export type UpdateDoctorFormType = {
-  full_name: string;
-  full_name_ar: string;
-  specialization: string;
+  name_en: string;
+  name_ar: string;
+  specialization_en: string;
   specialization_ar?: string;
   email: string;
   phone: string;
-  description: string;
+  description_en: string;
   description_ar: string;
   photo: File;
 };
 
 type UpdateDoctorFormErrors = {
-  full_name?: string;
-  full_name_ar?: string;
-  specialization?: string;
+  name_en?: string;
+  name_ar?: string;
+  specialization_en?: string;
   specialization_ar?: string;
   email?: string;
   phone?: string;
@@ -62,39 +62,40 @@ function UpdateDoctorForm({ doctor }: UpdateDoctorFormProps) {
 
   const onsubmit: SubmitEventHandler<HTMLFormElement> = (e) => {
     const formData = new FormData(e.currentTarget);
+
     const {
       email,
-      full_name,
+      name_en,
       phone,
       photo,
-      specialization,
-      description,
-      full_name_ar,
+      specialization_en,
+      description_en,
+      name_ar,
       specialization_ar,
     } = Object.fromEntries(formData.entries()) as UpdateDoctorFormType;
 
     const validation = doctor_profile_schema.safeParse({
       email,
-      full_name,
-      full_name_ar,
+      name_en,
+      name_ar,
       phone,
       photo,
-      specialization,
+      specialization_en,
       specialization_ar,
     });
 
     const isNotChanged =
       !photo.name &&
       equal(
-        { email, phone, full_name, specialization, description, full_name_ar },
+        { email, phone, name_en, specialization_en, description_en, name_ar },
         {
           email: doctor.email,
           phone: doctor.phone,
-          full_name: doctor.name,
+          name_en: doctor.name_en,
           specialization: doctor.specialization,
           description: doctor.description_en,
           description_ar: doctor.description_ar,
-          full_name_ar: doctor.name_ar,
+          name_ar: doctor.name_ar,
         },
       );
 
@@ -106,11 +107,11 @@ function UpdateDoctorForm({ doctor }: UpdateDoctorFormProps) {
 
       setValidationErrors({
         email: errors?.email?.errors[0],
-        full_name: errors?.full_name?.errors[0],
+        name_en: errors?.name_en?.errors[0],
         phone: errors?.phone?.errors[0],
         photo: errors?.photo?.errors[0],
-        specialization: errors?.specialization?.errors[0],
-        full_name_ar: errors?.full_name_ar?.errors[0],
+        specialization_en: errors?.specialization_en?.errors[0],
+        name_ar: errors?.name_ar?.errors[0],
         specialization_ar: errors?.specialization_ar?.errors[0],
       });
       e.preventDefault();
@@ -119,6 +120,7 @@ function UpdateDoctorForm({ doctor }: UpdateDoctorFormProps) {
       setIsNotChangedError(undefined);
     }
   };
+
   useEffect(() => {
     if (state?.isSuccess && !isPending) {
       toast.success(state.successMsg);
@@ -147,36 +149,36 @@ function UpdateDoctorForm({ doctor }: UpdateDoctorFormProps) {
         <ProfilePhotoSection doctor={doctor} error={validationErrors?.photo} />
         <div className="bg-background grid flex-1 gap-5 rounded-2xl p-4">
           <FieldGroup className="grid grid-cols-2">
-            <Field aria-invalid={!!validationErrors?.full_name}>
+            <Field aria-invalid={!!validationErrors?.name_en}>
               <FieldLabel htmlFor="full-name">full name</FieldLabel>
               <Input
                 className="rounded-lg"
                 id="full-name"
-                name="full_name"
-                aria-invalid={!!validationErrors?.full_name}
+                name="name_en"
+                aria-invalid={!!validationErrors?.name_en}
                 defaultValue={doctor.name_en}
               />
               <FieldError className="text-xs">
-                {validationErrors?.full_name}
+                {validationErrors?.name_en}
               </FieldError>
             </Field>
-            <Field aria-invalid={!!validationErrors?.full_name_ar}>
+            <Field aria-invalid={!!validationErrors?.name_ar}>
               <FieldLabel htmlFor="full-name">arabic full name</FieldLabel>
               <Input
                 className="rounded-lg"
                 id="full-name"
-                name="full_name_ar"
-                aria-invalid={!!validationErrors?.full_name_ar}
+                name="name_ar"
+                aria-invalid={!!validationErrors?.name_ar}
                 defaultValue={doctor.name_ar}
                 dir="rtl"
               />
               <FieldError className="text-xs">
-                {validationErrors?.full_name_ar}
+                {validationErrors?.name_ar}
               </FieldError>
             </Field>
           </FieldGroup>
           <FieldGroup className="grid grid-cols-2">
-            <Field aria-invalid={!!validationErrors?.specialization}>
+            <Field aria-invalid={!!validationErrors?.specialization_en}>
               <FieldLabel htmlFor="specialization">specialization</FieldLabel>
               <SpecializationSelect
                 use_search_params={false}
@@ -187,9 +189,10 @@ function UpdateDoctorForm({ doctor }: UpdateDoctorFormProps) {
                   )?.["ar"];
                   setArSpecialization(arVal);
                 }}
+                name="specialization_en"
               />
               <FieldError className="text-xs">
-                {validationErrors?.specialization}
+                {validationErrors?.specialization_en}
               </FieldError>
             </Field>
             <Field aria-invalid={!!validationErrors?.specialization_ar}>
@@ -248,7 +251,7 @@ function UpdateDoctorForm({ doctor }: UpdateDoctorFormProps) {
           <FieldLabel htmlFor="description_en">about me in english</FieldLabel>
           <Textarea
             id="description_en"
-            name="description"
+            name="description_en"
             defaultValue={doctor.description_en || ""}
             placeholder="Type your message here."
           />

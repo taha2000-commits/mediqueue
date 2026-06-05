@@ -22,7 +22,9 @@ const SpecializationSelect = ({
   onChange = () => {},
   className = "",
   options,
+  name = "specialization",
 }: {
+  name?: string;
   defaultValue?: string;
   use_search_params?: boolean;
   lang?: "ar" | "en";
@@ -61,7 +63,7 @@ const SpecializationSelect = ({
         onChange(val);
       }}
       dir={dir}
-      name="specialization"
+      name={name}
       disabled={disabled}
     >
       <SelectTrigger className={cn("w-full max-w-64", className)}>

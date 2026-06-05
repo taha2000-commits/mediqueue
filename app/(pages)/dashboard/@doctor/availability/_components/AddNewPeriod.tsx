@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/dialog";
 import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Spinner } from "@/components/ui/spinner";
+import { addNewSchedule } from "@/lib/services/add-new-schedule";
 import { updateSchedule } from "@/lib/services/update_schedule";
 import { Schedule } from "@/types/doctor-schedule";
 
@@ -55,7 +56,7 @@ const AddNewPeriod = ({ day, period, schedule }: IProps) => {
   const body = {
     ...schedule,
     [day]: {
-      ...schedule[day],
+      ...schedule?.[day],
       [`${periodType}`]: {
         end: workingHours.end,
         break: breakHours,
@@ -71,7 +72,9 @@ const AddNewPeriod = ({ day, period, schedule }: IProps) => {
     e.preventDefault();
     setIsLoading(true);
 
-    const { data, error, isSuccess } = await updateSchedule(body);
+    const { data, error, isSuccess } = schedule
+      ? await updateSchedule(body)
+      : await addNewSchedule(body);
 
     if (isSuccess) {
       setIsLoading(false);

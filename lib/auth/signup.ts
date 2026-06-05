@@ -1,4 +1,5 @@
 "use server";
+
 import { UserRole } from "@/types/user-role";
 
 import { createClient } from "../supabase/server";
@@ -13,13 +14,16 @@ export const signup = async ({
   role: UserRole;
 }) => {
   const db = await createClient();
-  return await db.auth.signUp({
+  const data = await db.auth.signUp({
     email,
     password,
     options: {
       data: {
         userRole: role,
+        verified: false,
       },
     },
   });
+
+  return data;
 };

@@ -2,7 +2,7 @@ import { HashLoader } from "react-spinners";
 
 import { PRIMARY_COLOR } from "@/lib/constants";
 
-const loading = () => {
+const Loading = () => {
   return (
     <div className="flex h-full w-full items-center justify-center">
       <HashLoader color={PRIMARY_COLOR} />
@@ -10,4 +10,4 @@ const loading = () => {
   );
 };
 
-export default loading;
+export default Loading;

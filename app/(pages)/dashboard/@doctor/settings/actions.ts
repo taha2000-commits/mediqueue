@@ -16,12 +16,12 @@ export async function changeData(
   const doctor = await getDoctorUser();
   const {
     photo,
-    description,
+    description_en,
     email,
-    full_name,
+    name_en,
     phone,
-    specialization,
-    full_name_ar,
+    specialization_en,
+    name_ar,
     specialization_ar,
     description_ar,
   } = Object.fromEntries(formData.entries()) as UpdateDoctorFormType;
@@ -44,12 +44,12 @@ export async function changeData(
       .from("doctors")
       .update({
         avatar: filePath,
-        name_en: full_name,
-        description_en: description,
+        name_en,
+        description_en,
         email,
         phone,
-        specialization_en: specialization,
-        name_ar: full_name_ar,
+        specialization_en,
+        name_ar,
         specialization_ar,
         description_ar,
       })

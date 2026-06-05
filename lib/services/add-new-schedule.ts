@@ -7,22 +7,24 @@ import { Schedule } from "@/types/doctor-schedule";
 import { getUser } from "../auth/getUser";
 import { createClient } from "../supabase/server";
 
-export async function updateSchedule(body: Partial<Schedule>) {
+export async function addNewSchedule(body: Partial<Schedule>) {
   const user = await getUser();
+
+  console.log("user", user);
+  console.log("body", body);
 
   if (user?.id) {
     const db = await createClient();
 
-    const { error, success, data } = await db
+    const { error, success } = await db
       .from("doctor_availability")
-      .update({ weekly_schedule: body })
-      .eq("doctor_id", user?.id);
+      .insert({ doctor_id: user.id, weekly_schedule: body });
 
     if (error)
       return {
         isSuccess: false,
         error: error.message,
-        data: "Updated Failed",
+        data: "Added Failed",
       };
 
     updateTag("schedule");
@@ -31,7 +33,7 @@ export async function updateSchedule(body: Partial<Schedule>) {
     return {
       isSuccess: success,
       error: null,
-      data: "Updated Successfully",
+      data: "Added Successfully",
     };
   }
 
