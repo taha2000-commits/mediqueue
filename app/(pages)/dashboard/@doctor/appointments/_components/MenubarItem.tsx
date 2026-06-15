@@ -24,13 +24,13 @@ export default function MenubarItem({
   return (
     <Link
       className={cn(
-        "flex cursor-pointer items-center justify-center gap-2 py-3",
+        "flex flex-1 cursor-pointer items-center justify-center gap-2 py-3",
         className,
         selected && selectedClassName,
       )}
       href={`/dashboard/appointments/${name ?? ""}`}
     >
-      <span className="">{innerText}</span>
+      <span className="text-nowrap">{innerText}</span>
       <div
         className={cn(
           "flex aspect-square w-7 items-center justify-center rounded-full text-xs",

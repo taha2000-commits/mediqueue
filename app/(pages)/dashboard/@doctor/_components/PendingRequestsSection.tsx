@@ -22,7 +22,7 @@ function PendingRequestsSection({
     .slice(0, 5);
 
   return (
-    <div className="bg-secondary flex-1 rounded-xl p-6 shadow">
+    <div className="bg-secondary flex-1 rounded-xl p-3 shadow sm:p-6">
       <h3 className="text-xl font-semibold">Pending requests</h3>
       <p className="text-muted-foreground">
         Please accept the pending requests
@@ -33,14 +33,18 @@ function PendingRequestsSection({
           pendingApps.map((app, i) => (
             <div
               key={i}
-              className="border-border flex items-center justify-between gap-7 p-3 not-last:border-b"
+              className="border-border flex w-full flex-wrap items-center justify-between gap-x-7 gap-y-3 p-3 not-last:border-b"
             >
               <div className="text-center">
                 <h5 className="text-lg font-black">A-{app.id}</h5>
               </div>
-              <div className="flex-1">
+              <div className="flex-1 text-nowrap">
                 <h6 className="font-bold capitalize">{app.patient.name}</h6>
-                <AgeAndTypeBar age={app.patient.age} type={app.type} />
+                <AgeAndTypeBar
+                  age={app.patient.age}
+                  type={app.type}
+                  className="flex-nowrap"
+                />
                 <div className="text-muted-foreground mt-1 flex items-center gap-1 text-sm">
                   <CalendarClock size={16} />
                   <span>
@@ -51,18 +55,20 @@ function PendingRequestsSection({
                 </div>
               </div>
 
-              <div className="flex items-center gap-2 text-sm">
-                <Clock
-                  size={20}
-                  className="animate-spin-slow text-destructive"
-                />
+              <div className="flex flex-1 justify-between gap-7">
+                <div className="flex items-center gap-2 text-sm">
+                  <Clock
+                    size={20}
+                    className="animate-spin-slow text-destructive"
+                  />
 
-                <RemainingTimeCountDown
-                  remaining_time={app.remaining_time}
-                  priority={app.priority}
-                />
+                  <RemainingTimeCountDown
+                    remaining_time={app.remaining_time}
+                    priority={app.priority}
+                  />
+                </div>
+                <PendingReqSecActions request={app} />
               </div>
-              <PendingReqSecActions request={app} />
             </div>
           ))
         ) : (

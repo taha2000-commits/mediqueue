@@ -1,6 +1,8 @@
 import { ShieldCheck, ShieldOff, Sunrise, Sunset, Syringe } from "lucide-react";
+import { cookies } from "next/headers";
 
 import { statsServices } from "@/lib/services/stats";
+import { cn } from "@/lib/utils";
 
 import Stat from "../../../_components/Stat";
 
@@ -12,8 +14,17 @@ const DoctorsPageStats = async () => {
     pm_doctors_count,
     doctors_off_today_count,
   } = await statsServices.getDoctorsStats();
+  const cookiesStore = await cookies();
+  const isSidebarOpen = cookiesStore.get("sidebar_state")?.value;
   return (
-    <div className="grid grid-cols-5 gap-4">
+    <div
+      className={cn(
+        "mx-2 grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-5",
+        {
+          "grid-cols-2! lg:grid-cols-3! xl:grid-cols-5!": isSidebarOpen,
+        },
+      )}
+    >
       <Stat
         title="total doctors"
         value={total_doctors}

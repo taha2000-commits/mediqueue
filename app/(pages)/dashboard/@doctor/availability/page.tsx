@@ -44,18 +44,20 @@ const page = async ({ searchParams }: PageProps<"/dashboard/availability">) => {
 
           <DaysBar />
 
-          <div className="flex gap-5">
+          <div className="flex flex-wrap gap-2 sm:gap-x-5">
             <StatusBadge
               status={isAvailable ? "accepted" : "cancelled"}
               text={isAvailable ? "available" : "not available"}
             />
             {isAvailable && (
-              <div className="text-muted-foreground flex gap-4 text-sm font-semibold">
+              <div className="text-muted-foreground flex flex-wrap gap-2 text-sm font-semibold sm:gap-4">
                 {[amPeriod, pmPeriod].map(
                   (period, i) =>
                     period && (
-                      <div key={i} className="flex gap-2">
-                        <p className="text-foreground">morning session:</p>
+                      <div key={i} className="flex gap-2 text-nowrap">
+                        <p className="text-foreground">
+                          {i == 0 ? "morning" : "evening"} session:
+                        </p>
                         <span className="">
                           {formatTime(period["start"], "HH:mm aa")}
                         </span>

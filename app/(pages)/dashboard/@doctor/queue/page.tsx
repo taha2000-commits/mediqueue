@@ -18,7 +18,11 @@ const page = async () => {
   return (
     <div className="flex justify-center gap-6">
       <DoctorQueue appointments={appointments} />
-      <ActionsSection appointments={appointments} orientation="vertical" />
+      <ActionsSection
+        appointments={appointments}
+        orientation="vertical"
+        mobile={false}
+      />
     </div>
   );
 };

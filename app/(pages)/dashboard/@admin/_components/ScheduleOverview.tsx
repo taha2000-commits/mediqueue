@@ -12,7 +12,7 @@ const ScheduleOverview = async () => {
   } = await statsServices.getDoctorsStats();
 
   return (
-    <div className="bg-secondary max-w-lg flex-1 rounded-xl p-4 shadow">
+    <div className="bg-secondary xs:min-w-sm min-w-xs rounded-xl p-4 shadow">
       <h3 className="text-xl font-semibold">Today{"'"}s Schedule Overview</h3>
       <Separator className="mt-2 mb-4" />
       <div className="grid grid-cols-2 grid-rows-2 gap-3">

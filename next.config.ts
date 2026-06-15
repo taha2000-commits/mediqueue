@@ -16,6 +16,7 @@ const nextConfig: NextConfig = {
       bodySizeLimit: "2mb",
     },
   },
+  allowedDevOrigins: ["192.168.1.4"],
 };
 
 const withNextIntl = createNextIntlPlugin();

@@ -5,15 +5,13 @@ import PaginationFooter from "@/app/components/PaginationFooter";
 import { appointmentsService } from "@/lib/services/appointments";
 import { cn } from "@/lib/utils";
 
-import EmptySection from "../_components/EmptySection";
 import RequestDetails from "../appointments/_components/RequestDetails";
 import HighPriorityRequest from "./_components/HighPriorityRequest";
 import { RefreshButton } from "./_components/RefreshButton";
-import Request from "./_components/Request";
+import RequestsTable from "./_components/RequestsTable";
 
 export const metadata: Metadata = {
   title: "Requests",
-  description: "doctor taha dashboard",
 };
 
 const page = async ({ searchParams }: PageProps<"/dashboard/requests">) => {
@@ -44,12 +42,13 @@ const page = async ({ searchParams }: PageProps<"/dashboard/requests">) => {
         priority: "high",
       },
     });
+
   const first_three_high_priority = first_three_appointments.filter(
     (app) => app.priority == "high",
   );
   return (
     <div className="flex">
-      <div className="bg-secondary h-fit w-full space-y-5 rounded-xl p-4 shadow">
+      <div className="bg-secondary h-fit w-full space-y-4 rounded-xl p-4 shadow">
         <div className="">
           <h2 className="text-2xl font-bold capitalize" id="el">
             Appointment Requests
@@ -62,7 +61,7 @@ const page = async ({ searchParams }: PageProps<"/dashboard/requests">) => {
           <RefreshButton />
         </div>
         {first_three_high_priority?.[0] && (
-          <div className="bg-destructive/10 border-destructive w-fit space-y-6 rounded-2xl border p-6">
+          <div className="bg-destructive/10 border-destructive w-full space-y-3 rounded-2xl border p-3 md:space-y-6 md:p-6">
             <div className="text-destructive flex items-center gap-3">
               <div className="bg-destructive/20 rounded-2xl p-3">
                 <Siren size={24} />
@@ -80,10 +79,9 @@ const page = async ({ searchParams }: PageProps<"/dashboard/requests">) => {
               </div>
             </div>
             <div
-              className={cn("grid gap-6", {
-                "grid-cols-2": first_three_high_priority.length === 2,
-
-                "grid-cols-3": first_three_high_priority.length >= 3,
+              className={cn("flex flex-wrap gap-3 xl:gap-6", {
+                "sm:grid-cols-2": first_three_high_priority.length === 2,
+                "sm:grid-cols-3": first_three_high_priority.length >= 3,
               })}
             >
               {first_three_high_priority.map((req) => (
@@ -92,26 +90,17 @@ const page = async ({ searchParams }: PageProps<"/dashboard/requests">) => {
             </div>
           </div>
         )}
-        <div className="border-border overflow-hidden rounded-xl border">
-          {appointments?.[0] ? (
-            appointments.map((app) => <Request key={app.id} request={app} />)
-          ) : (
-            <EmptySection
-              title="No Pending Requests"
-              description="No patients are waiting for confirmation right now."
-            />
-          )}
-          <PaginationFooter
-            count={count}
-            from={from}
-            next={next}
-            numOfPage={numOfPage}
-            page={page}
-            prev={prev}
-            to={to}
-            className="p-2"
-          />
-        </div>
+        <RequestsTable appointments={appointments} />
+        <PaginationFooter
+          count={count}
+          from={from}
+          next={next}
+          numOfPage={numOfPage}
+          page={page}
+          prev={prev}
+          to={to}
+          className="p-2"
+        />
       </div>
 
       <RequestDetails />

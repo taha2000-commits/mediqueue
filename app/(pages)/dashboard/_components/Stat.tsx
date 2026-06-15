@@ -108,7 +108,7 @@ function Stat({
   return (
     <div
       className={cn(
-        "bg-secondary flex flex-col justify-between gap-1 rounded-xl p-4 shadow",
+        "bg-secondary flex flex-col justify-between gap-1 rounded-xl p-2 shadow sm:p-4",
 
         className,
         { "justify-center": variant == "sm" || !chart },
@@ -122,10 +122,10 @@ function Stat({
         >
           <Icon size={variant == "lg" ? 30 : 25} />
         </div>
-        <div className="">
+        <div className="sm:text-md text-sm">
           <h4 className="font-semibold capitalize">{title}</h4>
           <div
-            className={cn("text-2xl font-bold", {
+            className={cn("text-xl font-bold sm:text-2xl", {
               "text-xl": variant == "md",
               "text-lg": variant == "sm",
             })}

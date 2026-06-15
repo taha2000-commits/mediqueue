@@ -1,24 +1,14 @@
-import { Metadata, ResolvingMetadata } from "next";
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 type PatientsLayoutProps = LayoutProps<"/dashboard/patients/[type]">;
 
-export async function generateMetadata(
-  { params }: PatientsLayoutProps,
-  parent: ResolvingMetadata,
-): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: PageProps<"/dashboard/patients/[type]">): Promise<Metadata> {
   const { type } = await params;
-  const parentMetadata = await parent;
   return {
     title: `${type.capitalize()} Patients`,
-    description: `View and manage ${type} patients records, appointments, and medical information بسهولة من خلال منصة MediQueue لإدارة العيادات والأطباء في مصر.`,
-    keywords: parentMetadata.keywords
-      ? [
-          ...parentMetadata.keywords,
-          `${type} patients`,
-          `manage ${type} patients`,
-        ]
-      : [`${type} patients`, `manage ${type} patients`],
   };
 }
 

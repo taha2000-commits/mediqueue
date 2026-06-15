@@ -1,6 +1,8 @@
+import { User } from "@supabase/supabase-js";
 import Image from "next/image";
 import Link from "next/link";
 
+import { Avatar } from "@/components/ui/avatar";
 import {
   Sidebar,
   SidebarContent,
@@ -8,8 +10,10 @@ import {
   SidebarGroup,
   SidebarHeader,
   SidebarMenu,
+  SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { Matemasie_Font } from "@/i18n/fonts";
+import { getDoctorUser } from "@/lib/auth/getDoctorUser";
 import { UserRole } from "@/types/user-role";
 
 import SidebarItem from "./SidebarItem";
@@ -77,11 +81,14 @@ const sidebarItems: (Item & { sub?: Item[] })[] = [
   },
 ];
 
-export async function AppSidebar({ role }: { role: UserRole }) {
-  const items = role == UserRole.Doctor ? sidebarItems : adminSidebarItems;
+export async function AppSidebar({ user }: { user: User | null }) {
+  const isDoctor = user?.user_metadata?.userRole == UserRole.Doctor;
+  const items = isDoctor ? sidebarItems : adminSidebarItems;
+  const doctor = await getDoctorUser();
   return (
-    <Sidebar>
-      <SidebarHeader className="pt-3">
+    <Sidebar className="max-h-screen border-none">
+      <SidebarHeader className="relative pt-3">
+        <SidebarTrigger className="bg-secondary border-border absolute top-35 left-full rounded-l-none border border-s-0" />
         <Link href={"/"} className="flex items-center justify-center gap-2">
           <div className="">
             <Image
@@ -113,20 +120,25 @@ export async function AppSidebar({ role }: { role: UserRole }) {
       </SidebarContent>
       <SidebarFooter>
         <div className="flex items-center gap-2 p-2 pb-5">
-          {/* <Avatar size="lg">
+          <Avatar size="lg">
             <Image
-              src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${doctor.avatar}`}
-              alt={doctor.name_en}
+              src={
+                isDoctor
+                  ? `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${doctor.avatar}`
+                  : `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/default/admin-avatar.png`
+              }
+              alt={isDoctor ? doctor.name_en : "Admin Avatar"}
               width={52}
               height={52}
             />
           </Avatar>
           <div className="">
-            <h6 className="text-sm">{doctor.name_en}</h6>
-            <p className="text-muted-foreground text-xs">
-              {doctor.specialization_en}
+            <h6 className="text-sm">{isDoctor ? doctor.name_en : "Admin"}</h6>
+
+            <p className="text-muted-foreground text-xs first-letter:normal-case">
+              {isDoctor ? doctor?.specialization_en : user?.email}
             </p>
-          </div> */}
+          </div>
         </div>
       </SidebarFooter>
     </Sidebar>

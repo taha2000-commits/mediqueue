@@ -5,22 +5,30 @@ import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
+import { useIsMobile } from "@/hooks/use-mobile";
+import { cn } from "@/lib/utils";
 
 import { useRequestsContext } from "../../_context/RequestsContext";
 
 export default function RequestActions({
   request_id,
   isExpired,
+  orientation = "horizontal",
 }: {
   request_id: number;
   isExpired: boolean;
+  orientation?: "horizontal" | "vertical";
 }) {
   const { changeRequestStatus, loading } = useRequestsContext();
   const [clickedID, setClickedID] = useState<number | null>();
+  const isMobile = useIsMobile();
   return (
-    <div className="flex items-center justify-center gap-3">
+    <div
+      className={cn("flex gap-2", { "flex-col": orientation == "vertical" })}
+    >
       <Button
         variant={"outline"}
+        size={isMobile ? "xs" : "default"}
         className="border-status-accepted text-status-accepted rounded-lg font-bold"
         onClick={() => {
           setClickedID(request_id);
@@ -40,6 +48,7 @@ export default function RequestActions({
       <Button
         variant={"destructive"}
         className="rounded-lg font-bold"
+        size={isMobile ? "xs" : "default"}
         onClick={() => {
           setClickedID(request_id);
           if (request_id) changeRequestStatus(request_id, "rejected");

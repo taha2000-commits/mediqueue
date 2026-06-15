@@ -73,7 +73,12 @@ const PatientAppointment = ({
     StatusIconsAndColors[appointment.status];
   const Icon = icon;
   return (
-    <div className={cn("grid grid-cols-6 dark:bg-transparent", icon_bgClass)}>
+    <div
+      className={cn(
+        "grid grid-cols-4 md:grid-cols-6 dark:bg-transparent",
+        icon_bgClass,
+      )}
+    >
       <div className="relative">
         <div
           className={cn(
@@ -110,10 +115,12 @@ const PatientAppointment = ({
         <span className="text-muted-foreground">thursday</span>
       </div>
       <div className="border-b-border flex items-center justify-center border-b">
-        {appointment.type.split("_").join(" ")}
+        <p className="truncate px-2 text-ellipsis">
+          {appointment.type.split("_").join(" ")}
+        </p>
       </div>
 
-      <div className="border-b-border col-span-2 flex items-center border-b p-2 text-xs">
+      <div className="border-b-border col-span-2 hidden items-center border-b p-2 text-xs md:flex">
         <span className="w-full truncate text-ellipsis">
           {appointment.notes == "" ? "-" : appointment.notes}
         </span>

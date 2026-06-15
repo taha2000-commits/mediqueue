@@ -3,7 +3,7 @@ import { PersonStanding } from "lucide-react";
 import EmptySection from "@/app/(pages)/dashboard/@doctor/_components/EmptySection";
 
 import TableHeader from "./header";
-import PatientRow from "./row";
+import TableRow from "./row";
 import { ColsType } from "./types";
 
 type Props<ColumnKey, Item> = {
@@ -15,7 +15,6 @@ type Props<ColumnKey, Item> = {
 function CustomTable<ColumnKey, Item>({
   data,
   cols,
-
   excludedColumns = [],
 }: Props<ColumnKey, Item>) {
   const isColumnVisible = (column: ColumnKey) => {
@@ -34,7 +33,17 @@ function CustomTable<ColumnKey, Item>({
     return colsNumber;
   })();
 
-  const gridClassName = `grid-cols-${gridCols}`;
+  const colsArray = (() => {
+    let c = cols;
+    if (gridCols % 2 == 0)
+      c = [
+        { ...cols[0], colSpan: Number(cols[0].colSpan) + 1 },
+        ...cols.slice(1),
+      ];
+    return c;
+  })();
+
+  const gridClassName = `grid-cols-${gridCols % 2 == 0 ? gridCols + 1 : gridCols}`;
 
   if (!data?.length) {
     return (
@@ -42,7 +51,7 @@ function CustomTable<ColumnKey, Item>({
         <TableHeader<ColumnKey, Item>
           gridClassName={gridClassName}
           isColumnVisible={isColumnVisible}
-          cols={cols}
+          cols={colsArray}
         />
 
         <div className="border-border rounded-b-xl border">
@@ -59,14 +68,14 @@ function CustomTable<ColumnKey, Item>({
   return (
     <div className="h-fit">
       <TableHeader<ColumnKey, Item>
-        cols={cols}
+        cols={colsArray}
         gridClassName={gridClassName}
         isColumnVisible={isColumnVisible}
       />
 
       {data.map((item, i) => (
-        <PatientRow<ColumnKey, Item>
-          cols={cols}
+        <TableRow<ColumnKey, Item>
+          cols={colsArray}
           key={i}
           item={item}
           gridClassName={gridClassName}

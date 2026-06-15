@@ -26,8 +26,15 @@ const DoctorPage = async ({
 }) => {
   return (
     <div className="space-y-3">
-      <div className="bg-secondary flex gap-5 rounded-xl p-3 shadow">
-        <Avatar className="h-40 w-40">
+      <div className="bg-secondary relative flex flex-wrap gap-5 rounded-xl p-3 shadow">
+        <div className="absolute top-4 right-4">
+          <StatusBadge
+            className="rounded-md p-2 py-3"
+            status={doctor?.is_active ? "accepted" : "rejected"}
+            text={doctor?.is_active ? "Active" : "Inactive"}
+          />
+        </div>
+        <Avatar className="xs:size-40 size-30">
           <Image
             src={"/female-avatar.png"}
             alt="sss"
@@ -35,23 +42,19 @@ const DoctorPage = async ({
             height={160}
           />
         </Avatar>
-        <div className="grid">
-          <div className="flex items-center gap-5">
-            <h2 className="text-2xl font-bold tracking-widest">
-              {doctor?.name_en}
-            </h2>
-            <StatusBadge
-              className="rounded-md p-2 py-3"
-              status={doctor?.is_active ? "accepted" : "rejected"}
-              text={doctor?.is_active ? "Active" : "Inactive"}
-            />
-          </div>
-          <div className="h-fit w-fit rounded-lg bg-fuchsia-100 p-3 py-1 font-bold text-fuchsia-800">
+        <div className="grid gap-y-2">
+          <h2 className="xs:text-2xl text-xl font-bold tracking-widest">
+            {doctor?.name_en}
+          </h2>
+
+          <div className="xs:text-md h-fit w-fit rounded-lg bg-fuchsia-100 p-3 py-1 text-sm font-bold text-fuchsia-800">
             {doctor?.specialization_en}
           </div>
           <div className="flex items-center gap-2">
             <Mail size={16} />
-            <span className="">{doctor?.email}</span>
+            <span className="truncate text-ellipsis first-letter:normal-case">
+              {doctor?.email}
+            </span>
           </div>
           <div className="flex items-center gap-2">
             <Phone size={16} />
@@ -65,7 +68,7 @@ const DoctorPage = async ({
         variant={stats_variant}
         patients_stats={patients_stats}
       />
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid gap-3 md:grid-cols-2">
         <div className="flex-1 space-y-3">
           <div className="bg-secondary h-35 min-h-35 space-y-1 overflow-y-auto rounded-xl p-3 shadow">
             <h6 className="font-semibold">About</h6>

@@ -22,7 +22,7 @@ export default async function RequestsMenubar({
   } = doctor_stats;
 
   return (
-    <div className="border-b-border grid grid-cols-8 border-b text-sm capitalize">
+    <div className="border-b-border flex flex-wrap items-center gap-x-3 gap-y-2 border-b pb-2 text-sm capitalize lg:grid-cols-8">
       <MenubarItem
         innerText="all requests"
         count={total_appointments}
@@ -77,9 +77,7 @@ export default async function RequestsMenubar({
         selected={selectedTab == "expired"}
       />
 
-      <div className="col-span-2 flex items-center justify-end">
-        <SortSelect />
-      </div>
+      <SortSelect />
     </div>
   );
 }

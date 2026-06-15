@@ -25,12 +25,11 @@ const Request = ({ request }: { request: AppointmentWithPriority }) => {
   } = request;
 
   const { chosenAppointment, setChosenAppointment } = useRequestsContext();
-
   return (
     <div
       className={cn(
-        "border-border grid cursor-pointer not-last:border-b",
-        chosenAppointment ? "grid-cols-3" : "grid-cols-4",
+        "border-border grid cursor-pointer grid-cols-3 not-last:border-b 2xl:grid-cols-4",
+        { "grid-cols-3!": !!chosenAppointment },
       )}
     >
       <div className="flex items-center gap-2 p-3">
@@ -103,21 +102,20 @@ const Request = ({ request }: { request: AppointmentWithPriority }) => {
           )}
         </div>
       </div>
-      {!chosenAppointment && (
-        <div className="flex items-center gap-3">
-          <Button
-            variant={"outline"}
-            className="border-tertiary text-tertiary bg-secondary rounded-lg"
-            onClick={() => {
-              setChosenAppointment(request);
-            }}
-          >
-            view details
-          </Button>
 
-          <RequestActions request_id={id} isExpired={is_expired} />
-        </div>
-      )}
+      <div className="flex items-center gap-3 ps-3 pb-3">
+        <Button
+          variant={"outline"}
+          className="border-tertiary text-tertiary bg-secondary rounded-lg"
+          onClick={() => {
+            setChosenAppointment(request);
+          }}
+        >
+          view details
+        </Button>
+
+        <RequestActions request_id={id} isExpired={is_expired} />
+      </div>
     </div>
   );
 };

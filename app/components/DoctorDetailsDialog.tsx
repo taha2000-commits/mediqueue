@@ -48,7 +48,9 @@ export default function DoctorDetailsDialog({ doctor }: { doctor: Doctor }) {
               </TableRow>
               <TableRow>
                 <TableCell>{t("doctorDialog.email")}</TableCell>
-                <TableCell dir="ltr">{doctor.email}</TableCell>
+                <TableCell dir="ltr" className="first-letter:normal-case">
+                  {doctor.email}
+                </TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>{t("doctorDialog.phone")}</TableCell>

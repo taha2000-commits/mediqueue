@@ -2,7 +2,9 @@
 
 import { ChevronDown } from "lucide-react";
 import { useSearchParams } from "next/navigation";
+import { useTransition } from "react";
 
+import { Spinner } from "@/components/ui/spinner";
 import { useHandleSearchParams } from "@/hooks/useHandleSearchParams";
 import { cn } from "@/lib/utils";
 
@@ -10,18 +12,21 @@ type SortButtonProps = { param: string; onSort?: () => void };
 
 const SortButton = ({ param, onSort }: SortButtonProps) => {
   const sp = useSearchParams();
+  const { urlSearchParams } = useHandleSearchParams();
+  const [isPending, startTransition] = useTransition();
 
   const [sortVal, order] = sp.get("sort")?.split(".") ?? [];
 
   const set_order = !order || order == "desc" ? "asc" : "desc";
 
-  const { urlSearchParams } = useHandleSearchParams();
-
+  if (isPending) return <Spinner size={14} />;
   return (
     <ChevronDown
       size={14}
       onClick={() => {
-        urlSearchParams.set("sort", `${param}.${set_order}`);
+        startTransition(() => {
+          urlSearchParams.set("sort", `${param}.${set_order}`);
+        });
         onSort?.();
       }}
       className={cn(

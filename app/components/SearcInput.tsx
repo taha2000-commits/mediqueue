@@ -3,20 +3,16 @@
 import { Loader2, Search } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
-import {
-  useDeferredValue,
-  useEffect,
-  useEffectEvent,
-  useMemo,
-  useState,
-} from "react";
+import { useMemo, useState, useTransition } from "react";
 
+import { Button } from "@/components/ui/button";
 import { useDirection } from "@/components/ui/direction";
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupInput,
 } from "@/components/ui/input-group";
+import { Spinner } from "@/components/ui/spinner";
 import { useHandleSearchParams } from "@/hooks/useHandleSearchParams";
 import { cn } from "@/lib/utils";
 
@@ -43,39 +39,49 @@ export default function SearchInput({
 
   const [search, setSearch] = useState(initialValue);
 
-  const deferredSearch = useDeferredValue(search);
-
-  const isSearching = search !== deferredSearch;
+  const [isPending, startTransition] = useTransition();
 
   const { urlSearchParams } = useHandleSearchParams();
 
-  const event = useEffectEvent(() => {
-    urlSearchParams.set("search", deferredSearch);
-  });
-  useEffect(() => event(), [deferredSearch]);
+  const onSearch = () => {
+    startTransition(() => urlSearchParams.set("search", search));
+  };
 
   return (
-    <InputGroup dir={dir} className={cn("max-w-xs", className)}>
-      <InputGroupInput
-        value={search}
-        placeholder={placeholder ?? `${t("search")}...`}
-        onChange={(e) => {
-          if (e.target.value == "") urlSearchParams.delete("search");
-          setSearch(e.target.value);
-        }}
-      />
+    <div className="flex">
+      <InputGroup
+        dir={dir}
+        className={cn("max-w-xs rounded-r-none", className)}
+      >
+        <InputGroupInput
+          value={search}
+          placeholder={placeholder ?? `${t("search")}...`}
+          onChange={(e) => {
+            setSearch(e.target.value);
+          }}
+        />
 
-      <InputGroupAddon>
-        {isSearching ? (
-          <Loader2 className="size-4 animate-spin" />
-        ) : (
-          <Search className="size-4" />
-        )}
-      </InputGroupAddon>
+        <InputGroupAddon>
+          {isPending ? (
+            <Loader2 className="size-4 animate-spin" />
+          ) : (
+            <Search className="size-4" />
+          )}
+        </InputGroupAddon>
 
-      <InputGroupAddon align="inline-end">
-        {count} {t("results")}
-      </InputGroupAddon>
-    </InputGroup>
+        <InputGroupAddon align="inline-end">
+          <span>
+            {count} {t("results")}{" "}
+          </span>
+        </InputGroupAddon>
+      </InputGroup>
+
+      <Button
+        className="border-border rounded-s-none border text-sm"
+        onClick={onSearch}
+      >
+        Search {isPending ? <Spinner /> : null}
+      </Button>
+    </div>
   );
 }

@@ -1,11 +1,11 @@
 "use client";
 
 import { format } from "date-fns";
-import { Calendar, MailOpen, Phone, UserRound, X } from "lucide-react";
+import { Mars, Venus, X } from "lucide-react";
 import Image from "next/image";
+import { ReactNode } from "react";
 
 import StatusBadge from "@/app/components/StatusBadge";
-import TooltipComponent from "@/app/components/TooltipComponent";
 import {
   Accordion,
   AccordionContent,
@@ -15,19 +15,27 @@ import {
 import { Avatar } from "@/components/ui/avatar";
 import useUser from "@/hooks/useUser";
 import { cn, formatTime } from "@/lib/utils";
+import { PatientWithAppointments } from "@/types/patients";
 import { UserRole } from "@/types/user-role";
 
 import { useSelectedPatientCtx } from "../../../_context/SelectedPatientCtx";
 import ViewHistoryBtn from "./ViewHistoryBtn";
 
-export default function SelectedPatient() {
+export default function SelectedPatient({
+  patient,
+  className,
+}: {
+  patient?: PatientWithAppointments;
+  className?: string;
+}) {
   const { selectedPatient, setSelectedPatient } = useSelectedPatientCtx();
 
   const { data: user } = useUser();
 
   const userRole = user?.user_metadata?.userRole;
 
-  if (!selectedPatient) {
+  const data = patient ?? selectedPatient;
+  if (!data) {
     return (
       <div className="bg-secondary relative ms-0 h-fit w-0 scale-x-0 overflow-hidden rounded-xl p-0 opacity-0 shadow transition-all duration-500" />
     );
@@ -38,16 +46,24 @@ export default function SelectedPatient() {
 
     return `${format(date, "MMM dd, yyyy")} ${formatTime(time, "HH:mm aa")}`;
   };
-
   return (
-    <div className="bg-secondary relative ms-4 h-fit w-sm space-y-4 rounded-xl p-4 shadow transition-all duration-500">
-      <button
-        type="button"
-        className="absolute top-4 right-4 z-10"
-        onClick={() => setSelectedPatient(undefined)}
-      >
-        <X className="hover:text-muted-foreground cursor-pointer transition-colors" />
-      </button>
+    <div
+      className={cn(
+        "bg-secondary relative ms-4 h-fit w-sm space-y-4 rounded-xl p-4 shadow transition-all duration-500",
+        className,
+      )}
+    >
+      {!patient && (
+        <button
+          type="button"
+          className="absolute top-4 right-4 z-10"
+          onClick={() => {
+            setSelectedPatient(undefined);
+          }}
+        >
+          <X className="hover:text-muted-foreground cursor-pointer transition-colors" />
+        </button>
+      )}
 
       <div className="flex gap-4">
         <Avatar className="size-20">
@@ -60,41 +76,45 @@ export default function SelectedPatient() {
         </Avatar>
 
         <div className="flex flex-col justify-evenly">
-          <h4 className="text-xl font-bold">{selectedPatient.name}</h4>
+          <h4 className="text-xl font-bold">{data.name}</h4>
 
           <div className="flex items-center gap-2">
-            <p>ID: {selectedPatient.id}</p>
+            <p>ID: {data.id}</p>
 
             <StatusBadge
-              status={selectedPatient.active ? "accepted" : "cancelled"}
-              text={selectedPatient.active ? "active" : "inactive"}
+              status={data.active ? "accepted" : "cancelled"}
+              text={data.active ? "active" : "inactive"}
             />
           </div>
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-2 text-sm">
-        <InfoCard icon={<Phone size={16} />} value={selectedPatient.phone} />
-
-        <TooltipComponent
-          content={selectedPatient.email}
-          element={
-            <InfoCard
-              icon={<MailOpen size={16} />}
-              value={selectedPatient.email}
-              truncate
-            />
+      <div className="border-border rounded-2xl border text-sm [&_div:not(:last-child)]:border-b">
+        <KeyValue label="Phone" value={data.phone} />
+        <KeyValue
+          label="Email"
+          value={data.email}
+          valueClassName="first-letter:normal-case"
+        />
+        <KeyValue label="Age" value={data.age ? `${data.age} years` : "-"} />
+        <KeyValue
+          label="Gender"
+          value={
+            <p className="flex items-center gap-1 capitalize">
+              <span>{data.gender}</span>
+              <span
+                className={
+                  data.gender == "male" ? "text-blue-500" : "text-pink-500"
+                }
+              >
+                {data.gender == "male" ? (
+                  <Mars size={16} />
+                ) : (
+                  <Venus size={16} />
+                )}
+              </span>
+            </p>
           }
-        />
-
-        <InfoCard
-          icon={<Calendar size={16} />}
-          value={`${selectedPatient.age} years`}
-        />
-
-        <InfoCard
-          icon={<UserRound size={16} />}
-          value={selectedPatient.gender}
         />
       </div>
 
@@ -103,7 +123,7 @@ export default function SelectedPatient() {
           <AccordionTrigger>Doctors Information</AccordionTrigger>
 
           <AccordionContent className="text-sm [&_div:not(:last-child)]:border-b">
-            {selectedPatient.doctors?.map((doctor) => (
+            {data.doctors?.map((doctor) => (
               <div key={doctor.doctor_id}>
                 <KeyValue label="Doctor Name" value={doctor.doctor_name} />
 
@@ -122,19 +142,19 @@ export default function SelectedPatient() {
           <AccordionContent className="text-sm [&_div:not(:last-child)]:border-b">
             <KeyValue
               label="Total Appointments"
-              value={`${selectedPatient.total_appointments_count}`}
+              value={`${data.total_appointments_count}`}
               valueClassName="text-status-completed"
             />
 
             <KeyValue
               label="Completed Appointments"
-              value={`${selectedPatient.total_appointments.completed_count}`}
+              value={`${data.total_appointments.completed_count}`}
               valueClassName="text-status-accepted"
             />
 
             <KeyValue
               label="Pending Appointments"
-              value={`${selectedPatient.total_appointments.pending_count}`}
+              value={`${data.total_appointments.pending_count}`}
               valueClassName="text-status-pending"
             />
           </AccordionContent>
@@ -144,21 +164,21 @@ export default function SelectedPatient() {
           <AccordionTrigger>Personal Information</AccordionTrigger>
 
           <AccordionContent className="text-sm [&_div:not(:last-child)]:border-b">
-            <KeyValue label="Blood Group" value={selectedPatient.blood_group} />
+            <KeyValue label="Blood Group" value={data.blood_group} />
 
             <KeyValue
               label="Next Appointment"
               value={formatDateTime(
-                selectedPatient.next_appointment?.date,
-                selectedPatient.next_appointment?.time,
+                data.next_appointment?.date,
+                data.next_appointment?.time,
               )}
             />
 
             <KeyValue
               label="Last Visit"
               value={formatDateTime(
-                selectedPatient.last_visit?.date,
-                selectedPatient.last_visit?.time,
+                data.last_visit?.date,
+                data.last_visit?.time,
               )}
             />
           </AccordionContent>
@@ -169,23 +189,17 @@ export default function SelectedPatient() {
 
           <AccordionContent className="text-sm [&_div:not(:last-child)]:border-b">
             {userRole === UserRole.Doctor && (
-              <ViewHistoryBtn selectedPatient={selectedPatient} />
+              <ViewHistoryBtn selectedPatient={data} />
             )}
 
-            <KeyValue
-              label="Conditions"
-              value={selectedPatient.conditions?.join(", ")}
-            />
+            <KeyValue label="Conditions" value={data.conditions?.join(", ")} />
 
             <KeyValue
               label="Medications"
-              value={selectedPatient.medications?.join(", ")}
+              value={data.medications?.join(", ")}
             />
 
-            <KeyValue
-              label="Allergies"
-              value={selectedPatient.allergies?.join(", ")}
-            />
+            <KeyValue label="Allergies" value={data.allergies?.join(", ")} />
           </AccordionContent>
         </AccordionItem>
       </Accordion>
@@ -193,32 +207,9 @@ export default function SelectedPatient() {
   );
 }
 
-interface InfoCardProps {
-  icon: React.ReactNode;
-  value?: string | null;
-  truncate?: boolean;
-}
-
-function InfoCard({ icon, value, truncate }: InfoCardProps) {
-  return (
-    <div className="border-border flex items-center gap-3 rounded-sm border p-2">
-      {icon}
-
-      <span
-        className={cn(
-          "flex-1",
-          truncate && "truncate text-ellipsis whitespace-nowrap",
-        )}
-      >
-        {value || "-"}
-      </span>
-    </div>
-  );
-}
-
 interface KeyValueProps {
   label: string;
-  value?: string | null;
+  value?: string | ReactNode | null;
   keyClassName?: string;
   valueClassName?: string;
 }
@@ -235,7 +226,7 @@ function KeyValue({
         {label}
       </span>
 
-      <span className={cn("flex-1", valueClassName)}>{value || "-"}</span>
+      <div className={cn("flex-1", valueClassName)}>{value || "-"}</div>
     </div>
   );
 }

@@ -70,7 +70,7 @@ const AddNewDoctor = () => {
   }, [state]);
 
   return (
-    <div className="bg-secondary w-full max-w-sm space-y-2 rounded-xl p-4 shadow">
+    <div className="bg-secondary min-w-xs space-y-2 rounded-xl p-4 shadow">
       <h3 className="text-xl font-semibold">Add New Doctor</h3>
       <Separator />
       <form action={dispatch} onSubmit={handleSubmit}>

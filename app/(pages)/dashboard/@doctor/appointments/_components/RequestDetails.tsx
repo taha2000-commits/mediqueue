@@ -14,13 +14,22 @@ import { useEffect } from "react";
 import StatusBadge from "@/app/components/StatusBadge";
 import { Avatar } from "@/components/ui/avatar";
 import { cn, formatTime } from "@/lib/utils";
+import { AppointmentWithPriority } from "@/types/appointments";
 
 import AgeAndTypeBar from "../../_components/AgeAndTypeBar";
 import { useRequestsContext } from "../../_context/RequestsContext";
 import RequestActions from "./RequestActions";
 
-export default function RequestDetails() {
+export default function RequestDetails({
+  request,
+  className,
+}: {
+  request?: AppointmentWithPriority;
+  className?: string;
+}) {
   const { chosenAppointment, setChosenAppointment } = useRequestsContext();
+
+  const data = request ?? chosenAppointment;
 
   useEffect(() => {
     const set = () => setChosenAppointment(undefined);
@@ -33,26 +42,26 @@ export default function RequestDetails() {
     <div
       className={cn(
         "bg-secondary relative ml-3 h-fit w-sm scale-x-100 space-y-4 rounded-xl p-4 opacity-100 shadow transition-all duration-1000",
-        !chosenAppointment &&
-          "ml-0 w-0 scale-x-0 space-y-0 p-0 opacity-0 **:scale-0",
+        {
+          "ml-0 w-0 scale-x-0 space-y-0 p-0 opacity-0 **:scale-0": !data,
+        },
+        className,
       )}
     >
-      {chosenAppointment && (
+      {data && (
         <>
-          <div className="absolute top-4 right-4 z-1">
-            <X
-              className="hover:text-muted-foreground cursor-pointer"
-              onClick={() => setChosenAppointment(undefined)}
-            />
-          </div>
+          {!request && (
+            <div className="absolute top-4 right-4 z-1">
+              <X
+                className="hover:text-muted-foreground cursor-pointer"
+                onClick={() => setChosenAppointment(undefined)}
+              />
+            </div>
+          )}
 
           <StatusBadge
-            status={
-              chosenAppointment.is_expired
-                ? "rejected"
-                : chosenAppointment.status
-            }
-            text={chosenAppointment.is_expired ? "expired" : undefined}
+            status={data.is_expired ? "rejected" : data.status}
+            text={data.is_expired ? "expired" : undefined}
           />
 
           <h3 className="font-bold capitalize">Appointment Details</h3>
@@ -68,12 +77,10 @@ export default function RequestDetails() {
                   />
                 </Avatar>
                 <div className="">
-                  <h6 className="text-sm font-semibold">
-                    {chosenAppointment.patient.name}
-                  </h6>{" "}
+                  <h6 className="text-sm font-semibold">{data.patient.name}</h6>{" "}
                   <AgeAndTypeBar
-                    age={chosenAppointment.patient.age}
-                    type={chosenAppointment.type}
+                    age={data.patient.age}
+                    type={data.type}
                     className="text-xs"
                   />
                 </div>
@@ -81,12 +88,12 @@ export default function RequestDetails() {
               <div className="grid gap-2 p-3 text-sm">
                 <div className="flex gap-2">
                   <Phone size={20} />
-                  <span className="">{chosenAppointment.patient.phone}</span>
+                  <span className="">{data.patient.phone}</span>
                 </div>
                 <div className="flex gap-2">
                   <Clock8 size={20} />
-                  <span className="normal-case">
-                    {chosenAppointment.patient.email}
+                  <span className="first-letter:normal-case">
+                    {data.patient.email}
                   </span>
                 </div>
               </div>
@@ -96,43 +103,28 @@ export default function RequestDetails() {
 
               <KeyValue
                 name="requested date"
-                value={
-                  chosenAppointment.date
-                    ? format(chosenAppointment.date, "EEE, dd MMM yyyy")
-                    : "-"
-                }
+                value={data.date ? format(data.date, "EEE, dd MMM yyyy") : "-"}
                 icon={CalendarDays}
               />
               <KeyValue
                 name="requested time"
-                value={
-                  chosenAppointment.time
-                    ? formatTime(chosenAppointment.time, "HH:mm aa")
-                    : "-"
-                }
+                value={data.time ? formatTime(data.time, "HH:mm aa") : "-"}
                 icon={Clock8}
               />
-              <KeyValue
-                name="notes"
-                value={chosenAppointment.notes}
-                icon={Stethoscope}
-              />
+              <KeyValue name="notes" value={data.notes} icon={Stethoscope} />
 
               <KeyValue
                 name="requested on"
                 value={
-                  chosenAppointment.created_at
-                    ? format(
-                        chosenAppointment.created_at,
-                        "EEE, dd MMM yyyy . HH:mm aa",
-                      )
+                  data.created_at
+                    ? format(data.created_at, "EEE, dd MMM yyyy . HH:mm aa")
                     : "-"
                 }
                 icon={Clock8}
               />
             </div>
 
-            <RequestActions request={chosenAppointment} />
+            <RequestActions request={data} />
           </div>
         </>
       )}

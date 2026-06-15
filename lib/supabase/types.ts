@@ -85,19 +85,19 @@ export type Database = {
       doctor_availability: {
         Row: {
           created_at: string
-          doctor_id: string | null
+          doctor_id: string
           id: number
           weekly_schedule: Json
         }
         Insert: {
           created_at?: string
-          doctor_id?: string | null
+          doctor_id: string
           id?: number
           weekly_schedule: Json
         }
         Update: {
           created_at?: string
-          doctor_id?: string | null
+          doctor_id?: string
           id?: number
           weekly_schedule?: Json
         }
@@ -105,14 +105,14 @@ export type Database = {
           {
             foreignKeyName: "doctor_availability_doctor_id_fkey"
             columns: ["doctor_id"]
-            isOneToOne: false
+            isOneToOne: true
             referencedRelation: "doctors"
             referencedColumns: ["id"]
           },
           {
             foreignKeyName: "doctor_availability_doctor_id_fkey"
             columns: ["doctor_id"]
-            isOneToOne: false
+            isOneToOne: true
             referencedRelation: "doctors_with_stats"
             referencedColumns: ["id"]
           },

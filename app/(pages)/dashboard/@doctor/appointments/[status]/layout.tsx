@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 
 import { Appointment_Status } from "@/types/enums";
 
+import { RefreshButton } from "../../requests/_components/RefreshButton";
 import RequestsMenubar from "../_components/RequestsMenubar";
 export async function generateMetadata({
   params,
@@ -10,7 +11,7 @@ export async function generateMetadata({
   const { status } = await params;
 
   return {
-    title: { absolute: status.capitalize() + " Appointments" },
+    title: status.capitalize() + " Appointments",
   };
 }
 
@@ -32,7 +33,18 @@ const layout = async ({
 
   return (
     <>
+      <div className="">
+        <h2 className="text-2xl font-bold capitalize">
+          {status.capitalize()} Appointments
+        </h2>
+        <p className="text-muted-foreground">
+          view all {status} appointments and their current statuses.
+        </p>
+      </div>
       <RequestsMenubar selectedTab={status} />
+      <div className="flex justify-end">
+        <RefreshButton variant="icon" className="rounded-lg" />
+      </div>
       {children}
     </>
   );

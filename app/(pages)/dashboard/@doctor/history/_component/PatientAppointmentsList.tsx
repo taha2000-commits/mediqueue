@@ -4,7 +4,7 @@ import { HashLoader } from "react-spinners";
 import { PRIMARY_COLOR } from "@/lib/constants";
 import { AppointmentWithPriority } from "@/types/appointments";
 
-import EmptySection from "../../@doctor/_components/EmptySection";
+import EmptySection from "../../_components/EmptySection";
 import PatientAppointment from "./PatientAppointment";
 
 const PatientAppointmentsList = ({
@@ -21,7 +21,7 @@ const PatientAppointmentsList = ({
           <HashLoader color={PRIMARY_COLOR} />
         </div>
       ) : (
-        <div className="border-border max-h-100 overflow-auto rounded-xl border">
+        <div className="border-border overflow-hidden rounded-xl border">
           {appointments?.[0] ? (
             appointments.map((app) => (
               <PatientAppointment key={app.id} appointment={app} />

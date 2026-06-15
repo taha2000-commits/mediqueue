@@ -13,6 +13,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { Spinner } from "@/components/ui/spinner";
 import { useHandleSearchParams } from "@/hooks/useHandleSearchParams";
 
 export function DatePickerWithRange() {
@@ -23,11 +24,14 @@ export function DatePickerWithRange() {
 
   const { urlSearchParams } = useHandleSearchParams();
 
+  const [isPending, startTransition] = React.useTransition();
   const onDone = () => {
-    if (date?.from && date.to) {
-      const value = `${format(date.from, "yyyy-MM-dd")},${format(date.to, "yyyy-MM-dd")}`;
-      urlSearchParams.set("date_range", value);
-    }
+    startTransition(() => {
+      if (date?.from && date.to) {
+        const value = `${format(date.from, "yyyy-MM-dd")},${format(date.to, "yyyy-MM-dd")}`;
+        urlSearchParams.set("date_range", value);
+      }
+    });
   };
   return (
     <Field className="mx-auto w-xs">
@@ -54,7 +58,7 @@ export function DatePickerWithRange() {
               )}
             </Button>
             <Button className="rounded-s-none text-sm" onClick={onDone}>
-              Done
+              Done {isPending ? <Spinner /> : null}
             </Button>
           </div>
         </PopoverTrigger>

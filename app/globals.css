@@ -113,6 +113,7 @@
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
   --animate-spin-slow: spin-slow 5s linear infinite;
+  --breakpoint-xs: 29rem;
 }
 
 @keyframes spin-slow {
@@ -172,11 +173,11 @@
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border outline-ring/50 first-letter:uppercase;
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground overflow-auto;
   }
 
   html {

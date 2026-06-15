@@ -31,7 +31,9 @@ export function RefreshButton({
     >
       <RefreshCw className={`${isPending ? "animate-spin" : ""}`} />
 
-      {variant !== "icon" ? (isPending ? "Refreshing..." : "Refresh") : null}
+      {variant !== "icon" ? (
+        <span className="hidden sm:inline">Refresh</span>
+      ) : null}
     </Button>
   );
 }

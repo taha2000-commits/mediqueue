@@ -13,7 +13,7 @@ export async function updateSchedule(body: Partial<Schedule>) {
   if (user?.id) {
     const db = await createClient();
 
-    const { error, success, data } = await db
+    const { error, success } = await db
       .from("doctor_availability")
       .update({ weekly_schedule: body })
       .eq("doctor_id", user?.id);
