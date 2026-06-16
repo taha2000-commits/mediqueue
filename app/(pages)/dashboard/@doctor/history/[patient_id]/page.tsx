@@ -1,5 +1,5 @@
 import { format } from "date-fns";
-import { FileText, Phone } from "lucide-react";
+import { Phone } from "lucide-react";
 import { Metadata } from "next";
 import Image from "next/image";
 
@@ -7,11 +7,10 @@ import { Avatar } from "@/components/ui/avatar";
 import { appointmentsService } from "@/lib/services/appointments";
 import { patientsService } from "@/lib/services/patients";
 import { formatTime } from "@/lib/utils";
-import { Appointment_Status } from "@/types/enums";
 
-import Stat from "../../_components/Stat";
-import RequestDetails from "../../@doctor/appointments/_components/RequestDetails";
+import RequestDetails from "../../appointments/_components/RequestDetails";
 import PatientAppointments from "../_component/PatientAppointments";
+import PatientHistoryStats from "../_component/PatientHistoryStats";
 
 type HistoryPageProps = PageProps<"/dashboard/history/[patient_id]">;
 
@@ -61,14 +60,10 @@ const page = async ({ params }: HistoryPageProps) => {
   const appointments =
     await appointmentsService.getPatientAppointments(patient_id);
 
-  function numOfRequests(status?: Appointment_Status) {
-    if (!status) return appointments.length;
-    return appointments.filter((req) => req.status == status).length;
-  }
   return (
     <div className="space-y-3">
-      <div className="bg-secondary flex h-fit items-center justify-between rounded-xl p-4 px-10 shadow">
-        <div className="flex items-center gap-4">
+      <div className="bg-secondary flex h-fit flex-wrap items-center justify-between gap-5 rounded-xl p-5 shadow md:px-10">
+        <div className="flex flex-wrap items-center gap-4">
           <Avatar className="h-25 w-25">
             <Image
               // src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${avatar}`}
@@ -93,7 +88,7 @@ const page = async ({ params }: HistoryPageProps) => {
             </div>
           </div>
         </div>
-        <div className="flex items-center gap-10">
+        <div className="flex flex-wrap items-center gap-10 gap-y-5">
           <div className="grid">
             <h6 className="text-muted-foreground">Blood group</h6>
             <span className="">{blood_group}</span>
@@ -118,32 +113,7 @@ const page = async ({ params }: HistoryPageProps) => {
         </div>
       </div>
 
-      <div className="grid grid-cols-4 gap-3">
-        <Stat
-          title="total appointments"
-          value={appointments.length}
-          icon={FileText}
-          iconClassName="text-tertiary bg-status-tertiary/20"
-        />
-        <Stat
-          title="completed appointments"
-          value={numOfRequests("completed")}
-          icon={FileText}
-          iconClassName="text-status-completed bg-status-completed/20"
-        />
-        <Stat
-          title="rejected appointments"
-          value={numOfRequests("rejected")}
-          icon={FileText}
-          iconClassName="text-status-rejected bg-status-rejected/20"
-        />
-        <Stat
-          title="pending appointments"
-          value={numOfRequests("pending")}
-          icon={FileText}
-          iconClassName="text-status-pending bg-status-pending/20"
-        />
-      </div>
+      <PatientHistoryStats appointments={appointments} />
 
       <div className="flex">
         <PatientAppointments appointments={appointments} />

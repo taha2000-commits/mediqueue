@@ -1,17 +1,13 @@
 import PaginationFooter from "@/app/components/PaginationFooter";
-import CustomTable from "@/app/components/table/table";
 import { getUser } from "@/lib/auth/getUser";
 import { patientsService } from "@/lib/services/patients";
 import { statsServices } from "@/lib/services/stats";
-import { PatientWithAppointments } from "@/types/patients";
 import { UserRole } from "@/types/user-role";
 
 import SelectedPatientProvider from "../../../_context/SelectedPatientCtx";
-import FiltersBar from "../../../@admin/doctors/_components/FiltersBar";
-import { cols, ColumnKey } from "../../../@admin/patients/cols";
-import { RefreshButton } from "../../../@doctor/requests/_components/RefreshButton";
 import AdminPatientsStats from "./AdminPatientsStats";
 import PatientsControlBar from "./PatientsControlBar";
+import PatientsTable from "./PatientsTable";
 import SelectedPatient from "./SelectedPatient";
 
 const PatientsPage = async ({
@@ -49,23 +45,17 @@ const PatientsPage = async ({
     doctor_id: doctorID,
     period: "this_week",
   });
+
   return (
     <SelectedPatientProvider>
       <div className="space-y-4">
-        <div className="flex justify-end">
-          <RefreshButton />
-        </div>
         <AdminPatientsStats stats={stats} thisWeekStats={thisWeekStats} />
 
         <div className="flex w-full">
           <div className="bg-secondary flex-1 space-y-4 rounded-xl p-4 shadow">
             <PatientsControlBar count={patientsResponse.count} />
-            <FiltersBar />
-            <CustomTable<ColumnKey, PatientWithAppointments>
-              cols={cols}
-              data={patientsResponse.results}
-              // excludedColumns={["age-gender", "status"]}
-            />
+
+            <PatientsTable patientsResponse={patientsResponse} />
             <PaginationFooter {...patientsResponse} showRowPerPage={true} />
           </div>
           <SelectedPatient />

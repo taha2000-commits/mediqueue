@@ -46,12 +46,9 @@ export const doctor_profile_schema = z
   })
   .refine(
     (data) => {
-      console.log("dd", data);
-
       const ar_specialization = specializations.find((sp) =>
         sp["en"].includes(data.specialization_en),
       )?.["ar"];
-      console.log("ar_specialization", ar_specialization);
       return ar_specialization === data.specialization_ar;
     },
     { error: "specializations not match", path: ["specialization_ar"] },

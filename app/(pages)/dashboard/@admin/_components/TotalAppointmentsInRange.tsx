@@ -14,14 +14,16 @@ const TotalAppointmentsInRange = () => {
     periodState[0],
   );
   return (
-    <AppointmentsStatsAreaChart
-      data={{
-        dates: data?.dates ?? [],
-        total_appointments: data?.total_appointments ?? 0,
-      }}
-      isLoading={isPlaceholderData}
-      periodState={periodState}
-    />
+    <div className="xs:min-w-md min-w-xs">
+      <AppointmentsStatsAreaChart
+        data={{
+          dates: data?.dates ?? [],
+          total_appointments: data?.total_appointments ?? 0,
+        }}
+        isLoading={isPlaceholderData}
+        periodState={periodState}
+      />
+    </div>
   );
 };
 

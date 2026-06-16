@@ -40,18 +40,24 @@ function PatientRow<ColumnKey, Item>({
             <div
               key={i}
               className={cn(
-                "flex w-full items-center",
+                "flex w-full items-center overflow-hidden",
                 colSpanClass,
                 alignClass,
               )}
             >
-              {col.cell
-                ? col.cell(item)
-                : col.value
-                  ? col.value(item[col.accessorKey as keyof Item])
-                  : (item[col.accessorKey as keyof Item] as string)
-                    ? (item[col.accessorKey as keyof Item] as string)
-                    : "-"}
+              {col.cell ? (
+                col.cell(item)
+              ) : col.value ? (
+                <span className="truncate text-ellipsis">
+                  {col.value(item[col.accessorKey as keyof Item])}
+                </span>
+              ) : (item[col.accessorKey as keyof Item] as string) ? (
+                <span className="truncate text-ellipsis">
+                  {item[col.accessorKey as keyof Item] as string}
+                </span>
+              ) : (
+                "-"
+              )}
             </div>
           )
         );

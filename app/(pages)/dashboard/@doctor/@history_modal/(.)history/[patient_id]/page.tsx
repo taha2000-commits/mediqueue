@@ -44,6 +44,8 @@ const Modal = () => {
       patientAppointments?.filter((req) => req.status == status).length ?? 0
     );
   }
+  console.log("apps", apps);
+
   return (
     <Dialog
       open
@@ -52,41 +54,49 @@ const Modal = () => {
       }}
     >
       <DialogContent
-        className="max-h-5/6 min-w-8/12"
+        className="max-h-5/6 max-w-11/12 min-w-11/12 overflow-auto rounded-2xl p-3 sm:rounded-4xl sm:p-6 lg:max-w-9/12 lg:min-w-9/12 xl:max-w-8/12 xl:min-w-8/12"
         aria-describedby={undefined}
       >
-        <DialogTitle>Patient History</DialogTitle>
+        <DialogTitle className="text-2xl font-bold">
+          Patient History
+        </DialogTitle>
         {isLoadingPatient && (
           <div className="flex h-100 w-full items-center justify-center">
             <HashLoader color={PRIMARY_COLOR} />
           </div>
         )}
         {patient ? (
-          <div className="flex gap-2">
-            <div className="flex flex-col gap-2">
-              <div className="bg-secondary flex flex-col items-center gap-2 rounded-xl p-3">
-                <Avatar className="h-17 w-17">
-                  <Image
-                    src={"/female-avatar.png"}
-                    alt="sss"
-                    width={68}
-                    height={68}
-                  />
-                </Avatar>
-                <h2 className="font-bold">{patient.name}</h2>
-                <p className="">ID: {patient.id}</p>
-                <div className="text-muted-foreground flex items-center gap-2 text-xs">
-                  <CalendarHeart size={16} />
-                  <span className="normal-case">{patient.age} years</span>
-                  <span>-</span>
-                  <span>{patient?.gender}</span>
+          <div className="flex flex-col gap-2 lg:flex-row">
+            <div className="xs:flex-row flex h-fit flex-col gap-2 lg:flex-col">
+              <div className="bg-secondary flex flex-1 flex-col gap-2 rounded-xl p-3">
+                <div className="xs:flex-col flex items-center gap-2">
+                  <Avatar className="h-17 w-17">
+                    <Image
+                      src={"/female-avatar.png"}
+                      alt="sss"
+                      width={68}
+                      height={68}
+                    />
+                  </Avatar>
+                  <div className="xs:items-center flex flex-col">
+                    <h2 className="text-xl font-bold">{patient.name}</h2>
+                    <p className="">ID: {patient.id}</p>
+                  </div>
                 </div>
-                <div className="text-muted-foreground flex items-center gap-2 text-xs">
-                  <Phone size={16} />
-                  <span className="">{patient.phone}</span>
+                <div className="xs:items-center flex flex-col gap-2">
+                  <div className="text-muted-foreground flex items-center gap-2 text-sm">
+                    <CalendarHeart size={16} />
+                    <span className="normal-case">{patient.age} years</span>
+                    <span>-</span>
+                    <span>{patient?.gender}</span>
+                  </div>
+                  <div className="text-muted-foreground flex items-center gap-2 text-sm">
+                    <Phone size={16} />
+                    <span className="">{patient.phone}</span>
+                  </div>
                 </div>
               </div>
-              <div className="bg-secondary flex flex-col items-center gap-1 rounded-xl p-2">
+              <div className="bg-secondary flex flex-1 flex-col items-center gap-1 rounded-xl p-2 lg:flex-auto">
                 <SmallStatusStat
                   title="Total appointments"
                   statusText=""
@@ -129,8 +139,8 @@ const Modal = () => {
                 />
               </div>
             </div>
-            <div className="bg-secondary h-fit flex-1 space-y-5 rounded-xl p-4 shadow">
-              <div className="border-b-border border-b pb-5 text-xl font-black">
+            <div className="bg-secondary h-fit flex-1 rounded-xl p-2 shadow sm:p-4">
+              <div className="border-b-border mb-3 border-b p-2 pb-3! text-xl font-black sm:p-0">
                 patient appointments
               </div>
               <PatientAppointmentsList

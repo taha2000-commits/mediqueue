@@ -28,7 +28,7 @@ const AppointmentsStatsAreaChart = ({
     })) ?? [];
 
   return (
-    <div className="bg-secondary max-w-lg flex-1 rounded-xl p-4 shadow">
+    <div className="bg-secondary flex-1 rounded-xl p-4 shadow">
       <div className="flex items-center justify-between">
         <h3 className="flex items-center gap-4 text-xl font-semibold">
           <p>

@@ -30,7 +30,7 @@ export default async function SystemOverview({
   );
 
   return (
-    <div className="bg-secondary min-w-sm space-y-2 rounded-xl p-4 shadow">
+    <div className="bg-secondary min-w-xs space-y-2 rounded-xl p-4 shadow">
       <h3 className="text-xl font-semibold">System Overview</h3>
       <Separator />
       <LabelValue

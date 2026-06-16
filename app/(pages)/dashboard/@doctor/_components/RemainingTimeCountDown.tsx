@@ -19,7 +19,7 @@ const RemainingTimeCountDown = ({
   return (
     <span
       className={cn(
-        "text-sm font-bold",
+        "text-sm font-bold text-nowrap",
         priority == "high" && "text-priority-high",
         priority == "low" && "text-priority-low",
         priority == "medium" && "text-priority-medium",

@@ -19,10 +19,10 @@ const page = async () => {
 
   return (
     <div className="space-y-6">
-      <div className="flex gap-6">
+      <div className="flex flex-col flex-wrap gap-6 md:flex-row">
         <UpdateDoctorForm doctor={doctor} />
 
-        <div className="grid h-fit w-md gap-6">
+        <div className="grid h-fit w-full gap-6 md:max-w-xs md:min-w-xs">
           <div className="bg-secondary h-fit rounded-xl p-5 shadow">
             <div className="mb-5 flex items-center gap-2">
               <Settings size={18} />

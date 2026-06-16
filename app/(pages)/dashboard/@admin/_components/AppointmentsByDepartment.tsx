@@ -39,34 +39,32 @@ export default async function AppointmentsByDepartment({
   }));
 
   return (
-    <div className="bg-secondary max-w-lg flex-1 rounded-xl p-4 shadow">
+    <div className="bg-secondary xs:min-w-sm h-fit min-w-xs rounded-xl p-4 shadow">
       <h3 className="text-xl font-semibold">
         Appointments By Department (
         <span className="text-tertiary">{total_appointments}</span>)
       </h3>
       <Separator className="mt-2 mb-4" />
-      <div className="flex items-center gap-6">
+      <div className="xs:flex-row flex flex-col items-center gap-6">
         <PieChartWithCustomizedLabel data={chartData} />
-        <div className="flex flex-col gap-2">
+        <div className="flex w-full flex-col gap-2">
           {[
             { name: "all", value: total_appointments, color: "#0088FE" },
             ...chartData,
             { name: "Other", value: otherAppointmentsCount, color: "#ccc" },
           ].map((stat) => (
             <div key={stat.name} className="flex items-center gap-2 text-sm">
+              <span className="font-medium">{stat.name}</span>
               <div
-                className="h-4 w-4 rounded-full"
+                className={"h-3 w-full rounded-full"}
                 style={{
                   backgroundColor: stat.color,
                 }}
               ></div>
-              <div className="flex flex-1 items-center justify-between gap-6">
-                <span className="font-medium">{stat.name}</span>
-                <span className="text-muted-foreground">
-                  {stat.value}
-                  {stat.name === "all" ? "" : "%"}
-                </span>
-              </div>
+              <span className="text-muted-foreground">
+                {stat.value}
+                {stat.name === "all" ? "" : "%"}
+              </span>
             </div>
           ))}
         </div>

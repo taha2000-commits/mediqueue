@@ -36,6 +36,7 @@ export const statsServices = {
       },
     ) {
       const id = doctor_id ?? (await getUser())?.id;
+
       const data = await fetchData<DoctorStats>({
         url: `/stats/${id}`,
         init: {

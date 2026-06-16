@@ -14,8 +14,11 @@ import {
   FieldLabel,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+import { useSidebar } from "@/components/ui/sidebar";
 import { Spinner } from "@/components/ui/spinner";
 import { Textarea } from "@/components/ui/textarea";
+import { useIsMobile } from "@/hooks/use-mobile";
+import { useIsTablet } from "@/hooks/use-tablet";
 import { useShowSuccessIcon } from "@/hooks/useShowSuccessIcon";
 import { specializations } from "@/lib/constants";
 import { cn, equal } from "@/lib/utils";
@@ -59,7 +62,9 @@ function UpdateDoctorForm({ doctor }: UpdateDoctorFormProps) {
   const [isNotChangedError, setIsNotChangedError] = useState<string>();
   const [ar_specialization, setArSpecialization] = useState<string>();
   const { isShow, setIsShow } = useShowSuccessIcon();
-
+  const { open } = useSidebar();
+  const isMobile = useIsMobile();
+  const isTablet = useIsTablet();
   const onsubmit: SubmitEventHandler<HTMLFormElement> = (e) => {
     const formData = new FormData(e.currentTarget);
 
@@ -132,7 +137,7 @@ function UpdateDoctorForm({ doctor }: UpdateDoctorFormProps) {
     <form
       action={change}
       onSubmit={onsubmit}
-      className="bg-secondary h- w-full space-y-5 rounded-xl p-6 shadow"
+      className="bg-secondary flex-1 space-y-5 rounded-xl p-6 shadow"
     >
       <div className="">
         <h2 className="text-xl font-bold">profile information</h2>
@@ -145,10 +150,18 @@ function UpdateDoctorForm({ doctor }: UpdateDoctorFormProps) {
           {isNotChangedError || state?.error}
         </Alert>
       )}
-      <div className="flex gap-10">
+      <div
+        className={cn("flex gap-10", {
+          "flex-col": open || isMobile || isTablet,
+        })}
+      >
         <ProfilePhotoSection doctor={doctor} error={validationErrors?.photo} />
         <div className="bg-background grid flex-1 gap-5 rounded-2xl p-4">
-          <FieldGroup className="grid grid-cols-2">
+          <FieldGroup
+            className={cn("grid grid-cols-2 gap-y-3", {
+              "grid-cols-1": (open && isTablet) || isMobile,
+            })}
+          >
             <Field aria-invalid={!!validationErrors?.name_en}>
               <FieldLabel htmlFor="full-name">full name</FieldLabel>
               <Input
@@ -177,7 +190,11 @@ function UpdateDoctorForm({ doctor }: UpdateDoctorFormProps) {
               </FieldError>
             </Field>
           </FieldGroup>
-          <FieldGroup className="grid grid-cols-2">
+          <FieldGroup
+            className={cn("grid grid-cols-2 gap-y-3", {
+              "grid-cols-1": (open && isTablet) || isMobile,
+            })}
+          >
             <Field aria-invalid={!!validationErrors?.specialization_en}>
               <FieldLabel htmlFor="specialization">specialization</FieldLabel>
               <SpecializationSelect
@@ -213,7 +230,11 @@ function UpdateDoctorForm({ doctor }: UpdateDoctorFormProps) {
               </FieldError>
             </Field>
           </FieldGroup>
-          <FieldGroup className="grid grid-cols-2">
+          <FieldGroup
+            className={cn("grid grid-cols-2 gap-y-3", {
+              "grid-cols-1": (open && isTablet) || isMobile,
+            })}
+          >
             <Field aria-invalid={!!validationErrors?.email}>
               <FieldLabel htmlFor="email">email address</FieldLabel>
               <Input
@@ -245,8 +266,11 @@ function UpdateDoctorForm({ doctor }: UpdateDoctorFormProps) {
         </div>
       </div>
 
-      <FieldGroup className="grid grid-cols-2">
-        {" "}
+      <FieldGroup
+        className={cn("grid grid-cols-2 gap-y-3", {
+          "grid-cols-1": (open && isTablet) || isMobile,
+        })}
+      >
         <Field className="bg-background rounded-2xl p-4">
           <FieldLabel htmlFor="description_en">about me in english</FieldLabel>
           <Textarea

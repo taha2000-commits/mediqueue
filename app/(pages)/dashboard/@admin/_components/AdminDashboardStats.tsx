@@ -1,25 +1,33 @@
+"use client";
 import { Users } from "lucide-react";
 
-import { statsServices } from "@/lib/services/stats";
-import { StatsPeriod } from "@/types/stats";
+import { useSidebar } from "@/components/ui/sidebar";
+import { cn } from "@/lib/utils";
+import { HospitalAppointmentsStats } from "@/types/stats";
 
 import Stat from "../../_components/Stat";
 
-const AdminDashboardStats = async ({
+const AdminDashboardStats = ({
   searchParams,
+  am_doctors_count,
+  stats,
 }: {
   searchParams: Record<string, string | string[] | undefined>;
+  am_doctors_count: number;
+  stats: HospitalAppointmentsStats;
 }) => {
-  const { am_doctors_count } = await statsServices.getDoctorsStats();
-  const { total_appointments, total_no_show, total_patients } =
-    await statsServices.hospital.getStats(
-      !searchParams.period || searchParams.period == "all_time"
-        ? undefined
-        : (searchParams.period as StatsPeriod),
-    );
+  const { total_appointments, total_patients, total_no_show } = stats;
+  const { open } = useSidebar();
 
   return (
-    <div className="grid h-fit grid-cols-4 gap-3">
+    <div
+      className={cn(
+        "mx-2 grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4",
+        {
+          "grid-cols-2! lg:grid-cols-3! xl:grid-cols-4!": open,
+        },
+      )}
+    >
       <Stat
         icon={Users}
         title="total doctors"

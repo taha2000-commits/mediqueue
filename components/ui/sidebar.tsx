@@ -262,7 +262,7 @@ function SidebarTrigger({
       data-sidebar="trigger"
       data-slot="sidebar-trigger"
       variant="ghost"
-      size="icon-sm"
+      size="icon-lg"
       className={cn(className)}
       onClick={(event) => {
         onClick?.(event);
@@ -292,8 +292,8 @@ function SidebarRail({ className, ...props }: React.ComponentProps<"button">) {
         "in-data-[side=left]:cursor-w-resize in-data-[side=right]:cursor-e-resize rtl:in-data-[side=left]:cursor-e-resize rtl:in-data-[side=right]:cursor-w-resize",
         "[[data-side=left][data-state=collapsed]_&]:cursor-e-resize rtl:[[data-side=left][data-state=collapsed]_&]:cursor-w-resize [[data-side=right][data-state=collapsed]_&]:cursor-w-resize rtl:[[data-side=right][data-state=collapsed]_&]:cursor-e-resize",
         "hover:group-data-[collapsible=offcanvas]:bg-secondary group-data-[collapsible=offcanvas]:translate-x-0 group-data-[collapsible=offcanvas]:after:start-full rtl:group-data-[collapsible=offcanvas]:-translate-x-0",
-        "[[data-side=left][data-collapsible=offcanvas]_&]:-end-2",
-        "[[data-side=right][data-collapsible=offcanvas]_&]:-start-2",
+        "[[data-side=left][data-collapsible=offcanvas]_&]:-inset-e-2",
+        "[[data-side=right][data-collapsible=offcanvas]_&]:-inset-s-2",
         className,
       )}
       {...props}

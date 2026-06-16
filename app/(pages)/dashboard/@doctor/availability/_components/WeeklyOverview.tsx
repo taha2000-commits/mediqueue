@@ -35,7 +35,27 @@ function WeeklyOverview({ schedule }: WeeklyOverviewProps) {
   return (
     <div className="bg-secondary space-y-3 rounded-xl p-4 shadow">
       <h3 className="font-bold capitalize">weekly overview</h3>
-      <div className="flex gap-2">
+      <div className="bg-background flex flex-wrap justify-between gap-x-4 gap-y-2 rounded-lg p-2 text-xs sm:text-sm">
+        <div className="flex gap-2">
+          <h6 className="font-semibold">Total working hours:</h6>
+          <p className="">
+            {addDurations(...daysDurations.map((dd) => dd.total))}
+          </p>
+        </div>
+        <div className="text-status-accepted flex gap-2">
+          <h6 className="font-semibold">active hours:</h6>
+          <p className="">
+            {addDurations(...daysDurations.map((dd) => dd.total))}
+          </p>
+        </div>
+        <div className="text-status-pending flex gap-2">
+          <h6 className="font-semibold">not active hours:</h6>
+          <p className="">
+            {addDurations(...daysDurations.map((dd) => dd.total))}
+          </p>
+        </div>
+      </div>
+      <div className="flex flex-wrap gap-2">
         {thisWeek.map((day, i) => {
           const amPeriod = schedule?.[i]?.["am"];
           const pmPeriod = schedule?.[i]?.["pm"];
@@ -101,26 +121,6 @@ function WeeklyOverview({ schedule }: WeeklyOverviewProps) {
             </div>
           );
         })}
-      </div>
-      <div className="flex justify-between gap-4 text-sm">
-        <div className="flex gap-2">
-          <h6 className="font-semibold">Total working hours:</h6>
-          <p className="">
-            {addDurations(...daysDurations.map((dd) => dd.total))}
-          </p>
-        </div>
-        <div className="text-status-accepted flex gap-2">
-          <h6 className="font-semibold">active hours:</h6>
-          <p className="">
-            {addDurations(...daysDurations.map((dd) => dd.total))}
-          </p>
-        </div>
-        <div className="text-status-pending flex gap-2">
-          <h6 className="font-semibold">not active hours:</h6>
-          <p className="">
-            {addDurations(...daysDurations.map((dd) => dd.total))}
-          </p>
-        </div>
       </div>
     </div>
   );

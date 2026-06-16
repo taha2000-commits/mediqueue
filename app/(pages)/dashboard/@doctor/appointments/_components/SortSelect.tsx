@@ -21,10 +21,8 @@ export function SortSelect() {
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
-          <SelectItem className="" value="newest">
-            newest first
-          </SelectItem>
-          <SelectItem value="oldest">oldest first</SelectItem>
+          <SelectItem value="newest">Newest first</SelectItem>
+          <SelectItem value="oldest">Oldest first</SelectItem>
         </SelectGroup>
       </SelectContent>
     </Select>

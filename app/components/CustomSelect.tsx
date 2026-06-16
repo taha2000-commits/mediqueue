@@ -1,7 +1,7 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { useMemo } from "react";
+import { useMemo, useTransition } from "react";
 
 import {
   Select,
@@ -10,6 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Spinner } from "@/components/ui/spinner";
 import { useHandleSearchParams } from "@/hooks/useHandleSearchParams";
 import { cn } from "@/lib/utils";
 
@@ -48,6 +49,7 @@ export default function CustomSelect({
 
   const { urlSearchParams } = useHandleSearchParams();
 
+  const [isPending, startTransition] = useTransition();
   const value = useMemo(() => {
     if (!use_search_params) {
       return defaultValue;
@@ -57,10 +59,11 @@ export default function CustomSelect({
   }, [defaultValue, searchParams, use_search_params]);
 
   const handleChange = (value: string) => {
-    if (use_search_params?.param) {
-      urlSearchParams.set(use_search_params.param, value);
-    }
-
+    startTransition(() => {
+      if (use_search_params?.param) {
+        urlSearchParams.set(use_search_params.param, value);
+      }
+    });
     onValueChange?.(value);
   };
 
@@ -69,7 +72,7 @@ export default function CustomSelect({
       <SelectTrigger
         className={cn("border-ring w-full border capitalize", className)}
       >
-        <SelectValue placeholder={placeholder} />
+        <SelectValue placeholder={isPending ? <Spinner /> : placeholder} />
       </SelectTrigger>
 
       <SelectContent>

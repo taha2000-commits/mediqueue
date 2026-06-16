@@ -17,8 +17,7 @@ function TableHeader<ColumnKey, Item>({
   return (
     <div
       className={cn(
-        "bg-primary grid rounded-t-xl p-2 text-sm text-white",
-        "[&_div]:flex [&_div]:items-center [&_div]:truncate",
+        "bg-primary grid rounded-t-xl p-2 text-sm text-white [&_div]:flex [&_div]:items-center [&_div]:truncate",
         gridClassName,
       )}
     >

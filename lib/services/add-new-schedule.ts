@@ -10,9 +10,6 @@ import { createClient } from "../supabase/server";
 export async function addNewSchedule(body: Partial<Schedule>) {
   const user = await getUser();
 
-  console.log("user", user);
-  console.log("body", body);
-
   if (user?.id) {
     const db = await createClient();
 

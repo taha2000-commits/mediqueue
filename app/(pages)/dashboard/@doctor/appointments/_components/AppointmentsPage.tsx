@@ -1,8 +1,7 @@
 import PaginationFooter from "@/app/components/PaginationFooter";
 import { appointmentsService } from "@/lib/services/appointments";
 
-import Appointment from "../../_components/Appointment";
-import EmptySection from "../../_components/EmptySection";
+import AppointmentsTable from "./AppointmentsTable";
 type AppointmentsPageProps = {
   params?: Promise<{
     status: string;
@@ -29,17 +28,8 @@ const AppointmentsPage = async ({
   const { results: appointments } = patientsResponse;
 
   return (
-    <div className="border-border overflow-hidden rounded-xl border">
-      {appointments?.[0] ? (
-        appointments.map((app) => (
-          <Appointment appointment={app} key={app.id} />
-        ))
-      ) : (
-        <EmptySection
-          title="No Requests Found"
-          description="There are currently no appointment requests available."
-        />
-      )}
+    <div>
+      <AppointmentsTable appointments={appointments} />
       <PaginationFooter {...patientsResponse} className="p-2" />
     </div>
   );

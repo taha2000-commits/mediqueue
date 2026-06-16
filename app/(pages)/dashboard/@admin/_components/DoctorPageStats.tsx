@@ -1,9 +1,8 @@
 "use client";
-
 import { CircleCheck, EyeOff, MemoryStick, Users } from "lucide-react";
 
-import { Progress } from "@/components/ui/progress";
-import { cn, getCapacityColor } from "@/lib/utils";
+import { useSidebar } from "@/components/ui/sidebar";
+import { cn } from "@/lib/utils";
 import { PatientStats } from "@/types/patients";
 import { DoctorStats } from "@/types/stats";
 
@@ -24,8 +23,14 @@ const DoctorPageStats = ({
     stats?.total_no_show &&
     stats?.total_appointments &&
     (stats?.total_no_show / stats?.total_appointments) * 100;
+
+  const { open } = useSidebar();
   return (
-    <div className="grid grid-cols-4 gap-3">
+    <div
+      className={cn("grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4", {
+        "grid-cols-2! lg:grid-cols-3! xl:grid-cols-4!": open,
+      })}
+    >
       <Stat
         title="total appointments"
         value={stats?.total_appointments ?? 0}
@@ -64,45 +69,18 @@ const DoctorPageStats = ({
         }}
         variant={variant}
       />
-
-      <div className="bg-secondary flex flex-col justify-between gap-2 rounded-xl p-4 shadow">
-        <div className="flex gap-4">
-          <div
-            className={cn(
-              "h-fit w-fit rounded-full p-2",
-              "bg-status-rejected/20",
-              {
-                "p-3": variant == "lg",
-              },
-            )}
-            style={{
-              backgroundColor: capacity
-                ? getCapacityColor(capacity) + "33"
-                : "#243545",
-            }}
-          >
-            <MemoryStick
-              size={variant == "lg" ? 30 : 25}
-              color={capacity ? getCapacityColor(capacity) : "#eee"}
-            />
-          </div>
-          <div className="">
-            <h4 className="font-semibold capitalize">capacity (today)</h4>
-            <div
-              className={cn("text-2xl font-bold", {
-                "text-xl": variant == "md",
-                "text-lg": variant == "sm",
-              })}
-            >
-              {capacity}%
-            </div>
-          </div>
-        </div>
-        <Progress
-          value={capacity}
-          color={capacity ? getCapacityColor(capacity) : "#eee"}
-        />
-      </div>
+      <Stat
+        title="capacity (today)"
+        value={`${capacity}%`}
+        icon={MemoryStick}
+        iconClassName="text-[#eee] bg-[#eee]/20"
+        chart={{
+          num: 4,
+          fillClass: "fill-[#eee]/20",
+          strokeClass: "stroke-[#eee]",
+        }}
+        variant={variant}
+      />
     </div>
   );
 };

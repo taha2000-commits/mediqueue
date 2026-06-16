@@ -12,14 +12,16 @@ const AppointmentsStatusStats = () => {
     periodState[0],
   );
   return (
-    <AppointmentsStatsLineChart
-      data={{
-        dates: data?.dates ?? [],
-        total_appointments: data?.total_appointments ?? 0,
-      }}
-      isLoading={isPlaceholderData || isLoading}
-      periodState={periodState}
-    />
+    <div className="xs:min-w-md min-w-xs flex-2!">
+      <AppointmentsStatsLineChart
+        data={{
+          dates: data?.dates ?? [],
+          total_appointments: data?.total_appointments ?? 0,
+        }}
+        isLoading={isPlaceholderData || isLoading}
+        periodState={periodState}
+      />
+    </div>
   );
 };
 

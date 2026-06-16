@@ -1,12 +1,14 @@
+// "use client";
 import {
   ArrowUpRight,
   UserRoundCheck,
   UserRoundPlus,
-  UserRoundX,
   Users,
   UserStar,
 } from "lucide-react";
+import { cookies } from "next/headers";
 
+import { cn } from "@/lib/utils";
 import { PatientStats } from "@/types/patients";
 
 import Stat from "../../../_components/Stat";
@@ -18,8 +20,15 @@ const AdminPatientsStats = async ({
   stats: PatientStats;
   thisWeekStats: PatientStats;
 }) => {
+  const cookiesStore = await cookies();
+  const isSidebarOpen = cookiesStore.get("sidebar_state")?.value;
+
   return (
-    <div className="grid grid-cols-5 gap-3">
+    <div
+      className={cn("grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4", {
+        "grid-cols-2! lg:grid-cols-3! xl:grid-cols-4!": isSidebarOpen,
+      })}
+    >
       <Stat
         title="total patients"
         icon={Users}
@@ -90,23 +99,6 @@ const AdminPatientsStats = async ({
         description={
           <p className="text-sm font-medium text-fuchsia-600/50">
             {((stats.active_count / stats.all_count) * 100).toFixed(2)}% of
-            total
-          </p>
-        }
-      />
-      <Stat
-        title="inactive patients"
-        icon={UserRoundX}
-        value={stats.inactive_count}
-        chart={{
-          num: 3,
-          fillClass: "fill-status-cancelled/10",
-          strokeClass: "stroke-status-cancelled",
-        }}
-        iconClassName="text-status-cancelled bg-status-cancelled/10"
-        description={
-          <p className="text-status-cancelled/50 text-sm font-medium">
-            {((stats.inactive_count / stats.all_count) * 100).toFixed(2)}% of
             total
           </p>
         }

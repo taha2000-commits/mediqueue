@@ -3,7 +3,7 @@ import { Separator } from "@/components/ui/separator";
 import { getUser } from "@/lib/auth/getUser";
 import { patientsService } from "@/lib/services/patients";
 
-import PatientsTable from "../patients/_components/PatientsTable";
+import PatientsTable from "./PatientsTable";
 
 async function TodayAppointmentsSec({
   searchParams,
@@ -28,10 +28,7 @@ async function TodayAppointmentsSec({
     <div className="bg-secondary border-border h-fit flex-1 rounded-2xl border p-6">
       <h3 className="text-xl font-semibold">Todays Patients</h3>
       <Separator className="mt-2 mb-4" />
-      <PatientsTable
-        patients={patients}
-        excludedColumns={["status", "last visited"]}
-      />
+      <PatientsTable patients={patients} />
       <PaginationFooter
         count={count}
         from={from}
